@@ -1,5 +1,34 @@
-
-jQuery.extend(Todo.c,{
+/**
+ *  Thanks to:
+ *		* Timo Derstappen 	- http://teemow.com/
+ *		* John Resig      	- http://jquery.com/
+ *
+ *
+ * Done! :  Getting shit done 
+ *				Javascript Webapplication for google Gears or Adobe AIR
+ *
+ * 
+ * Copyright (c)    2009, Hackfrag <hackfrag@gmail.com>
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright		Copyright (c) 2009, Hackfrag
+ * @link			
+ * @package			Todo
+ * @subpackage		Todo.controller
+ * @since			Todo v 0.1
+ * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
+ */
+ 
+/**
+ * Done! Item controller
+ *
+ * @name Todo.c.Item
+ * @type Object
+ * @cat controller
+ */ 
+$t.c({
 	Item: {
 		activeItem 	: 0 ,	
 		
@@ -9,47 +38,17 @@ jQuery.extend(Todo.c,{
 		setActiveItem : function(id) {
 			this.activeItem = id;		
 		},
-	
-		observers: {},
-		observe: function(event, fn) {
-			this.observers[event] = fn;
-		},
-		unsubscribe: function(event) {
-		
-			if(!event) {
-				this.observers = {};
-				
-			} else {
-				delete this.observers[event];
-			}
-			
-		},
-		notify: function(event, item) {
-			if(this.observers[event]) {
-		
-				this.observers[event](item);
-			}
-		},
 
-		showParentToolTip: function(id) {
-			
-			var item, title, top, left;
-			
-			item = $('#item-'+id);
-			title = item.find('span.todo-title');
-			top  = title.offset().top+29;
-			left = title.offset().left+10+title.css('padding-left');
-			
-			Todo.ToolTip.show('#changeParent',top, left, function() {
-				$('#changeParent > input').focus();
-				$('#changeParent > a').click(function() {
-					Todo.ToolTip.hide();
-				})
-			});
-			
-			return false;
-		},
-
+		//////////////////////////////////////////////////////////////////
+		/**
+		 * set the Prio [0-6] 
+		 * 
+		 * 
+		 *
+		 * @param	Integer		Todo ID
+		 * @param	Integer		Prio: eg. 0-6
+		 * @return void
+		 */
 		setPrio: function(id, prio) {
 			var prioItem, item;
 			
@@ -69,6 +68,15 @@ jQuery.extend(Todo.c,{
 			item.save();	
 						
 		},
+		//////////////////////////////////////////////////////////////////
+		/**
+		 * set the due Date
+		 *
+		 * Notification  'afterDateChanged' is send
+		 *
+		 * @param	String		Date String. eg "today" "tomorrow" or "12/01/2009"
+		 * @return void
+		 */
 		setDueDate: function(date) {
 			
 			var item = Todo.m.Item.find(this.getActiveItem());
@@ -82,6 +90,15 @@ jQuery.extend(Todo.c,{
 			item.save();
 			this.notify('afterDateChanged',item);
 		},
+		//////////////////////////////////////////////////////////////////
+		/**
+		 * set the start Date
+		 *
+		 * Notification  'afterDateChanged' is send
+		 *
+		 * @param	String		Date String. eg "today" "tomorrow" or "12/01/2009"
+		 * @return void
+		 */
 		setStartDate:function(date) {
 		
 			var item = Todo.m.Item.find(this.getActiveItem());
@@ -101,6 +118,15 @@ jQuery.extend(Todo.c,{
 			this.notify('afterDateChanged',item);
 			
 		},
+		//////////////////////////////////////////////////////////////////
+		/**
+		 * Set the start date to 'today'
+		 *
+		 * if no id is given, the current active item will used
+		 *
+		 * @param	Integer		Todo ID
+		 * @return void
+		 */
 		setToday: function(id) {
 			if(!id) {
 				id = this.getActiveItem()
@@ -112,6 +138,11 @@ jQuery.extend(Todo.c,{
 			Todo.v.Item.setToday(item.id, true);
 			Todo.c.Sidebar.updateBadges();
 		},
+		//////////////////////////////////////////////////////////////////
+		/**
+	 	 * Sets a Project
+		 *
+		 */
 		setProject: function(id, project) {
 			var item;
 			
@@ -126,6 +157,16 @@ jQuery.extend(Todo.c,{
 			this.notify('afterProjectChanged',item);
 			Todo.c.Sidebar.updateProjectBadges();
 		},
+		//////////////////////////////////////////////////////////////////
+		/**
+		 * Set a Title to the todo item
+		 *
+		 * If the new title is empty the item will deleted
+		 * 
+		 * @param	Integer		Todo ID
+		 * @param	String		Todo Title eg. "Buy some flowers"
+		 * @return void
+		 */ 
 		setTitle: function(id,newTitle) {
 			
 			var item, title;
@@ -152,6 +193,15 @@ jQuery.extend(Todo.c,{
 			Todo.v.Item.initDragAbles('div.section > ul > li');
 			
 		},
+		//////////////////////////////////////////////////////////////////
+		/**
+	 	 * Removes a todo item
+		 *
+		 * The Cursor moves one item up
+		 *
+		 * @param	Integer		Todo id
+		 * @return void;
+		 */
 		remove: function(id){
 			Todo.c.Item.moveCursor('up');
 			var item = Todo.m.Item.find(id);
@@ -160,6 +210,15 @@ jQuery.extend(Todo.c,{
 			$('#item-'+id).remove();
 			Todo.c.Sidebar.updateBadges();
 		},
+		//////////////////////////////////////////////////////////////////
+		/**
+		 * Moves the Cursor up/down
+		 *
+		 * Checks if th nextSibling or previousSibling a valid li.item
+		 *
+		 * @param	String		eg. "up" or "down"
+		 * @return void
+		 */
 		moveCursor : function(direction) {
 			
 			var item,nextID, prevID,active;
@@ -185,21 +244,21 @@ jQuery.extend(Todo.c,{
 				}
 			}
 		},
-		
+		//////////////////////////////////////////////////////////////////
 		/**
-		* Set the status of the item to done/undone/canceled
-		*
-		* status is optional, without explicit status the methode tries to 
-		* look for the current status and set the item done/undone
-		*
-		* 1  done 		=> undone
-		* -1 canceled 	=> undone
-		* 0  undone 	=> done
-		*
-		* @param integer	Item ID
-		* @param integer	Status eg. -1,0,1
-		* @return void
-		*/
+		 * Set the status of the item to done/undone/canceled
+		 *
+		 * status is optional, without explicit status the methode tries to 
+		 * look for the current status and set the item done/undone
+		 *
+		 * 1  done 		=> undone
+		 * -1 canceled 	=> undone
+		 * 0  undone 	=> done
+		 *
+		 * @param integer	Item ID
+		 * @param integer	Status eg. -1,0,1
+		 * @return void
+		 */
 		setStatus : function(id, status) {
 			var domItem, item, checkbox;
 			
