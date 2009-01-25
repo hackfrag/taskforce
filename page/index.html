@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title>Taskforce - Getting shit done</title>
+		<link rel="stylesheet" type="text/css" href="styles/taskforce.css" />
+		<script type="text/javascript" src="scripts/jquery.js"></script>
+		<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.0.0.js"></script>
+		<link rel="stylesheet" type="text/css" href="scripts/fancybox/fancy.css" />
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('a[rel=lightbox]').fancybox(); 
+			}); 
+		</script>
+	</head>
+	<body>
+		
+		<div id="wrapper">
+			
+			<div id="header">
+				<a href="#"><img src="images/logo.gif" id="logo" border="0"></a>
+				<img src="images/icon.png" id="icon" border="0">
+				
+				<div id="download">
+					<h2>Download v0.1</h2>
+					<a href="../build/Taskforce_0.1.air"><img src="images/air.gif" border="0" /></a>
+					<a href="../build/Taskfoirce_source0.1.zip"><img src="images/zip.gif" border="0" /></a>
+				</div>
+				<ul id="navigation">
+					<li class="selected"><a href="#"><span>Taskforce</span></a></li>
+					<li><a href="http://dev.floriansweb.com/upload/sandbox/taskforce/src"><span>Demo</span></a></li>
+					<li><a href="http://github.com/hackfrag/taskforce/tree/master"><span>Source @ Github</span></a></li>
+				</ul>
+			</div>
+			
+			<div id="content">
+				<h2>Hello World, Hello Tasksforce</h2>
+				<p>
+					This is pre alpha "Getting Things Done" web application called Taskforce.
+					It is <stong>heavily inspired</strong> by all the GTD apps on a mac. Like Things, OmniFocus and Hitlist. It is currently
+					available as a download and a as Adobe Air application.
+				</p>
+				<h2>Use it in your browser or as a Air application</h2>
+				<p>
+					To use <i>Taskforce</i> in your Browser, you have to download the zip and open the index.html with your favorit Firefox 3 or Safari 3.2+ Browser.
+					Google Gears is also required for the local database storage.<br /> <br />
+					Or, you can just install the Air Application and use it as a 'nativ' desktop application.
+				</p>
+				<div id="screenshots">
+					<a rel="lightbox" href="images/screenshots/main.jpg"><img src="images/screenshots/main_thumb.jpg" border="0" alt="Inbox View" /> </a>
+					<a rel="lightbox" href="images/screenshots/window.jpg"><img src="images/screenshots/window_thumb.jpg" border="0" alt="Today View" /> </a>
+					<a rel="lightbox" href="images/screenshots/project.jpg"><img src="images/screenshots/project_thumb.jpg" border="0" alt="Project View" /> </a>
+				</div>
+				<h2>Open Source</h2>
+				<p>
+					Yes, <i>Taskforce</i> is completely open source!
+				</p>
+				<h2>Alpha!</h2>
+				<p>
+					This is currently a <strong>pre alpha version</strong>. Use at your own risk! I really like to hear your feedback. 
+					There are still a alot of features missing and some need improvement. So dont be angry when something 'just dont work'.
+				</p>
+				<h2>Thanks!</h2>
+				<p>
+					I like to thank:
+						<ul>
+							<li>John Resig http://jquery.com/ for jQuery!</li>
+							<li>jQuery UI</li>
+							<li>FilamentGroup for the nice slider</li>
+							<li>Timo Derstappen http://teemow.com/ for the inspiration from jamal-mvc</li>
+							<li>All the mac GTD mac application. Things, OmniFocus, Hitlist</li>
+							<li>Panic for Coda & Transmit</li>
+							<li>Active Record.js - http://activerecordjs.org/</li>
+						</ul>
+				</p>
+				
+			</div>
+			
+			<div id="footer">
+			
+			</div>
+			
+		</div>
+		
+	
+	</body>
+</html>

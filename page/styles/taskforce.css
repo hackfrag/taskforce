@@ -1,0 +1,93 @@
+* {
+	margin:0px;
+	padding:0px;
+}
+body {
+	
+	font-size: 0.8em;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	background:#fff url('../images/background.gif') repeat-x left top;	
+	width:100%;
+	
+}
+
+#wrapper {
+	width:785px;
+	margin: 0px auto;
+}
+
+#header {
+	margin-top:78px;
+	position: relative;
+	height:170px;
+}
+	#logo {
+		margin-top:20px;
+		margin-left:40px;
+	}
+	#icon {
+		position: absolute;
+		right:10px;
+		top:10px;
+	}
+	#download {
+		position: absolute;
+		left:400px;
+		top:70px;
+	}
+	#download img {
+		margin-right:15px;
+	}
+	#navigation {
+		position: absolute;
+		left:40px;
+		bottom:2px;
+		list-style: none;
+	}
+	#navigation li {
+		display:inline;
+		
+	}
+	#navigation li a {
+		float:left;
+		margin-right:8px;
+	}
+	#navigation li a span{
+		float:left;
+		display:block;
+		background:#f6f6f6;
+		padding:7px 10px 5px 10px;
+	}
+	#navigation li a:hover span {
+		background:#f1f1f1;
+	}
+	#navigation li.selected a span{
+		background:#eee;
+	}
+#content {
+	margin:30px 140px 50px 40px;
+}
+	#screenshots img {
+		border:1px solid #ccc;
+	}
+	#content ul {
+		list-style-position: inside;
+		list-style-type: square;
+		margin-left:20px;
+	}
+a {
+	color:#333;
+	text-decoration: none;
+}
+a:hover {
+	color:#333;
+}
+p {
+	margin-bottom:15px;
+}
+
+h2 {
+	font-weight:bold;
+	font-size:1em;
+	margin-bottom:10px;
+}
