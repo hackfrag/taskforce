@@ -2672,11 +2672,17 @@ Adapters.SQL = {
         var keys = ActiveSupport.keys(data).sort();
         var values = [];
         var args = [];
+        //var newKeys = [];
         for(var i = 0; i < keys.length; ++i)
         {
-            args.push(data[keys[i]]);
-            values.push('?');
+        	//if(keys[i] != "start" && keys[i] != "due" && keys[i] !="completed"  && data[keys[i]] != "") {
+        		args.push(data[keys[i]]);
+            	values.push('?');
+            	//newKeys.push(keys[i]);
+        	//}
+            
         }
+        
         args.unshift("INSERT INTO " + table + " (" + keys.join(',') + ") VALUES (" + values.join(',') + ")");
         var response = this.executeSQL.apply(this,args);
         var id = this.getLastInsertedRowId();
@@ -2692,10 +2698,14 @@ Adapters.SQL = {
         {
             var values = [];
             var keys = ActiveSupport.keys(updates).sort();
+            var newKeys = [];
             for (var i = 0; i < keys.length; ++i)
             {
-                args.push(updates[keys[i]]);
-                values.push(updates[i] + " = ?");
+            	
+            	
+                	args.push(updates[keys[i]]);
+                	values.push(updates[i] + " = ?");
+                
             }
             updates = values.join(',');
         }
@@ -2709,8 +2719,10 @@ Adapters.SQL = {
         var values = [];
         for (var i = 0; i < keys.length; ++i)
         {
-            args.push(data[keys[i]]);
-            values.push(keys[i] + " = ?");
+        	//if(keys[i] != "start" && keys[i] != "due" && keys[i] !="completed"  && data[keys[i]] != "") {
+            	args.push(data[keys[i]]);
+            	values.push(keys[i] + " = ?");
+            //}
         }
         args.push(id);
         args.unshift("UPDATE " + table + " SET " + values.join(',') + " WHERE id = ?");

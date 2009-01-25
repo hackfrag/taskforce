@@ -211,7 +211,7 @@ $t.c({
 				hoverClass: 'drophover',
 				tolerance:'pointer',
 				drop: function(e, ui) {
-					console.log(ui)
+					
 					var id = $(ui.draggable).attr('id').replace(/item-/i,"");
 					var project = $(ui.element).attr('id').replace(/project-/,"");
 					

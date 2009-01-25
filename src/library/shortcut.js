@@ -49,7 +49,8 @@ shortcut = {
 			if(code == 190) character="."; //If the user presses , when the type is onkeydown
 			
 			var keys = shortcut_combination.split("+");
-			
+			//console.log(code);
+			//air.Introspector.Console.log(code);
 			//Key Pressed - counts the number of valid keypresses - if it is same as the number of keys, the shortcut function is invoked
 			var kp = 0;
 			

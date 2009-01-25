@@ -110,6 +110,7 @@ $t.c({
 			}
 			
 			item.save();
+			
 			if ( Date.equals(date, Date.today()) ) {
 				Todo.v.Item.setToday(item.id, true);
 			} else {

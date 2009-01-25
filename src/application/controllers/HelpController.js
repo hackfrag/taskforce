@@ -68,6 +68,38 @@ $t.c({
 				
 			})
 		},
+		//////////////////////////////////////////////////////
+		/**
+		* Load the Instruction dialog
+		*/
+		instructionAIR: function() {
+			this.clear();
+			
+			$('#help').load(Todo.c.Help.path + 'instructionAIR.html', function(data) {
+				
+				//////////////////////////
+				/**
+				* Dialog
+				*/
+				$('#instruction').dialog({
+					modal: true,
+					width:650,
+					overlay: {
+						backgroundColor: '#000',
+						opacity: 0.5
+					},
+					buttons: {
+						Ok: function() {
+							$(this).dialog('close');
+						}
+					}
+				});
+				//////////////////////////
+				
+			})
+		},		
+		
+		
 		googleGears: function() {
 			this.clear();
 			$('#help').load(Todo.c.Help.path + 'googleGears.html', function(data) {

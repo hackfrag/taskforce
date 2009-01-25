@@ -22,6 +22,8 @@
  */
  
  
+ 
+
 /**
  * This is the Done! core. Heavily inspired by jQuery's and jamal-mvc architecture. 
  *
@@ -50,19 +52,19 @@ var Todo = {
   	 * @name debug
   	 * @type Bool
   	 */
-	debug: true,
+	debug: false,
 	
   	/**
-  	 * Backend Version
+  	 * Runtime 
   	 *
   	 * eg. gears, air or anyting else
   	 *
   	 * @private
   	 * @property
-  	 * @name backend
+  	 * @name runtime
   	 * @type String
   	 */
-	backend:'gears',
+	runtime:'gears',
 	
     /**
      * Map of all available models.
@@ -93,11 +95,25 @@ var Todo = {
      * @type Map
      */
 	v: {},
+	checkRuntime: function() {
+	
+		if (window.google) {
+			this.runtime = "gears";
+		} else if(window.runtime) {
+			this.runtime = "air";
+		}
+	},
+	isBrowser: function() {
+		return (this.runtime == "gears") ? true : false;
+	},
+	isAir: function() {
+		return (this.runtime == "air") ? true : false;
+	},
 	///////////////////////////////////////////////////////////////
 	init: function() {
     	
-    
-    	if ((!window.google || !google.gears) && Todo.backend == 'gears') {
+    		
+    	if ((!window.google || !google.gears) && this.runtime == 'gears') {
 			Todo.c.Help.googleGears();
 			return;
 		}
@@ -106,7 +122,15 @@ var Todo = {
 		Todo.c.Sidebar.init();
 		Todo.c.Hotkey.init();
 		
-		Todo.c.Help.instruction();
+		
+		
+		if(this.isBrowser()) {
+			Todo.c.Help.instruction();
+		} else {
+			Todo.c.Help.instructionAIR();
+		}
+		
+		
     	    
 	},
 	///////////////////////////////////////////////////////////////
@@ -119,8 +143,16 @@ var Todo = {
 	 * @cat core
 	 */
 	initDB: function() {
-		ActiveRecord.connect(ActiveRecord.Adapters.Local,'todos');
-		ActiveRecord.logging = false;
+		
+		if(this.runtime == "air") {
+			ActiveRecord.connect(ActiveRecord.Adapters.AIR);
+		} else if(this.runtime == "gears") {
+			ActiveRecord.connect(ActiveRecord.Adapters.Local,'todos');
+		} else {
+			ActiveRecord.connect(ActiveRecord.Adapters.InMemory);
+		}
+		
+		ActiveRecord.logging = this.debug;
 	},
 	///////////////////////////////////////////////////////////////
     /**
@@ -241,4 +273,6 @@ var Todo = {
 };
 
 var $t = Todo;
+$t.checkRuntime();
+
 $t.initDB();

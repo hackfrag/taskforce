@@ -62,26 +62,26 @@ $t.c({
 			/**
 			* Todos tomorrow
 			*/
-			items = Todo.m.Item.find({where: " start = date('now','+1 day') AND status = '0'"});
+			items = Todo.m.Item.find({where: " date(start) = date('now','+1 day') AND status = '0'"});
 			Todo.v.Item.createSection(items,'tomorrow','Act on tomorrow'); 
 			
 			////////////////////////////
 			/**
 			* Todos in the next 7 days
 			*/
-			items = Todo.m.Item.find({where: " start > date('now','+1 day') AND start < date('now','+8 day') AND status = '0'"});
+			items = Todo.m.Item.find({where: " date(start) > date('now','+1 day') AND date(start) < date('now','+8 day') AND status = '0'"});
 			Todo.v.Item.createSection(items,'7days','Act on in the next 7 days'); 			
 			////////////////////////////
 			/**
 			* Todos in the next 30 days
 			*/
-			items = Todo.m.Item.find({where: " start > date('now','+7 day') AND start < date('now','+1 month')  AND status = '0'"});
+			items = Todo.m.Item.find({where: " date(start) > date('now','+7 day') AND date(start) < date('now','+1 month')  AND status = '0'"});
 			Todo.v.Item.createSection(items,'30days','Act on in the next 30 days'); 			
 			////////////////////////////
 			/**
 			* the rest 
 			*/
-			items = Todo.m.Item.find({where: " start > date('now','+1 month')  AND status = '0'"});
+			items = Todo.m.Item.find({where: " date(start) > date('now','+1 month')  AND status = '0'"});
 			Todo.v.Item.createSection(items,'someday','Act on in the next months'); 	
 			
 			

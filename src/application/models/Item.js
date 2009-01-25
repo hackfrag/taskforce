@@ -29,6 +29,9 @@
  * @cat model
  */ 
 
+
+
+
 //ActiveRecord.execute('DROP TABLE IF EXISTS items');
 
 Todo.m.Item = ActiveRecord.define('items',{  
@@ -40,20 +43,13 @@ Todo.m.Item = ActiveRecord.define('items',{
   		type: 'INTEGER'
   	},
  	project: '',
-  	start: {
-		type: 'DATETIME'
-	},
-	due: {
-		type: 'DATETIME'
-	},
-	completed: {
-		type: 'DATETIME'
-	}
+  	start: '',
+	due: '',
+	completed: ''
   		 
 },{  
-	getID: function() {
-		return 1;
-	},
+	
+
 	setTitle: function(title) {
 		this.set('title',title);
 	},
@@ -67,7 +63,7 @@ Todo.m.Item = ActiveRecord.define('items',{
 		this.set('status',status);
 	},
 	setDue: function(date) {
-		console.log(date);
+		
 		this.set('due',date);
 	},
 	setStart: function(date) {
@@ -75,33 +71,33 @@ Todo.m.Item = ActiveRecord.define('items',{
 		this.set('start',date);
 	},
 	isPastDue: function() {
-		return Todo.m.Item.find({where: " due < date('now') AND due != '' AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: " date(due) < date('now') AND due != '' AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isWorking: function() {
 		return Todo.m.Item.find({
-			where: "start < date('now') AND status = '0' AND start != '' AND ( due = '' OR due >= date('now') )  AND id = '"+ this.get('id') +"'"
+			where: "date(start) < date('now') AND status = '0' AND start != '' AND ( due = '' OR date(due) >= date('now') )  AND id = '"+ this.get('id') +"'"
 		}).length;
 	},
 	isStartToday: function() {
-		return Todo.m.Item.find({where: "start = date('now') AND status = '0' AND (due >= date('now') OR due = '')  AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: "date(start) = date('now') AND status = '0' AND (date(due) >= date('now') OR due = '')  AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isCompletedToday: function() {
-		return Todo.m.Item.find({where: "completed = date('now') AND status = '1' AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: "date(completed) = date('now') AND status = '1' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isCompletedYesterday:function() {
-		return Todo.m.Item.find({where: "completed = date('now','-1 day') AND status = '1' AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: "date(completed) = date('now','-1 day') AND status = '1' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isStartTomorrow: function() {
-		return Todo.m.Item.find({where: " start = date('now','+1 day') AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: " date(start) = date('now','+1 day') AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isStartNextWeek: function() {
-		return Todo.m.Item.find({where: " start > date('now','+1 day') AND start < date('now','+8 day')  AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: " date(start) > date('now','+1 day') AND date(start) < date('now','+8 day')  AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isStartNextMonth: function() {
-		return Todo.m.Item.find({where: " start > date('now','+7 day') AND start < date('now','+1 month') AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: " date(start) > date('now','+7 day') AND date(start) < date('now','+1 month') AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isStartSomeday: function() {
-		return Todo.m.Item.find({where: " start > date('now','+1 month')  AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
+		return Todo.m.Item.find({where: " date(start) > date('now','+1 month')  AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	
 });  	

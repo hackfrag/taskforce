@@ -56,7 +56,7 @@ $t.c({
 			/**
 			* Past due block
 			*/
-			items = Todo.m.Item.find({where: " due < date('now') AND due != '' AND status = '0'"});
+			items = Todo.m.Item.find({where: " date(due) < date('now') AND due != '' AND status = '0'"});
 			
 			Todo.v.Item.createSection(items,'past','Past due'); 
 			
@@ -64,28 +64,28 @@ $t.c({
 			/**
 			* Still working on'
 			*/
-			items = Todo.m.Item.find({where: "start < date('now') AND status = '0' AND start != '' AND ( due = '' OR due >= date('now') ) "});
+			items = Todo.m.Item.find({where: "date(start) < date('now') AND status = '0' AND date(start) != '' AND ( due = '' OR date(due) >= date('now') ) "});
 			Todo.v.Item.createSection(items,'working','Still working on'); 	
 			
 			////////////////////////////
 			/**
 			* Start today
 			*/
-			items = Todo.m.Item.find({where: "start = date('now') AND status = '0' AND (due >= date('now') OR due = '') "});
+			items = Todo.m.Item.find({where: "date(start) = date('now') AND status = '0' AND (date(due) >= date('now') OR due = '') "});
 			Todo.v.Item.createSection(items,'today','Start today'); 	
 				
 			////////////////////////////
 			/**
 			* completed today
 			*/
-			items = Todo.m.Item.find({where: "completed = date('now') AND status = '1' "});
+			items = Todo.m.Item.find({where: "date(completed) = date('now') AND status = '1' "});
 			Todo.v.Item.createSection(items,'completed-today','Completed today'); 	
 			
 			////////////////////////////
 			/**
 			* completed yesterday
 			*/
-			items = Todo.m.Item.find({where: "completed = date('now','-1 day') AND status = '1' "});
+			items = Todo.m.Item.find({where: "date(completed) = date('now','-1 day') AND status = '1' "});
 			Todo.v.Item.createSection(items,'completed-yesterday','Completed yesterday'); 
 			
 			
@@ -115,7 +115,7 @@ $t.c({
 		},
 		getCount: function() {
 			var items = Todo.m.Item.find({
-    						where: "start <= date('now') AND start != '' AND status = '0' "
+    						where: "date(start) <= date('now') AND start != '' AND status = '0' "
 						})
 			return items.length;
 		},
