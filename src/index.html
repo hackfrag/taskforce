@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>Todo</title>
+		<script type="text/javascript" src="library/jquery.js"></script>
+		<script type="text/javascript" src="library/helper.js"></script>
+		<script type="text/javascript" src="library/jquery-ui.js"></script>
+		<script type="text/javascript" src="library/selectToUISlider.jQuery.js"></script>
+		<script type="text/javascript" src="library/shortcut.js"></script>
+		<script type="text/javascript" src="library/date/date.js"></script>
+		<script type="text/javascript" src="library/active_record.js"></script>
+		<script type="text/javascript" src="library/Todo.js"></script>
+		
+		<script type="text/javascript" src="application/controllers/HelpController.js"></script>
+		<script type="text/javascript" src="application/controllers/ErrorController.js"></script>
+		<script type="text/javascript" src="application/controllers/ToolTipController.js"></script>
+		
+		<script type="text/javascript" src="application/controllers/BaseController.js"></script>
+		<script type="text/javascript" src="application/controllers/HotkeyController.js"></script>
+		<script type="text/javascript" src="application/controllers/SidebarController.js"></script>
+		
+		<script type="text/javascript" src="application/controllers/InboxController.js"></script>
+		<script type="text/javascript" src="application/controllers/TodayController.js"></script>
+		<script type="text/javascript" src="application/controllers/UpcomingController.js"></script>
+		
+		<script type="text/javascript" src="application/controllers/ItemController.js"></script>
+		<script type="text/javascript" src="application/views/scripts/ItemView.js"></script>
+		<script type="text/javascript" src="application/models/Item.js"></script>
+		
+		<script type="text/javascript" src="application/controllers/ProjectController.js"></script>	
+		<script type="text/javascript" src="application/views/scripts/ProjectView.js"></script>
+		<script type="text/javascript" src="application/models/Project.js"></script>	
+		
+		<script type="text/javascript" src="application/Bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="public/styles/default.css" />	
+		<link rel="stylesheet" type="text/css" href="public/theme/ui.all.css" />	
+		
+		
+	</head>
+	<body class="inbox note">
+	<div id="help"></div>
+	<div id="dialog"></div>
+	<div id="error"></div>
+	<div id="tooltip"></div>
+
+	<div id="groups">
+		<h3>Inbox</h3>
+		<ul>
+			<li class="selected" id="Inbox">
+				<img src="public/icons/inbox.png" alt="inbox" />
+				<span class="list-title">Inbox</span>
+				<span class="list-badge">0</span>
+			</li>
+
+		</ul>
+		<h3>Focus</h3>
+		<ul>
+			<li id="Today">
+				<img src="public/icons/today.png" alt="today" />
+				<span class="list-title">Today</span>
+				<span class="list-badge">0</span>
+			</li>
+			<li id="Upcoming">
+				<img src="public/icons/upcoming.png" alt="upcoming" />
+				<span class="list-title">Upcoming</span>
+				<span class="list-badge">0</span>
+			</li>
+		</ul>
+		<h3>Projects</h3>
+		<ul id="folders">
+		
+		</ul>
+	</div>
+	<div id="header">
+		<div id="navigation">
+			<ul>
+				<li><a href="#"><span id="activ-tab">Inbox</span></a></li>
+				
+			</ul>
+		</div>
+		<div id="tools">
+			<div class="headline start">Start</div>
+			<div class="headline due">Due</div>
+		</div>
+	</div>
+	<div id="todo">
+	
+		<div class="line">&nbsp;</div>
+		<div class="endline">&nbsp;</div>
+		
+		<div id="viewport">
+		
+		</div>
+	
+		
+	</div>
+	<div id="footer">
+		<div class="toolbar-button" id="button-add">
+			
+		</div>
+		<div class="toolbar-button" id="button-remove">
+			
+		</div>
+		<div class="toolbar-button" id="button-settings">
+			
+		</div>
+
+	</div>
+	
+	</body>
+</html>
