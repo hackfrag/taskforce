@@ -123,7 +123,7 @@ $t.c({
 						},
 						"Ok, let's install Google Gears": function() {
 							 location.href = "http://gears.google.com/?action=install&message=Please install Google Gears" +
-                   			 "&return=http://dev.floriansweb.com/upload/sandbox/done/";
+                   			 "&return="+location.href;
 
 						},
 					}

@@ -14,19 +14,19 @@
 -->
 
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id>com.hackfrag.done</id>
+	<id>com.hackfrag.taskforce</id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename>done</filename>
+	<filename>taskforce</filename>
 
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
-	<name>Done!</name>
+	<name>Taskforce</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
 	<version>0.1</version>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
-	<description>Done! - Getting shit done!</description>
+	<description>Taskforce - Getting shit done!</description>
 
 	<!-- Copyright information. Optional -->
 	<copyright>Copyright (c)    2009, Hackfrag &lt;hackfrag@gmail.com&gt;&#13;Licensed under The MIT License&#13; Redistributions of files must retain the above copyright notice.</copyright>
@@ -37,7 +37,7 @@
 		<content>index.html</content>
 		
 		<!-- The title of the main window. Optional. -->
-		<title>Done! Getting shit done</title>
+		<title>Taskforce - Getting shit done</title>
 
 		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
 		<systemChrome>standard</systemChrome>
@@ -90,7 +90,7 @@
 	<image32x32>public/icons/done.png</image32x32>
 	<image48x48>public/icons/done.png</image48x48>
 	-->
-	<image128x128>public/icons/done.png</image128x128>
+	<image128x128>public/icons/icon.png</image128x128>
 </icon>
 
 	<!-- Whether the application handles the update when a user double-clicks an update version
