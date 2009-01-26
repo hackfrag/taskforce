@@ -2,7 +2,7 @@ This is pre alpha. It is heavily inspired by all the GTD apps on a mac. Like Thi
 
 Currently only support for Firefox 3+ and Safari 3.2+
 
-Google Gears</strong> is used for database storage.
+Google Gears is used for database storage.
 
 
 Thanks to jQuery,jQuery-ui,FilamentGroup for the nice slider, Panic for Coda & Transmit and all the GTD apps Things, OmniFocus, Hitlist.
