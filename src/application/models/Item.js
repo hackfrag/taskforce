@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Item Model
+ * Taskforce Item Model
  *
  * @name Todo.m.Item
  * @type Object

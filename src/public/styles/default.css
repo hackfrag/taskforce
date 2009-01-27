@@ -710,11 +710,69 @@ span.checkbox.done {
 * jquery ui
 */
 .ui-datepicker {
-	z-index:20;
+	z-index:99999;
 }
 
 div.ui-slider {
 	background: #fff url('../images/slider_bg.gif') repeat-x !important;
 }
 
+/**
+ * Context menu
+ */
+div.contextmenu {
+	position: absolute;
+	top:150px;
+	left:150px;
+	z-index: 20;
+	background: #fffffb;
+	border:1px solid #b2b2af;
+	-moz-border-radius: 5px;
+	-webkit-border-radius:5px;
+	width: 200px;
+	-webkit-box-shadow:1px 1px 20px #666;
+	font-family: Helvetica;
+	font-size: 13px;
+	display: none;
+} 
 
+div.contextmenu ul {
+	list-style-type: none;
+	list-style-position: inside;
+
+	margin-bottom:5px;
+	margin-top:5px;
+	
+}
+div.contextmenu ul:last {
+	border:0px;
+}
+div.contextmenu ul li {
+	display:block;
+	padding: 3px 2px 3px 22px;
+	color:#000;
+}
+div.contextmenu ul li.split {
+	padding:0px;
+	border-bottom:1px solid #ccc;
+	margin:2px 2px;
+}
+div.contextmenu ul li.disabled {
+	color:#999;
+}
+div.contextmenu ul li.disabled:hover {
+	color:#999;
+	background: none;
+}
+div.contextmenu ul li:hover {
+	cursor: pointer;
+	background: url('../images/contextmenu_bg.gif') repeat-x left top;
+	color:#fff;
+}
+/**
+* dialog
+*/
+div.dialog ul {
+	list-style-position: inside;
+	margin-bottom:15px;
+}

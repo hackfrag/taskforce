@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Project controller
+ * Taskforce Project controller
  *
  * @name Todo.c.Project
  * @type Object
@@ -95,6 +95,11 @@ $t.c({
 			Todo.v.Item.setEdit(item.id);
 			Todo.c.Sidebar.updateBadges();
 		},
+		getTitle: function(id) {
+			var project = Todo.m.Project.find(id);
+			
+			return project.title;
+		},
 		addProject: function(newTitle) {
 			
 			var project = Todo.m.Project.create({
@@ -138,6 +143,9 @@ $t.c({
 			
 			$('#dialog').load('application/views/templates/project/newProject.html', function(data) {
 				
+				
+				
+				
 				//////////////////////////
 				/**
 				* Dialog
@@ -148,6 +156,9 @@ $t.c({
 					overlay: {
 						backgroundColor: '#000',
 						opacity: 0.5
+					},
+					open: function() {
+						
 					},
 					buttons: {
 						Ok: function() {

@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Project View
+ * Taskforce Project View
  *
  * @name Todo.v.Project
  * @type Object
@@ -49,21 +49,51 @@ $t.v({
 			
 			container.click(function() {
 			
-				$('#groups > ul > li').removeClass('selected');
-				$('#folders > li').removeClass('selected');
-				$('#project-'+project.id).addClass('selected');
-				
-				$('#viewport').empty();
-				$('body').removeClass().addClass('today note')
-				$('#activ-tab').html(project.title);
+				Todo.v.Project.setActive(project.id);
 				
 				
-				Todo.c.Sidebar.setActiveFolder('Project');
-				Todo.c.Project.setActiveProject(project.id);
-				Todo.c.Project.load(project.id);
 			});
 			
+			/**
+			* Context Menu
+			*/
+			container.contextMenu('project-context', {
+				bindings: {
+					'remove' : function(t) {
+						Todo.v.Project.setActive(project.id);						
+						Todo.c.Project.deleteDialog();
+					},
+					'rename' : function(t) {
+						// @todo need to implement
+					},
+					'addTask' : function(t) {
+						Todo.v.Project.setActive(project.id);
+						Todo.c.Hotkey.addTodo();
+					}
+					
+				}
+			});
+			
+			
+			
 			return container;
+		},
+		setActive: function(id) {
+			var project = $('#project-'+id);
+			
+			$('#groups > ul > li').removeClass('selected');
+			$('#folders > li').removeClass('selected');
+			project.addClass('selected');
+			
+			Todo.c.Sidebar.setActiveFolder('Project');
+			Todo.c.Project.setActiveProject(id);
+			
+			$('#viewport').empty();
+			$('body').removeClass().addClass('today note');
+			$('#activ-tab').html(Todo.c.Project.getTitle(id));
+					
+			Todo.c.Project.load(id);
+			
 		},
 		remove: function(id) {
 			var project;

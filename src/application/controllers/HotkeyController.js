@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Hotkey controller
+ * Taskforce Hotkey controller
  *
  * @name Todo.c.Hotkey
  * @type Object
@@ -61,6 +61,9 @@ $t.c({
 			shortcut.add("t"		,this.setTodoToday,	{'keycode': 84});
 			shortcut.add("esc"		,this.cancel,		{'keycode': 27,'propagate':false});	
 			
+		},
+		ContextMenu: function() {
+		
 		},
 		//////////////////////////////////////////////////////////////////////
 		/**

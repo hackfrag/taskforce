@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Item View
+ * Taskforce Item View
  *
  * @name Todo.v.Item
  * @type Object
@@ -66,6 +66,7 @@ $t.v({
 												}
 												
 											},
+											
 											onClose: function(date) {
 												if(date) {
 													$('#item-'+item.id).find('span.todo-due > input').val(prettyDate(date));
@@ -150,6 +151,28 @@ $t.v({
 			title.dblclick(function() {
 				Todo.v.Item.setEdit(item.id)
 			});
+			
+			/**
+			* Context Menu
+			*/
+			container.contextMenu('task-context', {
+				bindings: {
+					'setToday' : function(t) {
+						Todo.c.Item.setToday(item.id);
+					},
+					'setStatus' : function(t) {
+						Todo.c.Item.setStatus(item.id);
+					},
+					'remove' : function(t) {
+						Todo.c.Item.remove(item.id);
+					},
+					'setEdit' : function(t) {
+						Todo.v.Item.setEdit(item.id);
+					}
+				}
+			});
+			
+			
 			
 			container.addClass('item');		  
 			container.append(project);

@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -25,7 +25,7 @@
  
 
 /**
- * This is the Done! core. Heavily inspired by jQuery's and jamal-mvc architecture. 
+ * This is the Taskforce core. Heavily inspired by jQuery's and jamal-mvc architecture. 
  *
  * jQuery is required
  *
@@ -36,7 +36,7 @@
 var Todo = {
   	
   	/**
-  	 * Done! Version Number
+  	 * Taskforce Version Number
   	 *
   	 * @private
   	 * @property
@@ -95,6 +95,14 @@ var Todo = {
      * @type Map
      */
 	v: {},
+	//////////////////////////////////////////////////////////////
+	/**
+	* checks the runtime and save it to Todo.runtime
+	*
+	* @access private
+	* @return void
+	* @static
+	*/
 	checkRuntime: function() {
 	
 		if (window.google) {
@@ -103,9 +111,21 @@ var Todo = {
 			this.runtime = "air";
 		}
 	},
+	//////////////////////////////////////////////////////////////
+	/**
+	 * Checks if the Runtime a browser like firefox/safari or chrome
+	 *
+	 * @return bool
+	 */
 	isBrowser: function() {
 		return (this.runtime == "gears") ? true : false;
 	},
+	//////////////////////////////////////////////////////////////
+	/**
+	 * Checks if the Runtime is AIR
+	 *
+	 * @return 	bool
+	 */
 	isAir: function() {
 		return (this.runtime == "air") ? true : false;
 	},

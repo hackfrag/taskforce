@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Sidebar controller
+ * Taskforce Sidebar controller
  *
  * @name Todo.c.Sidebar
  * @type Object
@@ -70,6 +70,9 @@ $t.c({
 			// Projects
 			Todo.c.Project.init();
 			
+			// Context Menu init
+			this.initContextMenu();
+			
 			this.updateProjectBadges();
 			
 		},
@@ -80,6 +83,28 @@ $t.c({
 				drop: function(e, ui) {
 					var id = $(ui.draggable).attr('id').replace(/item-/i,"");
 					Todo.c.Item.setToday(id)
+				}
+			});
+		},
+		/**
+		 * Global Context Menu 
+		 */
+		initContextMenu: function() {
+			$('#todo').contextMenu('todo-context', {
+				
+				bindings: {
+					'addTask' : function(t) {
+						Todo.c.Hotkey.addTodo();
+					}
+				}
+			});
+			$('#groups').contextMenu('sidebar-context', {
+				
+				bindings: {
+				
+					'addProject' : function(t) {
+						Todo.c.Project.addDialog();
+					}
 				}
 			});
 		},
@@ -183,22 +208,7 @@ $t.c({
 			
 			Todo.c[folder].init();
 		},
-
-		initFolders: function() {
-
-			$("#folders").sortable();
-			
-			$("#folders > li").droppable({
-				hoverClass: 'drophover',
-				tolerance:'pointer'
-			});
-			
-			$('#groups ul li').click(function() {
-				$('#groups ul li').removeClass('selected');
-				$(this).addClass('selected');
-			});
-			
-		}	
+	
 	}
 	
 

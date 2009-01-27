@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Item controller
+ * Taskforce Item controller
  *
  * @name Todo.c.Item
  * @type Object
@@ -104,12 +104,15 @@ $t.c({
 			var item = Todo.m.Item.find(this.getActiveItem());
 			if(date == "") {
 				item.setStart("");
+				item.save();
+				return;
 			} else {
 				date = Date.parse(date);			
 				item.setStart(date.toString("yyyy-MM-dd"));
+				item.save();
 			}
 			
-			item.save();
+			
 			
 			if ( Date.equals(date, Date.today()) ) {
 				Todo.v.Item.setToday(item.id, true);
@@ -245,6 +248,8 @@ $t.c({
 				}
 			}
 		},
+	
+		
 		//////////////////////////////////////////////////////////////////
 		/**
 		 * Set the status of the item to done/undone/canceled

@@ -4,7 +4,7 @@
  *		* John Resig      	- http://jquery.com/
  *
  *
- * Done! :  Getting shit done 
+ * Taskforce :  Getting shit done 
  *				Javascript Webapplication for google Gears or Adobe AIR
  *
  * 
@@ -22,7 +22,7 @@
  */
  
 /**
- * Done! Today controller
+ * Taskforce Today controller
  *
  * @name Todo.c.Today
  * @type Object
@@ -32,9 +32,7 @@ $t.c({
 	
 	Today: {
 		init: function() {
-			
-			
-			
+					
 			$('body').removeClass().addClass('today plain')
 			$('#activ-tab').html('Today');
 			$('#todo > h2 > span').html('Today');
@@ -46,9 +44,14 @@ $t.c({
 			
 			var items;
 			
+			/**
+			 * remove all contents of viewport - we need space for new Tasks!
+			 */
 			$('#viewport').empty();
 			
-			// unsubscribe all!
+			/**
+			 * unsubscribe all Item Observers
+			 */
 			Todo.c.Item.unsubscribe();
 					
 			
@@ -89,9 +92,18 @@ $t.c({
 			Todo.v.Item.createSection(items,'completed-yesterday','Completed yesterday'); 
 			
 			
+			/**
+			 * is called after Start or Due date is changed
+			 * @see editObserver	rearrange the task in the right section
+			 */
 			Todo.c.Item.observe('afterDateChanged',function(item){
     			Todo.c.Today.editObserver(item.id)
 			});
+			
+			/**
+			 * is called after the status done/undone is set
+			 * @see editObserver 	rearrange the task in the right section
+			 */
 			Todo.c.Item.observe('afterStatusChanged',function(item){
     			Todo.c.Today.editObserver(item.id)
 			});
@@ -113,12 +125,22 @@ $t.c({
 			Todo.v.Item.setEdit(item.id);
 			Todo.c.Sidebar.updateBadges();
 		},
+		/**
+		 * get the current numbers of undone tasks
+		 * this methode is called by the sidebar 
+		 * 
+		 * @see updateBadges
+		 */
 		getCount: function() {
 			var items = Todo.m.Item.find({
     						where: "date(start) <= date('now') AND start != '' AND status = '0' "
 						})
 			return items.length;
 		},
+		
+		/**
+		 * Rearrange the task in the right section
+		 */  
 		editObserver: function(id) {
 			var item = Todo.m.Item.find(id);
 	

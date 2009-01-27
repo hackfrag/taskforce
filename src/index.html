@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="library/jquery.js"></script>
 		<script type="text/javascript" src="library/helper.js"></script>
 		<script type="text/javascript" src="library/jquery-ui.js"></script>
+		<script type="text/javascript" src="library/jquery.contextmenu.js"></script>
 		<script type="text/javascript" src="library/selectToUISlider.jQuery.js"></script>
 		<script type="text/javascript" src="library/shortcut.js"></script>
 		<script type="text/javascript" src="library/date/date.js"></script>
@@ -28,6 +29,7 @@
 		<script type="text/javascript" src="application/controllers/InboxController.js"></script>
 		<script type="text/javascript" src="application/controllers/TodayController.js"></script>
 		<script type="text/javascript" src="application/controllers/UpcomingController.js"></script>
+		
 		
 		<script type="text/javascript" src="application/controllers/ItemController.js"></script>
 		<script type="text/javascript" src="application/views/scripts/ItemView.js"></script>
@@ -49,7 +51,41 @@
 	<div id="dialog"></div>
 	<div id="error"></div>
 	<div id="tooltip"></div>
+	<div id="context-menu">
+		<div class="contextmenu" id="task-context">
+		<ul>
+			<li id="setToday">Set to today</li>
+			<li id="setStatus">Set done/undone</li>
+			<li class="split"></li>
+			<li id="remove">Delete...</li>
+			<li id="setEdit">Rename</li>
+		</ul>
+		</div>
+		<div class="contextmenu" id="project-context">
+			<ul>
+				<li id="addTask">Add new task to project</li>
+				<li class="split"></li>
+				<li id="remove">Delete...</li>
+				<li class="disabled" id="rename">Rename</li>
+				<li class="split"></li>
+				<li class="disabled" id="setAllDone">Set all tasks done</li>
+				<li class="disabled" id="setAllDone">Set all tasks undone</li>
+			</ul>
+		</div>
+		<div class="contextmenu" id="todo-context">
+			<ul>
+				<li id="addTask">Add new task</li>
+			</ul>
+		</div>
+		<div class="contextmenu" id="sidebar-context">
+			<ul>
+				<li id="addProject">Add new project</li>
+			</ul>
+		</div>
+		
+	</div>
 
+	
 	<div id="groups">
 		<h3>Inbox</h3>
 		<ul>
