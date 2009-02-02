@@ -211,15 +211,22 @@ $t.v({
 		},
 		
 		setArrayActive: function(array) {
-		
-			Todo.c.Item.setActiveItem(array);
+			
+			var items = [];
+			
+						
+			
+			
 			this.endEdit();
 			this.endActive();
 			
 			$(array).each(function(i, item) {
+				items.push($(item).attr('id').replace(/item-/i,""))
 				
-				$('#item-'+item).addClass('active');
+				$(item).addClass('active');
 			})
+			console.log(items);
+			Todo.c.Item.setActiveItem(items);
 		},
 		/**
 		* Sets the item on edit mode
@@ -326,6 +333,18 @@ $t.v({
 			
 			$('#viewport').append(container);
 			this.initDragAbles('#section-'+id+' > ul li');
+			
+			/*
+			$('#section-'+id).selectable({
+				filter: 'li.item',
+				selected: function(event, ui){
+					console.log(ui);
+					Todo.v.Item.setArrayActive(ui.selected);
+				}
+			});
+			*/
+		
+
 			
 		},
 		showPrioToolTip: function(id) {

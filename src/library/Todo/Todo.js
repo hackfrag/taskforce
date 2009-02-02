@@ -143,12 +143,7 @@ var Todo = {
 		Todo.c.Hotkey.init();
 		
 		
-		
-		if(this.isBrowser()) {
-			Todo.c.Help.instruction();
-		} else {
-			Todo.c.Help.instructionAIR();
-		}
+		Todo.c.Help.instruction();
 		
 		
     	    

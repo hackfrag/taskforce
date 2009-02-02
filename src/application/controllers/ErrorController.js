@@ -44,21 +44,12 @@ $t.c({
 		addToUpcoming: function() {
 			this.clear();
 			
-			$('#error').load(Todo.c.Error.path + 'addToUpcoming.html', function(data) {
+			$.get(Todo.c.Error.path + 'addToUpcoming.html', function(data) {
 				
-				$("#addToUpcoming").dialog({
-					bgiframe: true,
-					autoOpen: true,
-					modal: true,
-					title: 'Warning',
-				
-					overlay: {
-						backgroundColor: '#000',
-						opacity: 0.5
-					},
+				$(data).panel({
 					buttons: {
 						Ok: function() {
-							$(this).dialog('close');
+							$(this).panel('close');
 						}
 					}
 				});	

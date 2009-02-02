@@ -34,37 +34,62 @@ $t.c({
 	
 		init: function() {
 			
-			if(Todo.runtime == "gears") {
-				this.BrowserHotkeys();
-			} else if(Todo.runtime == "air") {
-				this.AirHotkeys();
-			}				
-						
-		},
-		BrowserHotkeys: function() {
-			shortcut.add("Alt+w"	,this.addTodo,		{'keycode': 87,'propagate':false});
-			shortcut.add("delete"	,this.deleteTodo,	{'keycode': 46});			
-			shortcut.add("space"	,this.setTodoStatus,{'keycode': 32,'propagate':true});
-			shortcut.add("Alt+e"	,this.editTodo,		{'keycode': 69,'propagate':false});
 			
-			shortcut.add("esc"		,this.cancel,		{'keycode': 27,'propagate':false});		
-			shortcut.add("up"		,this.moveCursorUp,	{'keycode': 38,'propagate':true});
-			shortcut.add("down"		,this.moveCursorDown,{'keycode': 40,'propagate':true});
-		},
-		AirHotkeys: function() {
-			shortcut.add("Ctrl+n"	,this.addTodo,		{'keycode': 78,'propagate':false});
-			shortcut.add("Ctrl+e"	,this.editTodo,		{'keycode': 69,'propagate':false});
-			shortcut.add("space"	,this.setTodoStatus,{'keycode': 32,'propagate':true});
-			shortcut.add("up"		,this.moveCursorUp,	{'keycode': 38,'propagate':true});
-			shortcut.add("down"		,this.moveCursorDown,{'keycode': 40,'propagate':true});
-			shortcut.add("delete"	,this.deleteTodo,	{'keycode': 46});
-			shortcut.add("t"		,this.setTodoToday,	{'keycode': 84});
-			shortcut.add("esc"		,this.cancel,		{'keycode': 27,'propagate':false});	
 			
+			$(document).bind('keydown',this.globalHotkeys);
+			
+			$('li.item.active').live('keydown', this.todoHotkeys);
+			
+	
+					
 		},
-		ContextMenu: function() {
+		globalHotkeys: function(event){
 		
+			switch (event.keyCode) {
+				case 78:
+					if (event.ctrlKey) {
+						event.stopPropagation();
+						event.preventDefault();
+						Todo.c.Hotkey.addTodo();
+					}
+					break;
+				case 46: 
+					Todo.c.Hotkey.deleteTodo();
+					break;
+				case 32: 
+					Todo.c.Hotkey.setTodoStatus();
+					break;
+				case 69: 
+					if (event.ctrlKey) {
+						Todo.c.Hotkey.editTodo();
+					}
+					break;
+				case 27: 
+					Todo.c.Hotkey.cancel();
+					break;
+				case 38: 
+					Todo.c.Hotkey.moveCursorUp();
+					break;
+				case 40: 
+					Todo.c.Hotkey.moveCursorDown();
+					break;
+				default:
+					
+			}
 		},
+		todoHotkeys: function(event) {
+			console.log('event');
+			switch (event.keyCode) {
+				case 84:
+					
+					Todo.c.Hotkey.setTodoToday();
+					break;
+	
+				default:
+					
+			}			
+		},
+
 		//////////////////////////////////////////////////////////////////////
 		/**
 		* Shortcut Functions

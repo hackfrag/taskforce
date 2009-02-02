@@ -140,79 +140,69 @@ $t.c({
 		},
 		addDialog: function() {
 			
+			var addProject = function() {
+				var title = $('#project-name').val(),
+					id = Todo.c.Project.addProject(title);
+					
+				$('#project-'+id).trigger('click');
+			}
 			
-			$('#dialog').load('application/views/templates/project/newProject.html', function(data) {
-				
-				
-				
-				
-				//////////////////////////
-				/**
-				* Dialog
-				*/
-				$('#project-add-dialog').dialog({
-					modal: true,
+			$.get('application/views/templates/project/newProject.html', function(data) {
+				$(data).panel({
 					width:450,
-					overlay: {
-						backgroundColor: '#000',
-						opacity: 0.5
-					},
 					open: function() {
 						
+						var self = this;
+						
+						$('#project-name').focus();
+						$('#project-add-form').submit(function(event) {
+							addProject();
+							$(self).panel('close');
+					
+							return false;
+						})
 					},
 					buttons: {
-						Ok: function() {
-							var title = $(this).find('#project-name').val();
-							
-							var id = Todo.c.Project.addProject(title);
-							
-							$(this).dialog('close');
-							
-							$('#project-'+id).trigger('click');				
-							
-							
-							
-							
-							
+						"Add this project": function() {
+
+							addProject();
+							$(this).panel('close');
+
+						},
+						"Cancel": function() {
+							$(this).panel('close');
 						}
-					}
+					}				
 				});
-				//////////////////////////
-				
 			})
+			
+	
 		},
 		deleteDialog: function() {
 			if(Todo.c.Sidebar.getActiveFolder() != "Project") {
 				return;
 			}
-			$('#dialog').load('application/views/templates/project/deleteProject.html', function(data) {
+			
+			$.get('application/views/templates/project/deleteProject.html', function(data) {
 				
-				//////////////////////////
-				/**
-				* Dialog
-				*/
-				$('#delete-project-dialog').dialog({
-					modal: true,
+				$(data).panel({
 					width:450,
-					overlay: {
-						backgroundColor: '#000',
-						opacity: 0.5
-					},
 					buttons: {
-						Ok: function() {
+						"Yes, delete project": function() {
 							var id = Todo.c.Project.getActiveProject();
 							Todo.c.Project.removeProject(id);
 							$('#Inbox').trigger('click');
-							$(this).dialog('close');
+							$(this).panel('close');
 							
 							
 						},
-						Cancel: function() {
-							$(this).dialog('close');
+						"No!": function() {
+						
+							$(this).panel('close');
 						}
 					}
 				});
-				//////////////////////////
+
 				
 			})
 			
@@ -223,8 +213,9 @@ $t.c({
 				tolerance:'pointer',
 				drop: function(e, ui) {
 					
+					
 					var id = $(ui.draggable).attr('id').replace(/item-/i,"");
-					var project = $(ui.element).attr('id').replace(/project-/,"");
+					var project = $(this).attr('id').replace(/project-/,"");
 					
 					Todo.c.Item.setProject(id,project)
 				}

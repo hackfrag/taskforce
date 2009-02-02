@@ -760,11 +760,13 @@ div.contextmenu ul li.split {
 div.contextmenu ul li.disabled {
 	color:#999;
 }
-div.contextmenu ul li.disabled:hover {
+div.contextmenu ul li.disabled:hover,
+div.contextmenu ul li.hover.disabled {
 	color:#999;
 	background: none;
 }
-div.contextmenu ul li:hover {
+div.contextmenu ul li:hover,
+div.contextmenu ul li.hover {
 	cursor: pointer;
 	background: url('../images/contextmenu_bg.gif') repeat-x left top;
 	color:#fff;
@@ -772,7 +774,139 @@ div.contextmenu ul li:hover {
 /**
 * dialog
 */
-div.dialog ul {
+div.dialog ul,
+#panels ul {
 	list-style-position: inside;
 	margin-bottom:15px;
+}
+
+
+
+/**
+* Panel
+*/
+#panels, #overlay {
+	height:100%;
+	left:0pt;
+	position:absolute;
+	top:0pt;
+	width:100%;	
+}
+#overlay {
+	z-index:9999;
+	background: #000;
+	opacity: 0.4;
+	-moz-opacity: 0.4;
+	filter: alpha(opacity=40);
+}
+
+
+.panel {
+	background:#DBDBDB url(../images/panel/panelBg.png) repeat-x scroll left top;
+	color:#404040;
+	margin:0pt auto;
+	padding:0px;
+	position:relative;
+	width:678px;
+	z-index:10000;
+	display:none;
+}
+.panel .bottom {
+	background:transparent url(../images/panel/shad_bottom.png) repeat-x scroll left bottom;
+	bottom:-14px;
+	height:15px;
+	left:0px;
+	position:absolute;
+	width:100%;
+	z-index:-199;
+}
+.panel .left {
+	background:transparent url(../images/panel/shad_left.png) repeat-y scroll left center;
+	bottom:0px;
+	height:100%;
+	left:-9px;
+	position:absolute;
+	width:9px;
+}
+#panels .panel .right {
+	background:transparent url(../images/panel/shad_right.png) repeat-y scroll right center;
+	bottom:0px;
+	height:100%;
+	position:absolute;
+	right:-9px;
+	width:9px;
+}
+#panels .panel .bottom_left {
+	background:transparent url(../images/panel/shad_btm_left.png) no-repeat scroll right bottom;
+	bottom:-14px;
+	height:14px;
+	left:-9px;
+	position:absolute;
+	width:9px;
+}
+#panels .panel .bottom_right {
+	background:transparent url(../images/panel/shad_btm_right.png) no-repeat scroll right bottom;
+	bottom:-14px;
+	height:14px;
+	position:absolute;
+	right:-9px;
+	width:9px;
+}
+
+.panel .content {
+	padding:15px;
+}
+.panel .content h1 {
+	font-size:24px;
+	font-weight:bold;
+	margin-bottom:10px;
+	color:#333;	
+}
+.panel #panel-content {
+	margin-bottom:50px;
+}
+.panel hr {
+	border-color:#CCCCCC rgb(153, 153, 153) rgb(251, 251, 251);
+	border-style:solid;
+	border-width:1px 0px;
+	height:0px;
+	margin-bottom:8px;
+	
+	
+}
+.panel .buttons {
+	bottom:0pt;
+	left:0px;
+	margin:0pt;
+	right:0px;
+	position:absolute;
+	text-align:right;
+	
+	z-index:999;
+	padding:15px;
+	clear: both;
+}
+
+form fieldset {
+	border:0px;
+}
+form fieldset div {
+	border-bottom:1px solid #CCCCCC;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+form label, form .label {
+	display:block;
+	float:left;
+	font-size:12px;
+	margin:0;
+	padding:5px 0 0 5px;
+	position:relative;
+	width:25%;
+}
+form input[type=text], form textarea,form select {
+	border:1px inset #8092AD;
+	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	padding:2px 3px;
+	width:68%;
 }

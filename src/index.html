@@ -11,6 +11,7 @@
 		<script type="text/javascript" src="library/helper.js"></script>
 		<script type="text/javascript" src="library/jquery-ui.js"></script>
 		<script type="text/javascript" src="library/jquery.contextmenu.js"></script>
+		<script type="text/javascript" src="library/jquery.panel.js"></script>
 		<script type="text/javascript" src="library/selectToUISlider.jQuery.js"></script>
 		<script type="text/javascript" src="library/shortcut.js"></script>
 		<script type="text/javascript" src="library/date/date.js"></script>
@@ -47,10 +48,10 @@
 		
 	</head>
 	<body class="inbox note">
-	<div id="help"></div>
-	<div id="dialog"></div>
-	<div id="error"></div>
+	<div id="buffer"></div>
+
 	<div id="tooltip"></div>
+	
 	<div id="context-menu">
 		<div class="contextmenu" id="task-context">
 		<ul>
@@ -106,6 +107,16 @@
 			<li id="Upcoming">
 				<img src="public/icons/upcoming.png" alt="upcoming" />
 				<span class="list-title">Upcoming</span>
+				<span class="list-badge">0</span>
+			</li>
+			<li id="Someday">
+				<img src="public/icons/someday.png" alt="someday" />
+				<span class="list-title">Someday</span>
+				<span class="list-badge">0</span>
+			</li>
+			<li id="Projects">
+				<img src="public/icons/projects.png" alt="projects" />
+				<span class="list-title">Projects</span>
 				<span class="list-badge">0</span>
 			</li>
 		</ul>
