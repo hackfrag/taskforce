@@ -99,7 +99,15 @@ $t.c({
 		*
 		*/
 		add: function() {
-			Todo.c.Error.addToUpcoming();
+			$.get(Todo.templates + 'error/addToUpcoming.html', function(data) {
+				$(data).panel({
+					buttons: {
+						Ok: function() {
+							$(this).panel('close');
+						}
+					}
+				});	
+			})
 		},
 		/**
 		* Get the current unfinished todos

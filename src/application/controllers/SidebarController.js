@@ -61,7 +61,7 @@ $t.c({
 			this.updateBadges();
 			
 			
-			// Show Inbox
+			// open Inbox as first View
 			Todo.c.Sidebar.open('Inbox');	
 			
 			// DropAbles
@@ -73,8 +73,46 @@ $t.c({
 			// Context Menu init
 			this.initContextMenu();
 			
+			this.initSplitter();
+			
 			this.updateProjectBadges();
 			
+		},
+		initSplitter: function() {
+			
+			var splitter = $('#splitter');
+			splitter.css({
+				position: 'absolute',
+				left: 200-17,
+				bottom:-23,
+				height:22,
+				width:17,
+				top:'auto',
+				'z-index':999999,
+				'border-right': '1px solid #A5A5A5'
+			});
+			
+			$("#groups").resizable({
+				maxWidth: 450,
+				minWidth: 200,
+		
+				resize: function(e, ui) {
+					$('#todo').css('left',$(ui.element).width()+1);
+					$('#header').css('left',$(ui.element).width()+1);
+					$('#splitter').css('left',$(ui.element).width()-17)
+				},
+				
+				handles: {
+					e: $('#splitter')
+				}
+				
+				
+				
+			});
+			$(document).resize(function() {
+				$('#groups').height($(document).height()-22);
+			})
+
 		},
 		initDropAbles: function() {
 			$("#Today").droppable({

@@ -52,7 +52,12 @@ var Todo = {
   	 * @name debug
   	 * @type Bool
   	 */
-	debug: false,
+	debug: true,
+	
+	/**
+	 * Template Path
+	 */
+	templates: 'application/views/templates/', 
 	
   	/**
   	 * Runtime 
@@ -134,16 +139,50 @@ var Todo = {
     	
     		
     	if ((!window.google || !google.gears) && this.runtime == 'gears') {
-			Todo.c.Help.googleGears();
+			
+			$.get(Todo.templates + 'help/googleGears.html', function(data) {
+
+				$(data).dialog({
+					width:450,
+					buttons: {
+						"Cancel" : function() {
+							location.href = "http://www.google.com"
+						},
+						"Ok, let's install Google Gears": function() {
+							 location.href = "http://gears.google.com/?action=install&message=Please install Google Gears" +
+                   			 "&return="+location.href;
+
+						},
+					}
+				});
+	
+				
+			})
 			return;
 		}
 		
+		// DB Relationship
+		Todo.m.Project.hasMany(Todo.m.Item,{
+			foreignKey: 'project'
+		});    	
+		Todo.m.Item.hasOne(Todo.m.Project);    	
+
 	
 		Todo.c.Sidebar.init();
 		Todo.c.Hotkey.init();
 		
 		
-		Todo.c.Help.instruction();
+		$.get(Todo.templates + 'help/instruction.html', function(data) {
+				
+			$(data).panel({
+				width:650,	
+				buttons: {
+					"Ok, understood!": function() {
+						$(this).panel('close');
+					}
+				}			
+			});
+		})
 		
 		
     	    

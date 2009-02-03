@@ -32,16 +32,9 @@ $t.c({
 
 	Hotkey: {
 	
-		init: function() {
-			
-			
-			
+		init: function() {		
 			$(document).bind('keydown',this.globalHotkeys);
-			
-			$('li.item.active').live('keydown', this.todoHotkeys);
-			
-	
-					
+								
 		},
 		globalHotkeys: function(event){
 		
@@ -77,19 +70,6 @@ $t.c({
 					
 			}
 		},
-		todoHotkeys: function(event) {
-			console.log('event');
-			switch (event.keyCode) {
-				case 84:
-					
-					Todo.c.Hotkey.setTodoToday();
-					break;
-	
-				default:
-					
-			}			
-		},
-
 		//////////////////////////////////////////////////////////////////////
 		/**
 		* Shortcut Functions

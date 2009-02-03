@@ -80,6 +80,36 @@ p {
 	display:block;
 	float:left;
 }
+
+#global {
+	position: absolute;
+	z-index:5;
+	right:0px;
+	top:2px;
+}
+#global ul {
+	list-style: none;
+}
+#global ul li {
+	display:inline;
+}
+#global ul li span {
+	text-transform: uppercase;
+	color:#ccc;
+	background: url('../images/globalnav_bg.gif') no-repeat scroll left top;
+	padding:3px 8px 3px 30px;
+	position: relative;
+	top:3px;
+	font-size:11px;
+
+}
+#global ul li span img {
+	position: absolute;
+	top:1px;
+	left:8px;
+	border:0px;
+}
+
 #tools {
 	height:28px;
 	position: relative;	
@@ -148,6 +178,7 @@ p {
 }
 #button-action {
 	background-image: url(../images/button-remove.png);
+	
 }
 
 
@@ -828,7 +859,7 @@ div.dialog ul,
 	position:absolute;
 	width:9px;
 }
-#panels .panel .right {
+.panel .right {
 	background:transparent url(../images/panel/shad_right.png) repeat-y scroll right center;
 	bottom:0px;
 	height:100%;
@@ -836,7 +867,7 @@ div.dialog ul,
 	right:-9px;
 	width:9px;
 }
-#panels .panel .bottom_left {
+.panel .bottom_left {
 	background:transparent url(../images/panel/shad_btm_left.png) no-repeat scroll right bottom;
 	bottom:-14px;
 	height:14px;
@@ -844,7 +875,7 @@ div.dialog ul,
 	position:absolute;
 	width:9px;
 }
-#panels .panel .bottom_right {
+.panel .bottom_right {
 	background:transparent url(../images/panel/shad_btm_right.png) no-repeat scroll right bottom;
 	bottom:-14px;
 	height:14px;
@@ -891,7 +922,7 @@ form fieldset {
 	border:0px;
 }
 form fieldset div {
-	border-bottom:1px solid #CCCCCC;
+
 	padding-bottom:5px;
 	margin-bottom:5px;
 }
@@ -903,10 +934,36 @@ form label, form .label {
 	padding:5px 0 0 5px;
 	position:relative;
 	width:25%;
+	font-size: 12px;
+	font-weight:bold;
 }
 form input[type=text], form textarea,form select {
-	border:1px inset #8092AD;
+	border-color:#AAAAAA #DDDDDD #DDDDDD #AAAAAA;
+	border-style:solid;
+	border-width:1px;
 	font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+	font-size:14px;
 	padding:2px 3px;
-	width:68%;
+
+}
+
+/**
+ * Project Stats Table
+ */
+table.stats {
+	
+}
+table.stats td {
+	padding:9px;
+	text-align:center;
+}
+table.stats span.num {
+	color:#000000;
+	display:block;
+	font-size:180%;
+	font-weight:bold;
+	margin-bottom:6px;	
+}
+table.stats span.label {
+	color:#777777;
 }

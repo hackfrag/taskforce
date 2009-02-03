@@ -1,4 +1,4 @@
-<div id="project-add-dialog" title="Add a new project">
+<div id="edit-project-dialog" title="Edit your project">
 	<form id="project-add-form">
 		<fieldset>
 			<div>
@@ -17,4 +17,24 @@
 			</div>
 		</fieldset>
 	</form>
+	<hr>
+	<h3>Current status</h3>
+	<table width="100%" class="stats">
+		<tr>
+			<td>
+				<span class="num" id="project-completed-percent">60</span>
+				<span class="label">% complete</span>
+			</td>
+			<td>
+				<span class="num" id="project-open-tasks">2</span>
+				<span class="label">open tasks</span>
+			</td>
+			<td>
+				<span class="num" id="project-due-date">01/31</span>
+				<span class="label" id="project-due-month">January 2009</span>
+			</td>
+		</tr>
+	</table>
+	<div id="project-progress"></div>
+
 </div>

@@ -100,11 +100,14 @@ $t.c({
 			
 			return project.title;
 		},
-		addProject: function(newTitle) {
+		addProject: function(newTitle, startDate, dueDate) {
 			
 			var project = Todo.m.Project.create({
-				title: newTitle
+				title: newTitle,
+			
 			});
+			project.setStartDate(startDate);
+			project.setDueDate(dueDate);
 			project.save();
 			
 			$('#folders').append(
@@ -138,34 +141,96 @@ $t.c({
 			return items.length;
 			
 		},
+
+		editDialog: function(id) {
+			
+			$.get('application/views/templates/project/editProject.html', function(data) {
+				$(data).panel({
+					width:550,
+					open: function() {
+						
+						var project = Todo.m.Project.find(id),
+							start 	= project.getStartDate() || "",
+							due		= project.getDueDate() || ""
+						
+						$("#project-progress").progressbar({value: project.getCompletedPercent()});
+						$('#project-completed-percent').html(project.getCompletedPercent());
+						$('#project-open-tasks').html(project.getOpenTasks());
+						$('#project-name').val(project.get('title'));
+						
+						if(start) {
+							$('#project-start').val(start.toString('MM/dd/yyyy'));
+						}
+						if(due) {
+							$('#project-due').val(due.toString('MM/dd/yyyy'));
+							$('#project-due-date').html(due.toString('MM/dd'));
+							$('#project-due-month').html(due.toString('MMMM yyyy'));
+							
+							
+						} else {
+							$('#project-due-date').html('--');
+							$('#project-due-month').html('--');
+						}
+						
+						$('#project-start').datepicker();
+						$('#project-due').datepicker();
+					},
+					buttons: {
+						"Save": function() {
+					
+							
+							var project = Todo.m.Project.find(id);
+							project.set('title', $('#project-name').val());
+							
+							project.setStartDate(
+								Date.parse($('#project-start').val())
+							);
+							project.setDueDate(
+								Date.parse($('#project-due').val())
+							);
+							
+							project.save();
+							
+							// change Title in sidebar list
+							$('#project-'+id).find('span.list-title').html($('#project-name').val());
+							
+							$(this).panel('close');
+							
+
+						},
+						"Cancel": function() {
+							$(this).panel('close');
+						}
+	
+					}
+				})
+			})
+		
+		},
 		addDialog: function() {
 			
-			var addProject = function() {
-				var title = $('#project-name').val(),
-					id = Todo.c.Project.addProject(title);
-					
-				$('#project-'+id).trigger('click');
-			}
+
 			
 			$.get('application/views/templates/project/newProject.html', function(data) {
 				$(data).panel({
 					width:450,
 					open: function() {
 						
-						var self = this;
+						$('#project-start').datepicker();
+						$('#project-due').datepicker();
 						
-						$('#project-name').focus();
-						$('#project-add-form').submit(function(event) {
-							addProject();
-							$(self).panel('close');
-					
-							return false;
-						})
 					},
 					buttons: {
 						"Add this project": function() {
 
-							addProject();
+							var title	= $('#project-name').val(),
+								start	= Date.parse($('#project-start').val()),
+								due		= Date.parse($('#project-due').val()),
+								id;
+								
+							id = Todo.c.Project.addProject(title, start, due)	
+					
+							$('#project-'+id).trigger('click');
 							$(this).panel('close');
 
 						},

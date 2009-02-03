@@ -20,8 +20,7 @@
 		<script type="text/javascript" src="library/Todo/Controller.js"></script>
 		<script type="text/javascript" src="library/Todo/View.js"></script>
 		
-		<script type="text/javascript" src="application/controllers/HelpController.js"></script>
-		<script type="text/javascript" src="application/controllers/ErrorController.js"></script>
+
 		<script type="text/javascript" src="application/controllers/ToolTipController.js"></script>
 		
 		<script type="text/javascript" src="application/controllers/HotkeyController.js"></script>
@@ -48,7 +47,7 @@
 		
 	</head>
 	<body class="inbox note">
-	<div id="buffer"></div>
+
 
 	<div id="tooltip"></div>
 	
@@ -66,8 +65,8 @@
 			<ul>
 				<li id="addTask">Add new task to project</li>
 				<li class="split"></li>
-				<li id="remove">Delete...</li>
-				<li class="disabled" id="rename">Rename</li>
+				<li id="remove">Delete project</li>
+				<li class="" id="edit">Edit project</li>
 				<li class="split"></li>
 				<li class="disabled" id="setAllDone">Set all tasks done</li>
 				<li class="disabled" id="setAllDone">Set all tasks undone</li>
@@ -124,11 +123,21 @@
 		<ul id="folders">
 		
 		</ul>
+		<h3>Shared</h3>
+		
+		<img src="public/images/button-splitter.png" class="ui-resizable-handle ui-resizable-e" id="splitter">
 	</div>
 	<div id="header">
 		<div id="navigation">
 			<ul>
 				<li><a href="#"><span id="activ-tab">Inbox</span></a></li>
+			</ul>
+		</div>
+		<div id="global">
+			<ul>
+				<li><a href="#"><span><img src="public/icons/gear.png"> Settings</span></a></li>
+				<li><a href="#"><span><img src="public/icons/lightning.png"> Online</span></a></li>
+				
 				
 			</ul>
 		</div>
@@ -158,7 +167,8 @@
 		<div class="toolbar-button" id="button-settings">
 			
 		</div>
-
+	
+		
 	</div>
 	
 	</body>

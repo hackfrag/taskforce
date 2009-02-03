@@ -182,6 +182,8 @@ $.extend($.ui.panel, {
 
 $.extend($.ui.panel.overlay,{
 	create: function(panel) {
+	
+		
 		var overlay = $('<div id="overlay" style="display:none;"></div>');
 		
 		overlay.addClass('panel-overlay');

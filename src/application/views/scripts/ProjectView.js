@@ -48,10 +48,10 @@ $t.v({
 			container.append(badge);
 			
 			container.click(function() {
-			
 				Todo.v.Project.setActive(project.id);
-				
-				
+			});
+			container.dblclick(function() {
+				Todo.c.Project.editDialog(project.id);
 			});
 			
 			/**
@@ -63,8 +63,8 @@ $t.v({
 						Todo.v.Project.setActive(project.id);						
 						Todo.c.Project.deleteDialog();
 					},
-					'rename' : function(t) {
-						// @todo need to implement
+					'edit' : function(t) {
+						Todo.c.Project.editDialog(project.id);
 					},
 					'addTask' : function(t) {
 						Todo.v.Project.setActive(project.id);
@@ -101,5 +101,6 @@ $t.v({
 			
 			project.remove();
 		}
+
 	}
 });

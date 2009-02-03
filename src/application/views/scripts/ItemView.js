@@ -55,9 +55,7 @@ $t.v({
 									.append(
 										$('<input type="text" value="'+dueDate+'" class="datepicker"/>')
 										.datepicker({
-											
-											clearText: 'Erase',
-											showButtonPanel: false,
+
 											beforeShow: function(input) {
 												Todo.v.Item.setActive(item.id);
 												if($(input).val() != "") {
@@ -84,9 +82,7 @@ $t.v({
 									.append(
 										$('<input type="text" value="'+startDate+'" class="datepicker"/>')
 										.datepicker({
-											
-											clearText: 'Erase',
-											showButtonPanel: false,
+
 											beforeShow: function(input) {
 												Todo.v.Item.setActive(item.id);
 												if($(input).val() != "") {
