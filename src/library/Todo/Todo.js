@@ -55,6 +55,13 @@ var Todo = {
 	debug: true,
 	
 	/**
+	 * Test flag
+	 *
+	 * @private
+	 */
+	test: false,
+	
+	/**
 	 * Template Path
 	 */
 	templates: 'application/views/templates/', 
@@ -114,7 +121,7 @@ var Todo = {
 			this.runtime = "gears";
 		} else if(window.runtime) {
 			this.runtime = "air";
-		}
+		} 
 	},
 	//////////////////////////////////////////////////////////////
 	/**
@@ -134,9 +141,29 @@ var Todo = {
 	isAir: function() {
 		return (this.runtime == "air") ? true : false;
 	},
+	/**
+	 * init DB and runtime
+	 */
+	initRuntime: function(mode) {
+		
+		if(mode == "test") {
+			this.test = true;
+		}
+		this.checkRuntime();
+		this.initDB();
+	},
+	/**
+	 * init DB Relationsships
+	 */
+	initDbRelations: function() {
+		// DB Relationship
+		Todo.m.Project.hasMany(Todo.m.Item,{
+			foreignKey: 'project'
+		});    	
+		Todo.m.Item.hasOne(Todo.m.Project); 	
+	},
 	///////////////////////////////////////////////////////////////
-	init: function() {
-    	
+	main: function() {
     		
     	if ((!window.google || !google.gears) && this.runtime == 'gears') {
 			
@@ -161,11 +188,8 @@ var Todo = {
 			return;
 		}
 		
-		// DB Relationship
-		Todo.m.Project.hasMany(Todo.m.Item,{
-			foreignKey: 'project'
-		});    	
-		Todo.m.Item.hasOne(Todo.m.Project);    	
+		// DB
+   		this.initDbRelations();
 
 	
 		Todo.c.Sidebar.init();
@@ -197,6 +221,14 @@ var Todo = {
 	 * @cat core
 	 */
 	initDB: function() {
+		
+		if(this.test) {
+			ActiveRecord.connect(ActiveRecord.Adapters.Local,'test_todos');
+			ActiveRecord.logging = this.debug;
+			return;
+		}
+		
+		
 		
 		if(this.runtime == "air") {
 			ActiveRecord.connect(ActiveRecord.Adapters.AIR);
@@ -327,6 +359,5 @@ var Todo = {
 };
 
 var $t = Todo;
-$t.checkRuntime();
 
-$t.initDB();
+

@@ -30,7 +30,9 @@
  */ 
 
 
-//ActiveRecord.execute('DROP TABLE IF EXISTS projects');
+if(Todo.test) {
+	ActiveRecord.execute('DROP TABLE IF EXISTS projects');
+}
 
 Todo.m.Project = ActiveRecord.define('projects',{  
   	title: '',

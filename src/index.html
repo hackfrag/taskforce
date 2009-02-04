@@ -2,11 +2,10 @@
 <html>
 	<head>
 		<title>Taskforce</title>
+		<!-- Adobe AIR -->
 		<script type="text/javascript" src="library/AIRAliases.js"></script>
-		<!--
-		<script type="text/javascript" src="library/AIRIntrospector.js"></script>
-		-->
 		
+		<!-- JS Library -->
 		<script type="text/javascript" src="library/jquery.js"></script>
 		<script type="text/javascript" src="library/helper.js"></script>
 		<script type="text/javascript" src="library/jquery-ui.js"></script>
@@ -16,20 +15,29 @@
 		<script type="text/javascript" src="library/shortcut.js"></script>
 		<script type="text/javascript" src="library/date/date.js"></script>
 		<script type="text/javascript" src="library/active_record.js"></script>
+		
+		<!-- Core Javascripts -->
+		
 		<script type="text/javascript" src="library/Todo/Todo.js"></script>
 		<script type="text/javascript" src="library/Todo/Controller.js"></script>
 		<script type="text/javascript" src="library/Todo/View.js"></script>
 		
-
-		<script type="text/javascript" src="application/controllers/ToolTipController.js"></script>
 		
+		<script type="text/javascript">
+			/**
+			 * initialize the runtime (DB etc)
+			 */
+			$t.initRuntime();
+		</script>
+
+		<!-- Application Javascript Controller/Models/Views -->
+		<script type="text/javascript" src="application/controllers/ToolTipController.js"></script>
 		<script type="text/javascript" src="application/controllers/HotkeyController.js"></script>
 		<script type="text/javascript" src="application/controllers/SidebarController.js"></script>
 		
 		<script type="text/javascript" src="application/controllers/InboxController.js"></script>
 		<script type="text/javascript" src="application/controllers/TodayController.js"></script>
 		<script type="text/javascript" src="application/controllers/UpcomingController.js"></script>
-		
 		
 		<script type="text/javascript" src="application/controllers/ItemController.js"></script>
 		<script type="text/javascript" src="application/views/ItemView.js"></script>
@@ -39,7 +47,13 @@
 		<script type="text/javascript" src="application/views/ProjectView.js"></script>
 		<script type="text/javascript" src="application/models/Project.js"></script>	
 		
-		<script type="text/javascript" src="application/Bootstrap.js"></script>
+		
+		<!-- Application Start -->
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$t.main();
+		}); 
+		</script>
 		
 		<link rel="stylesheet" type="text/css" href="public/styles/default.css" />	
 		<link rel="stylesheet" type="text/css" href="public/theme/ui.all.css" />	

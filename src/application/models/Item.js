@@ -32,7 +32,9 @@
 
 
 
-//ActiveRecord.execute('DROP TABLE IF EXISTS items');
+if(Todo.test) {
+	ActiveRecord.execute('DROP TABLE IF EXISTS projects');
+}
 
 Todo.m.Item = ActiveRecord.define('items',{  
   	title: '',
