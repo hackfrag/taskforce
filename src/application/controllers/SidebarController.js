@@ -57,6 +57,7 @@ $t.c({
 				Todo.c.Sidebar.open('Upcoming');		
 			});
 			
+			
 			// Update Badges
 			this.updateBadges();
 			
@@ -64,7 +65,9 @@ $t.c({
 			// open Inbox as first View
 			Todo.c.Sidebar.open('Inbox');	
 			
-			// DropAbles
+			/**
+			 * init DropAbles: projects & today
+			 */
 			this.initDropAbles();
 			
 			// Projects
@@ -78,6 +81,9 @@ $t.c({
 			this.updateProjectBadges();
 			
 		},
+		/**
+		* init the Sidebar splitter / resizeable
+		*/
 		initSplitter: function() {
 			
 			var splitter = $('#splitter');
@@ -139,7 +145,6 @@ $t.c({
 			$('#groups').contextMenu('sidebar-context', {
 				
 				bindings: {
-				
 					'addProject' : function(t) {
 						Todo.c.Project.addDialog();
 					}
@@ -157,6 +162,10 @@ $t.c({
 			Todo.c.Sidebar.setBadge(Todo.c.Upcoming.getCount(), "Upcoming");
 			Todo.c.Sidebar.updateProjectBadges();
 		},
+		
+		/**
+		 * Updates only all Project Badges
+		 */
 		updateProjectBadges: function() {
 			var projects;
 			
@@ -237,6 +246,9 @@ $t.c({
 			badge.html(count);
 			
 		},
+		/**
+		 * Opens the today/upcoming/inbox/project/view
+		 */
 		open: function(folder) {
 			
 			this.setActiveFolder(folder);

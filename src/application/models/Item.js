@@ -33,7 +33,7 @@
 
 
 if(Todo.test) {
-	ActiveRecord.execute('DROP TABLE IF EXISTS projects');
+	ActiveRecord.execute('DROP TABLE IF EXISTS items');
 }
 
 Todo.m.Item = ActiveRecord.define('items',{  
@@ -50,27 +50,31 @@ Todo.m.Item = ActiveRecord.define('items',{
 	completed: ''
   		 
 },{  
-	
 
 	setTitle: function(title) {
 		this.set('title',title);
+		return true;
 	},
 	setPrio: function(prio) {
-		this.set('prio',prio)
+		this.set('prio',prio);
+		return true;
 	},
 	setStatus: function(status) {
 		if(status == 1) {
 			this.set('completed',Date.today().toString("yyyy-MM-dd"));
 		}
 		this.set('status',status);
+		return true;
 	},
 	setDue: function(date) {
 		
 		this.set('due',date);
+		return true;
 	},
 	setStart: function(date) {
 		
 		this.set('start',date);
+		return true;
 	},
 	isPastDue: function() {
 		return Todo.m.Item.find({where: " date(due) < date('now') AND due != '' AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
@@ -103,5 +107,4 @@ Todo.m.Item = ActiveRecord.define('items',{
 	},
 	
 });  	
- 
 

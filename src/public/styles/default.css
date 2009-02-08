@@ -525,6 +525,21 @@ span.todo-prio.prio6 {
 	padding-bottom:3px;
 }
 
+/**
+ * Help Box styles
+ */
+div.helpbox {
+
+	position: relative;
+	z-index:20;
+	top:5px;
+	left:50px;
+	background: #f4f4f4;
+
+	height:350px;
+	width:450px;
+}
+
 
 /******************************************/
 /**
@@ -842,7 +857,7 @@ div.dialog ul,
 	z-index:10000;
 	display:none;
 }
-.panel .bottom {
+.bottom {
 	background:transparent url(../images/panel/shad_bottom.png) repeat-x scroll left bottom;
 	bottom:-14px;
 	height:15px;
@@ -851,7 +866,7 @@ div.dialog ul,
 	width:100%;
 	z-index:-199;
 }
-.panel .left {
+.left {
 	background:transparent url(../images/panel/shad_left.png) repeat-y scroll left center;
 	bottom:0px;
 	height:100%;
@@ -859,7 +874,7 @@ div.dialog ul,
 	position:absolute;
 	width:9px;
 }
-.panel .right {
+.right {
 	background:transparent url(../images/panel/shad_right.png) repeat-y scroll right center;
 	bottom:0px;
 	height:100%;
@@ -867,7 +882,7 @@ div.dialog ul,
 	right:-9px;
 	width:9px;
 }
-.panel .bottom_left {
+.bottom_left {
 	background:transparent url(../images/panel/shad_btm_left.png) no-repeat scroll right bottom;
 	bottom:-14px;
 	height:14px;
@@ -875,7 +890,7 @@ div.dialog ul,
 	position:absolute;
 	width:9px;
 }
-.panel .bottom_right {
+.bottom_right {
 	background:transparent url(../images/panel/shad_btm_right.png) no-repeat scroll right bottom;
 	bottom:-14px;
 	height:14px;

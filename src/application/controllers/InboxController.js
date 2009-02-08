@@ -65,6 +65,10 @@ $t.c({
 			*/
 			items = Todo.m.Item.find({where:'project = "" ',order:'prio DESC'})
 			
+			if(items.length == 0) {
+				this.isEmpty();
+			}
+			
 			Todo.v.Item.createSection(items,'inbox','Inbox'); 
 			
 			
@@ -101,6 +105,16 @@ $t.c({
 				where:'project = "" AND status="0"'
 			});
 			return items.length;
+		},
+		
+		/**
+		* isEmpty
+		* 
+		* this methode is called when the inbox is empty
+		*/
+		isEmpty: function() {
+			//Todo.v.Inbox.createHelpBox();
 		}
+		
 	}
 });

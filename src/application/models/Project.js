@@ -60,8 +60,10 @@ Todo.m.Project = ActiveRecord.define('projects',{
 		return Date.parse(this.get('start'));
 	},
 	setStartDate: function(date) {
+		
 		if(date) {
 			this.set('start',date.toString("yyyy-MM-dd"));
+			return true;
 		}
 	},
 
@@ -71,6 +73,7 @@ Todo.m.Project = ActiveRecord.define('projects',{
 	setDueDate: function(date) {
 		if(date) {
 			this.set('due',date.toString("yyyy-MM-dd"));
+			return true;
 		}
 		
 	},
