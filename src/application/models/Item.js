@@ -36,6 +36,7 @@ if(Todo.test) {
 	ActiveRecord.execute('DROP TABLE IF EXISTS items');
 }
 
+
 Todo.m.Item = ActiveRecord.define('items',{  
   	title: '',
   	status: {
@@ -106,5 +107,36 @@ Todo.m.Item = ActiveRecord.define('items',{
 		return Todo.m.Item.find({where: " date(start) > date('now','+1 month')  AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
 	},
 	
-});  	
+});
 
+/**
+ * Static methodes
+ */
+   	
+Todo.m.Item.findAllPastDue = function() {
+
+}
+Todo.m.Item.findAllWorkingOn = function() {
+
+}
+Todo.m.Item.findAllStartToday = function() {
+
+}
+Todo.m.Item.findAllCompletedToday = function() {
+
+}
+Todo.m.Item.findAllCompletedYesterday = function() {
+
+}
+Todo.m.Item.findAllStartTomorrow = function() {
+
+}
+Todo.m.Item.findAllStartNextWeek = function() {
+
+}
+Todo.m.Item.findAllStartNextMonth = function() {
+
+}
+Todo.m.Item.findAllStartSomeday = function() {
+
+}

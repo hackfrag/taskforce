@@ -4,17 +4,26 @@ This is alpha "Getting Things Done" web application called Taskforce. It is heav
 
 Currently only support for Firefox 3+ / Safari 3.2+ / Google Chrome / Adobe AIR
 
-Google Gears or Adobe AIR is used for database storage.
-Quick Shortcuts:
+Project structure:
 
-    * Ctrl+w : New task
-    * Ctrl+e : Edit the current task
-    * Enter : Save the current task
-    * Esc : Cancel the edit mode
-    * Space : Set the current todo done/undone
-    * Arrows Keys up/down for navigation
-    * Delete: Delete the current task
-    * Contextmenu for other functions
+	build/
+		Latest build: *air, unsigned airi and the source
+	page/
+		Project page
+	service/
+		Synchronisation / Share PHP Services
+	src/
+		application source
+	src/application
+		models / controller / views
+	src/library
+		third party code
+	src/public
+		css / images
+	tests/
+		unit tests
+	
+		
 
 Please give me all your Feedback!
 

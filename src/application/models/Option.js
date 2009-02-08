@@ -39,12 +39,22 @@ Todo.m.Option = ActiveRecord.define('options',{
   	value: '',
   		 
 },{  
-	
+	isTrue: function() {
+		
+	},
 });
 
-Todo.m.Option.getValue = function(option) {
+Todo.m.Option.getValue = function(name) {
+	
+}
+Todo.m.Option.setValue = function(name, value) {
 
 }
-Todo.m.Option.setValue = function(option, value) {
 
+
+$t.getOption = function(name) {
+	return Todo.m.Option.getValue(name);
+}
+$t.setOption = function(name, value) {
+	return Todo.m.Option.getValue(name);
 }
