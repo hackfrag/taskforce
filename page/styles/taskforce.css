@@ -43,6 +43,7 @@ body {
 		left:40px;
 		bottom:2px;
 		list-style: none;
+		margin:0px;
 	}
 	#navigation li {
 		display:inline;
@@ -51,6 +52,7 @@ body {
 	#navigation li a {
 		float:left;
 		margin-right:8px;
+		color:#333;
 	}
 	#navigation li a span{
 		float:left;
@@ -76,16 +78,20 @@ body {
 		margin-left:20px;
 	}
 a {
-	color:#333;
+	color:#0c487c;
 	text-decoration: none;
 }
 a:hover {
-	color:#333;
+	color:#0c487c;
+	text-decoration: underline
 }
 p {
 	margin-bottom:15px;
 }
 
+ul {
+	margin-bottom:10px;
+}
 h2 {
 	font-weight:bold;
 	font-size:1em;

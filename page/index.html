@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
 		<title>Taskforce - Getting shit done</title>
@@ -8,6 +9,14 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('a[rel=lightbox]').fancybox(); 
+				$('a.link').click(function() {
+					$('#content').empty();
+					$('#content').load($(this).attr('href'));
+					$('#navigation > li').removeClass('selected');
+					$(this).parent().addClass('selected');
+					
+					return false;
+				});
 			}); 
 		</script>
 	</head>
@@ -16,19 +25,19 @@
 		<div id="wrapper">
 			
 			<div id="header">
-				<a href="#"><img src="images/logo.gif" id="logo" border="0"></a>
-				<img src="images/icon.png" id="icon" border="0">
+				<a href="#"><img src="images/logo.gif" id="logo" border="0" alt="taskforce - getting shit done" /></a>
+				<img src="images/icon.png" id="icon" alt="taskforce" border="0" />
 				
 				<div id="download">
 					<h2>Download v0.1</h2>
-					<a href="../build/Taskforce.air"><img src="images/air.gif" border="0" /></a>
-					<a href="../build/Taskforce.tar.gz"><img src="images/zip.gif" border="0" /></a>
+					<a href="../build/Taskforce.air"><img src="images/air.gif" border="0" alt="taskforce AIR" /></a>
+					<a href="../build/Taskforce.tar.gz"><img src="images/zip.gif" border="0" alt="taskforce source" /></a>
 				</div>
 				<ul id="navigation">
-					<li class="selected"><a href="#"><span>Taskforce</span></a></li>
+					<li class="selected"><a href="index.html"><span>Taskforce</span></a></li>
 					<li><a href="../src/"><span>Demo</span></a></li>
-					<li><a href="http://github.com/hackfrag/taskforce/tree/master"><span>Source @ Github</span></a></li>
-					<li><a href="http://taskforce.lighthouseapp.com/"><span>Tickets</span></a></li>
+					<li><a href="http://github.com/hackfrag/taskforce/tree/master"><span>Source</span></a></li>
+					<li><a href="development.html" class="link"><span>Development</span></a></li>
 				</ul>
 			</div>
 			
@@ -36,7 +45,7 @@
 				<h2>Hello World, Hello Tasksforce</h2>
 				<p>
 					This is pre alpha "Getting Things Done" web application called Taskforce.
-					It is <stong>heavily inspired</strong> by all the GTD apps on a mac. Like Things, OmniFocus and Hitlist. It is currently
+					It is <b>heavily inspired</b> by all the GTD apps on a mac. Like Things, OmniFocus and Hitlist. It is currently
 					available as a download and a as Adobe Air application.
 				</p>
 				<h2>Use it in your browser or as a Air application</h2>
@@ -62,16 +71,16 @@
 				<h2>Thanks!</h2>
 				<p>
 					I like to thank:
-						<ul>
-							<li>John Resig http://jquery.com/ for jQuery!</li>
-							<li>jQuery UI</li>
-							<li>FilamentGroup for the nice slider</li>
-							<li>Timo Derstappen http://teemow.com/ for the inspiration from jamal-mvc</li>
-							<li>All the mac GTD mac application. Things, OmniFocus, Hitlist</li>
-							<li>Panic for Coda & Transmit</li>
-							<li>Active Record.js - http://activerecordjs.org/</li>
-						</ul>
 				</p>
+				<ul>
+					<li>John Resig for jQuery!</li>
+					<li>jQuery UI</li>
+					<li>FilamentGroup for the nice slider</li>
+					<li>Timo Derstappen http://teemow.com/ for the inspiration from jamal-mvc</li>
+					<li>All the mac GTD mac application. Things, OmniFocus, Hitlist</li>
+					<li>Panic for Coda & Transmit</li>
+					<li>Active Record.js - http://activerecordjs.org/</li>
+				</ul>
 				
 			</div>
 			

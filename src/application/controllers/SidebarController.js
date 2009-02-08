@@ -70,14 +70,16 @@ $t.c({
 			 */
 			this.initDropAbles();
 			
-			// Projects
+			// init the project folder in the sidebar
 			Todo.c.Project.init();
 			
 			// Context Menu init
 			this.initContextMenu();
 			
+			// sidebar view splitter / resizeable sidebar
 			this.initSplitter();
 			
+			// updates the project badges
 			this.updateProjectBadges();
 			
 		},
