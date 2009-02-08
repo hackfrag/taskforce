@@ -34,7 +34,7 @@ if(Todo.test) {
 	ActiveRecord.execute('DROP TABLE IF EXISTS options');
 }
 
-Todo.m.Project = ActiveRecord.define('options',{  
+Todo.m.Option = ActiveRecord.define('options',{  
   	name: '',
   	value: '',
   		 
@@ -42,9 +42,9 @@ Todo.m.Project = ActiveRecord.define('options',{
 	
 });
 
-Todo.m.Project.getValue = function(option) {
+Todo.m.Option.getValue = function(option) {
 
 }
-Todo.m.Project.setValue = function(option, value) {
+Todo.m.Option.setValue = function(option, value) {
 
 }
