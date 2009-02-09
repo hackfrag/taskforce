@@ -51,7 +51,11 @@ Todo.m.Item = ActiveRecord.define('items',{
 	completed: ''
   		 
 },{  
-
+	
+/**
+* Instance Methodes
+* 
+*/	
 	setTitle: function(title) {
 		this.set('title',title);
 		return true;
@@ -62,20 +66,40 @@ Todo.m.Item = ActiveRecord.define('items',{
 	},
 	setStatus: function(status) {
 		if(status == 1) {
-			this.set('completed',Date.today().toString("yyyy-MM-dd"));
+			this.setCompletedDate(Date.today());
 		}
 		this.set('status',status);
 		return true;
 	},
-	setDue: function(date) {
+	setDueDate: function(date) {
 		
-		this.set('due',date);
-		return true;
+		if(date) {
+			this.set('due',date.toString("yyyy-MM-dd"));
+			return true;
+		} else {
+			this.set('due','');
+		}
+	
 	},
-	setStart: function(date) {
+	setStartDate: function(date) {
 		
-		this.set('start',date);
-		return true;
+		if(date) {
+			this.set('start',date.toString("yyyy-MM-dd"));
+			return true;
+		} else {
+			this.set('start','');
+		}
+	
+	},
+	setCompletedDate: function(date) {
+	
+		if(date) {
+			this.set('completed',date.toString("yyyy-MM-dd"));
+			return true;
+		} else {
+			this.set('completed','');
+		}	
+	
 	},
 	isPastDue: function() {
 		return Todo.m.Item.find({where: " date(due) < date('now') AND due != '' AND status = '0' AND id = '"+ this.get('id') +"'"}).length;
@@ -86,6 +110,7 @@ Todo.m.Item = ActiveRecord.define('items',{
 		}).length;
 	},
 	isStartToday: function() {
+		
 		return Todo.m.Item.find({where: "date(start) = date('now') AND status = '0' AND (date(due) >= date('now') OR due = '')  AND id = '"+ this.get('id') +"'"}).length;
 	},
 	isCompletedToday: function() {
@@ -113,30 +138,32 @@ Todo.m.Item = ActiveRecord.define('items',{
  * Static methodes
  */
    	
-Todo.m.Item.findAllPastDue = function() {
+Todo.m.Item.findByPastDue = function(id) {
+	
+}
+Todo.m.Item.findByWorkingOn = function() {
 
 }
-Todo.m.Item.findAllWorkingOn = function() {
+Todo.m.Item.findByStartToday = 	function() {
+	
+}
+Todo.m.Item.findByCompletedToday = function() {
 
 }
-Todo.m.Item.findAllStartToday = function() {
+Todo.m.Item.findByCompletedYesterday = function() {
 
 }
-Todo.m.Item.findAllCompletedToday = function() {
+Todo.m.Item.findByStartTomorrow = function() {
 
 }
-Todo.m.Item.findAllCompletedYesterday = function() {
+Todo.m.Item.findByStartNextWeek = function() {
 
 }
-Todo.m.Item.findAllStartTomorrow = function() {
+Todo.m.Item.findByStartNextMonth = function() {
 
 }
-Todo.m.Item.findAllStartNextWeek = function() {
+Todo.m.Item.findByStartSomeday = function() {
 
 }
-Todo.m.Item.findAllStartNextMonth = function() {
 
-}
-Todo.m.Item.findAllStartSomeday = function() {
 
-}

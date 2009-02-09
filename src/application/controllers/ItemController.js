@@ -81,10 +81,10 @@ $t.c({
 			
 			var item = Todo.m.Item.find(this.getActiveItem());
 			if(date == "") {
-				item.setDue("");
+				item.setDueDate("");
 			} else {
 				date = Date.parse(date);			
-				item.setDue(date.toString("yyyy-MM-dd"));
+				item.setDueDate(date);
 			}
 			
 			item.save();
@@ -103,12 +103,12 @@ $t.c({
 		
 			var item = Todo.m.Item.find(this.getActiveItem());
 			if(date == "") {
-				item.setStart("");
+				item.setStartDate("");
 				item.save();
 				return;
 			} else {
 				date = Date.parse(date);			
-				item.setStart(date.toString("yyyy-MM-dd"));
+				item.setStartDate(date);
 				item.save();
 			}
 			
@@ -137,7 +137,7 @@ $t.c({
 			}
 			
 			var item = Todo.m.Item.find(id);
-			item.setStart(Date.today().toString("yyyy-MM-dd"));
+			item.setStart(Date.today());
 			item.save();
 			Todo.v.Item.setToday(item.id, true);
 			Todo.c.Sidebar.updateBadges();
