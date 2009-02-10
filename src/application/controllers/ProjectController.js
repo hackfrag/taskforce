@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Project controller
  *
- * @name Todo.c.Project
+ * @name Taskforce.c.Project
  * @type Object
  * @cat controller
  */ 
@@ -44,22 +44,23 @@ $t.c({
 			
 			container = $('#folders').empty();
 			
-			projects = Todo.m.Project.find();
+			projects = Taskforce.m.Project.find();
 			
 			$(projects).each(function(i, item) {
 				container.append(
-					Todo.v.Project.create(item)
+					Taskforce.v.Project.create(item)
 				)
 			});
 			
 			this.initDropAbles();
 			
+			
 			// Events
 			$('#button-add').click(function() {
-				Todo.c.Project.addDialog();
+				Taskforce.c.Project.addDialog();
 			})
 			$('#button-remove').click(function() {
-				Todo.c.Project.deleteDialog();
+				Taskforce.c.Project.deleteDialog();
 			})
 			
 			
@@ -67,11 +68,11 @@ $t.c({
 		load: function(id) {
 			var items, project;
 			
-			Todo.c.Item.unsubscribe('afterDateChanged');
-			Todo.c.Item.unsubscribe('afterStatusChanged');
+			Taskforce.c.Item.unsubscribe('afterDateChanged');
+			Taskforce.c.Item.unsubscribe('afterStatusChanged');
 			
 			
-			project = Todo.m.Project.find(id);
+			project = Taskforce.m.Project.find(id);
 			
 
 			
@@ -79,30 +80,30 @@ $t.c({
 			/**
 			* Inbox
 			*/
-			items = Todo.m.Item.find({where:'project = "'+ id +'"',order:'prio DESC'})
+			items = Taskforce.m.Item.find({where:'project = "'+ id +'"',order:'prio DESC'})
 			
-			Todo.v.Item.createSection(items,'project',project.title); 			
+			Taskforce.v.Item.createSection(items,'project',project.title); 			
 		},
 		/**
 		* Add a new Todo to this project
 		*/
 		add : function() {
-			item = Todo.m.Item.create({
-				project: Todo.c.Project.getActiveProject()
+			item = Taskforce.m.Item.create({
+				project: Taskforce.c.Project.getActiveProject()
 			});
 			$('#section-project').show();
-			$('#section-project > ul').append(Todo.v.Item.create(item));
-			Todo.v.Item.setEdit(item.id);
-			Todo.c.Sidebar.updateBadges();
+			$('#section-project > ul').append(Taskforce.v.Item.create(item));
+			Taskforce.v.Item.setEdit(item.id);
+			Taskforce.c.Sidebar.updateBadges();
 		},
 		getTitle: function(id) {
-			var project = Todo.m.Project.find(id);
+			var project = Taskforce.m.Project.find(id);
 			
 			return project.title;
 		},
 		addProject: function(newTitle, startDate, dueDate) {
 			
-			var project = Todo.m.Project.create({
+			var project = Taskforce.m.Project.create({
 				title: newTitle,
 			
 			});
@@ -111,7 +112,7 @@ $t.c({
 			project.save();
 			
 			$('#folders').append(
-				Todo.v.Project.create(project)
+				Taskforce.v.Project.create(project)
 			);
 			this.initDropAbles();
 			return project.id;
@@ -120,8 +121,8 @@ $t.c({
 		removeProject: function(id) {
 			var project, items;
 			
-			project = Todo.m.Project.find(id);
-			items 	= Todo.m.Item.find({
+			project = Taskforce.m.Project.find(id);
+			items 	= Taskforce.m.Item.find({
 				where: 'project = "'+id+'"'
 			});
 			project.destroy();
@@ -130,11 +131,11 @@ $t.c({
 			});
 			
 			
-			Todo.v.Project.remove(id);
+			Taskforce.v.Project.remove(id);
 		},
 		getCount: function(id) {
 			
-			var items = Todo.m.Item.find({
+			var items = Taskforce.m.Item.find({
 				where:'project = "'+id+'" AND status="0"'
 			});
 			
@@ -149,7 +150,7 @@ $t.c({
 					width:550,
 					open: function() {
 						
-						var project = Todo.m.Project.find(id),
+						var project = Taskforce.m.Project.find(id),
 							start 	= project.getStartDate() || "",
 							due		= project.getDueDate() || ""
 						
@@ -179,7 +180,7 @@ $t.c({
 						"Save": function() {
 					
 							
-							var project = Todo.m.Project.find(id);
+							var project = Taskforce.m.Project.find(id);
 							project.set('title', $('#project-name').val());
 							
 							project.setStartDate(
@@ -228,7 +229,7 @@ $t.c({
 								due		= Date.parse($('#project-due').val()),
 								id;
 								
-							id = Todo.c.Project.addProject(title, start, due)	
+							id = Taskforce.c.Project.addProject(title, start, due)	
 					
 							$('#project-'+id).trigger('click');
 							$(this).panel('close');
@@ -244,7 +245,7 @@ $t.c({
 	
 		},
 		deleteDialog: function() {
-			if(Todo.c.Sidebar.getActiveFolder() != "Project") {
+			if(Taskforce.c.Sidebar.getActiveFolder() != "Project") {
 				return;
 			}
 			
@@ -254,8 +255,8 @@ $t.c({
 					width:450,
 					buttons: {
 						"Yes, delete project": function() {
-							var id = Todo.c.Project.getActiveProject();
-							Todo.c.Project.removeProject(id);
+							var id = Taskforce.c.Project.getActiveProject();
+							Taskforce.c.Project.removeProject(id);
 							$('#Inbox').trigger('click');
 							$(this).panel('close');
 							
@@ -282,7 +283,7 @@ $t.c({
 					var id = $(ui.draggable).attr('id').replace(/item-/i,"");
 					var project = $(this).attr('id').replace(/project-/,"");
 					
-					Todo.c.Item.setProject(id,project)
+					Taskforce.c.Item.setProject(id,project)
 				}
 			});
 		},

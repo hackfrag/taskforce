@@ -15,26 +15,26 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Option Model
  *
- * @name Todo.m.Option
+ * @name Taskforce.m.Option
  * @type Object
  * @cat model
  */ 
 
 
-if(Todo.test) {
+if(Taskforce.test) {
 	ActiveRecord.execute('DROP TABLE IF EXISTS options');
 }
 
-Todo.m.Option = ActiveRecord.define('options',{  
+Taskforce.m.Option = ActiveRecord.define('options',{  
   	name: '',
   	value: '',
   		 
@@ -44,17 +44,27 @@ Todo.m.Option = ActiveRecord.define('options',{
 	},
 });
 
-Todo.m.Option.getValue = function(name) {
+Taskforce.m.Option.getValue = function(name) {
+	var option = Taskforce.m.Option.findByName(name);
 	
+	if(option) {
+		return option.value;
+	}
 }
-Todo.m.Option.setValue = function(name, value) {
-
+Taskforce.m.Option.setValue = function(name, value) {
+	var option = Taskforce.m.Option.findByName(name);
+	
+	if(option) {
+		option.set('value', value);
+		option.save();
+		return true;
+	}
 }
 
 
 $t.getOption = function(name) {
-	return Todo.m.Option.getValue(name);
+	return Taskforce.m.Option.getValue(name);
 }
 $t.setOption = function(name, value) {
-	return Todo.m.Option.getValue(name);
+	return Taskforce.m.Option.getValue(name);
 }

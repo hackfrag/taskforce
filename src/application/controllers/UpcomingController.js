@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Upcoming controller
  *
- * @name Todo.c.Upcoming
+ * @name Taskforce.c.Upcoming
  * @type Object
  * @cat controller
  */ 
@@ -36,10 +36,8 @@ $t.c({
 		*/
 		init: function() {
 			
-			$('body').removeClass().addClass('upcoming plain')
-			$('#activ-tab').html('Upcoming');
-
-			
+			$('body').removeClass().addClass('upcoming plain');
+				
 			this.load();
 					
 		},
@@ -55,42 +53,42 @@ $t.c({
 			$('#viewport').empty();
 			
 			// unsubscribe all!
-			Todo.c.Item.unsubscribe();
+			Taskforce.c.Item.unsubscribe();
 
 			
 			////////////////////////////
 			/**
 			* Todos tomorrow
 			*/
-			items = Todo.m.Item.find({where: " date(start) = date('now','+1 day') AND status = '0'"});
-			Todo.v.Item.createSection(items,'tomorrow','Act on tomorrow'); 
+			items = Taskforce.m.Item.find({where: " date(start) = date('now','+1 day') AND status = '0'"});
+			Taskforce.v.Item.createSection(items,'tomorrow','Act on tomorrow'); 
 			
 			////////////////////////////
 			/**
 			* Todos in the next 7 days
 			*/
-			items = Todo.m.Item.find({where: " date(start) > date('now','+1 day') AND date(start) < date('now','+8 day') AND status = '0'"});
-			Todo.v.Item.createSection(items,'7days','Act on in the next 7 days'); 			
+			items = Taskforce.m.Item.find({where: " date(start) > date('now','+1 day') AND date(start) < date('now','+8 day') AND status = '0'"});
+			Taskforce.v.Item.createSection(items,'7days','Act on in the next 7 days'); 			
 			////////////////////////////
 			/**
 			* Todos in the next 30 days
 			*/
-			items = Todo.m.Item.find({where: " date(start) > date('now','+7 day') AND date(start) < date('now','+1 month')  AND status = '0'"});
-			Todo.v.Item.createSection(items,'30days','Act on in the next 30 days'); 			
+			items = Taskforce.m.Item.find({where: " date(start) > date('now','+7 day') AND date(start) < date('now','+1 month')  AND status = '0'"});
+			Taskforce.v.Item.createSection(items,'30days','Act on in the next 30 days'); 			
 			////////////////////////////
 			/**
 			* the rest 
 			*/
-			items = Todo.m.Item.find({where: " date(start) > date('now','+1 month')  AND status = '0'"});
-			Todo.v.Item.createSection(items,'someday','Act on in the next months'); 	
+			items = Taskforce.m.Item.find({where: " date(start) > date('now','+1 month')  AND status = '0'"});
+			Taskforce.v.Item.createSection(items,'someday','Act on in the next months'); 	
 			
 			
 			
-			Todo.c.Item.observe('afterDateChanged',function(item){
-    			Todo.c.Upcoming.editObserver(item.id)
+			Taskforce.c.Item.observe('afterDateChanged',function(item){
+    			Taskforce.c.Upcoming.editObserver(item.id)
 			});
-			Todo.c.Item.observe('afterStatusChanged',function(item){
-    			Todo.c.Upcoming.editObserver(item.id)
+			Taskforce.c.Item.observe('afterStatusChanged',function(item){
+    			Taskforce.c.Upcoming.editObserver(item.id)
 			});
 								
 		},
@@ -99,7 +97,7 @@ $t.c({
 		*
 		*/
 		add: function() {
-			$.get(Todo.templates + 'error/addToUpcoming.html', function(data) {
+			$.get(Taskforce.templates + 'error/addToUpcoming.html', function(data) {
 				$(data).panel({
 					buttons: {
 						Ok: function() {
@@ -115,24 +113,24 @@ $t.c({
 		* @return	Integer		eg. 5 or 10
 		*/
 		getCount: function() {
-			var items = Todo.m.Item.find({
+			var items = Taskforce.m.Item.find({
 				where:'start > date("now") AND status="0"'
 			});
 			return items.length;
 		},
 		editObserver: function(id) {
-			var item = Todo.m.Item.find(id);
+			var item = Taskforce.m.Item.find(id);
 			
 			if(item.isStartTomorrow()) {
-				Todo.v.Item.move(id,'tomorrow')
+				Taskforce.v.Item.move(id,'tomorrow')
 			} else if(item.isStartNextWeek()) {
-				Todo.v.Item.move(id,'7days')
+				Taskforce.v.Item.move(id,'7days')
 			} else if (item.isStartNextMonth()) {
-				Todo.v.Item.move(id,'30days')
+				Taskforce.v.Item.move(id,'30days')
 			} else if (item.isStartSomeday()) {
-				Todo.v.Item.move(id,'someday')
+				Taskforce.v.Item.move(id,'someday')
 			} else {
-				Todo.v.Item.hide(id);
+				Taskforce.v.Item.hide(id);
 			}
 				
 			

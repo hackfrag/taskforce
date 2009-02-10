@@ -15,9 +15,9 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.core
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.core
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
@@ -29,11 +29,11 @@
  *
  * jQuery is required
  *
- * @name Todo
+ * @name Taskforce
  * @type Object
  * @cat core
  */
-var Todo = {
+var Taskforce = {
   	
   	/**
   	 * Taskforce Version Number
@@ -109,7 +109,7 @@ var Todo = {
 	v: {},
 	//////////////////////////////////////////////////////////////
 	/**
-	* checks the runtime and save it to Todo.runtime
+	* checks the runtime and save it to Taskforce.runtime
 	*
 	* @access private
 	* @return void
@@ -157,17 +157,17 @@ var Todo = {
 	 */
 	initDbRelations: function() {
 		// DB Relationship
-		Todo.m.Project.hasMany(Todo.m.Item,{
+		Taskforce.m.Project.hasMany(Taskforce.m.Item,{
 			foreignKey: 'project'
 		});    	
-		Todo.m.Item.hasOne(Todo.m.Project); 	
+		Taskforce.m.Item.hasOne(Taskforce.m.Project); 	
 	},
 	///////////////////////////////////////////////////////////////
 	main: function() {
     		
     	if ((!window.google || !google.gears) && this.runtime == 'gears') {
 			
-			$.get(Todo.templates + 'help/googleGears.html', function(data) {
+			$.get(Taskforce.templates + 'help/googleGears.html', function(data) {
 
 				$(data).dialog({
 					width:450,
@@ -192,11 +192,11 @@ var Todo = {
    		this.initDbRelations();
 
 	
-		Todo.c.Sidebar.init();
-		Todo.c.Hotkey.init();
+		Taskforce.c.Sidebar.init();
+		Taskforce.c.Hotkey.init();
 		
 		
-		$.get(Todo.templates + 'help/instruction.html', function(data) {
+		$.get(Taskforce.templates + 'help/instruction.html', function(data) {
 				
 			$(data).panel({
 				width:650,	
@@ -244,7 +244,7 @@ var Todo = {
     /**
      * Log messages on the browser console. Firebug is recommended.
      *
-     * @example Todo.log('Message');
+     * @example Taskforce.log('Message');
      *
      * @public
      * @name log
@@ -341,7 +341,7 @@ var Todo = {
     /**
      * Log objects to the console
      *
-     * @example Todo.dir(obj);
+     * @example Taskforce.dir(obj);
      * @result [ { prop1: val1, prop2: val2 } ]
      *
      * @public
@@ -358,6 +358,6 @@ var Todo = {
     ///////////////////////////////////////////////////////////////
 };
 
-var $t = Todo;
+var $t = Taskforce;
 
 

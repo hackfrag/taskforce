@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Item View
  *
- * @name Todo.v.Item
+ * @name Taskforce.v.Item
  * @type Object
  * @cat view
  */ 
@@ -38,7 +38,7 @@ $t.v({
 			
 		
 			if(item.project) {
-				projectName = Todo.m.Project.find(item.project).title;
+				projectName = Taskforce.m.Project.find(item.project).title;
 			} else {
 				projectName = "no project";
 			}
@@ -57,7 +57,7 @@ $t.v({
 										.datepicker({
 
 											beforeShow: function(input) {
-												Todo.v.Item.setActive(item.id);
+												Taskforce.v.Item.setActive(item.id);
 												if($(input).val() != "") {
 													$(input).val(Date.parse($(input).val()).toString('MM/dd/yyyy'))
 													
@@ -70,8 +70,8 @@ $t.v({
 													$('#item-'+item.id).find('span.todo-due > input').val(prettyDate(date));
 												}
 												
-												Todo.c.Item.setDueDate(date);
-												Todo.c.Sidebar.updateBadges();
+												Taskforce.c.Item.setDueDate(date);
+												Taskforce.c.Sidebar.updateBadges();
 											},
 
 
@@ -84,7 +84,7 @@ $t.v({
 										.datepicker({
 
 											beforeShow: function(input) {
-												Todo.v.Item.setActive(item.id);
+												Taskforce.v.Item.setActive(item.id);
 												if($(input).val() != "") {
 													$(input).val(Date.parse($(input).val()).toString('MM/dd/yyyy') )
 												}
@@ -95,8 +95,8 @@ $t.v({
 													$('#item-'+item.id).find('span.todo-start > input').val(prettyDate(date));
 												}
 												
-												Todo.c.Item.setStartDate(date);
-												Todo.c.Sidebar.updateBadges();
+												Taskforce.c.Item.setStartDate(date);
+												Taskforce.c.Sidebar.updateBadges();
 											}
 										})
 
@@ -112,7 +112,7 @@ $t.v({
 			*/
 			status = $('<span>').addClass('checkbox');
 			status.click(function() {
-				Todo.c.Item.setStatus(item.id);
+				Taskforce.c.Item.setStatus(item.id);
 			})
 			if (item.status == 1) {
 				status.addClass('done');
@@ -135,17 +135,17 @@ $t.v({
 			* Events
 			*/
 			prio.dblclick(function() {
-				Todo.v.Item.showPrioToolTip(item.id);
+				Taskforce.v.Item.showPrioToolTip(item.id);
 			})
 			project.dblclick(function() {
-				Todo.v.Item.showProjectToolTip(item.id);
+				Taskforce.v.Item.showProjectToolTip(item.id);
 			})
 			container.click(function() {
-				Todo.v.Item.setActive(item.id);
+				Taskforce.v.Item.setActive(item.id);
 			});
 			
 			title.dblclick(function() {
-				Todo.v.Item.setEdit(item.id)
+				Taskforce.v.Item.setEdit(item.id)
 			});
 			
 			/**
@@ -154,16 +154,16 @@ $t.v({
 			container.contextMenu('task-context', {
 				bindings: {
 					'setToday' : function(t) {
-						Todo.c.Item.setToday(item.id);
+						Taskforce.c.Item.setToday(item.id);
 					},
 					'setStatus' : function(t) {
-						Todo.c.Item.setStatus(item.id);
+						Taskforce.c.Item.setStatus(item.id);
 					},
 					'remove' : function(t) {
-						Todo.c.Item.remove(item.id);
+						Taskforce.c.Item.remove(item.id);
 					},
 					'setEdit' : function(t) {
-						Todo.v.Item.setEdit(item.id);
+						Taskforce.v.Item.setEdit(item.id);
 					}
 				}
 			});
@@ -187,7 +187,7 @@ $t.v({
 		*/
 		setActive: function(id) {
 			
-			Todo.c.Item.setActiveItem(id);
+			Taskforce.c.Item.setActiveItem(id);
 			
 			var item = $('#item-'+id);
 			
@@ -222,7 +222,7 @@ $t.v({
 				$(item).addClass('active');
 			})
 			console.log(items);
-			Todo.c.Item.setActiveItem(items);
+			Taskforce.c.Item.setActiveItem(items);
 		},
 		/**
 		* Sets the item on edit mode
@@ -230,7 +230,7 @@ $t.v({
 		* - A Form + Input will injected
 		*/
 		setEdit: function(id) {
-			Todo.c.Item.setActiveItem(id);
+			Taskforce.c.Item.setActiveItem(id);
 			
 			var item, form, title, input;
 			
@@ -250,16 +250,16 @@ $t.v({
 			* Events
 			*/
 			input.blur(function() {
-				Todo.c.Item.setTitle(id, $(this).val());
-				//Todo.v.Item.endEdit();
-				//Todo.v.Item.setActive(id);
+				Taskforce.c.Item.setTitle(id, $(this).val());
+				//Taskforce.v.Item.endEdit();
+				//Taskforce.v.Item.setActive(id);
 			})
 
 			form.submit(function() {
 				
-				Todo.c.Item.setTitle(id, $(this).children('input').val());
-				Todo.v.Item.endEdit();
-				Todo.v.Item.setActive(id);
+				Taskforce.c.Item.setTitle(id, $(this).children('input').val());
+				Taskforce.v.Item.endEdit();
+				Taskforce.v.Item.setActive(id);
 				
 				return false;
 			});
@@ -313,7 +313,7 @@ $t.v({
 			
 			$(items).each(function(i, item) {
 				list.append(
-					Todo.v.Item.create(item)
+					Taskforce.v.Item.create(item)
 				)
 			});
 			
@@ -335,7 +335,7 @@ $t.v({
 				filter: 'li.item',
 				selected: function(event, ui){
 					console.log(ui);
-					Todo.v.Item.setArrayActive(ui.selected);
+					Taskforce.v.Item.setArrayActive(ui.selected);
 				}
 			});
 			*/
@@ -352,13 +352,13 @@ $t.v({
 			top  = prio.offset().top+27;
 			left = prio.offset().left-23;
 			
-			Todo.c.ToolTip.create('prio-tooltip', left,top, function() {
+			Taskforce.c.ToolTip.create('prio-tooltip', left,top, function() {
 				$('#prio-slider option:contains('+prio.html()+')').attr('selected');
 				
 				$('#prio-slider').selectToUISlider({
 					sliderOptions: {
 						change: function(event, ui) {							
-							Todo.c.Item.setPrio(id, $('#prio-slider').val())
+							Taskforce.c.Item.setPrio(id, $('#prio-slider').val())
 						},
 						stop : function() {
 							$('div.tooltip').find('div.ui-slider').remove();
@@ -426,10 +426,10 @@ $t.v({
 			top  = title.offset().top+29;
 			left = title.offset().left+10+title.css('padding-left');
 			
-			Todo.c.ToolTip.create('project-tooltip', left,top, function() {
+			Taskforce.c.ToolTip.create('project-tooltip', left,top, function() {
 				$('#project-tooltip > input').focus();
 				$('#project-tooltip > a').click(function() {
-					Todo.c.ToolTip.hide();
+					Taskforce.c.ToolTip.hide();
 				})
 			});
 			

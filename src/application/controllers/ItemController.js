@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Item controller
  *
- * @name Todo.c.Item
+ * @name Taskforce.c.Item
  * @type Object
  * @cat controller
  */ 
@@ -63,7 +63,7 @@ $t.c({
 			/**
 			* Save Persistent
 			*/
-			item = Todo.m.Item.find(id);
+			item = Taskforce.m.Item.find(id);
 			item.setPrio(prio);		
 			item.save();	
 						
@@ -79,7 +79,7 @@ $t.c({
 		 */
 		setDueDate: function(date) {
 			
-			var item = Todo.m.Item.find(this.getActiveItem());
+			var item = Taskforce.m.Item.find(this.getActiveItem());
 			if(date == "") {
 				item.setDueDate("");
 			} else {
@@ -101,7 +101,7 @@ $t.c({
 		 */
 		setStartDate:function(date) {
 		
-			var item = Todo.m.Item.find(this.getActiveItem());
+			var item = Taskforce.m.Item.find(this.getActiveItem());
 			if(date == "") {
 				item.setStartDate("");
 				item.save();
@@ -115,9 +115,9 @@ $t.c({
 			
 			
 			if ( Date.equals(date, Date.today()) ) {
-				Todo.v.Item.setToday(item.id, true);
+				Taskforce.v.Item.setToday(item.id, true);
 			} else {
-				Todo.v.Item.setToday(item.id, false);	
+				Taskforce.v.Item.setToday(item.id, false);	
 			}
 			this.notify('afterDateChanged',item);
 			
@@ -136,11 +136,11 @@ $t.c({
 				id = this.getActiveItem()
 			}
 			
-			var item = Todo.m.Item.find(id);
-			item.setStart(Date.today());
+			var item = Taskforce.m.Item.find(id);
+			item.setStartDate(Date.today());
 			item.save();
-			Todo.v.Item.setToday(item.id, true);
-			Todo.c.Sidebar.updateBadges();
+			Taskforce.v.Item.setToday(item.id, true);
+			Taskforce.c.Sidebar.updateBadges();
 		},
 		//////////////////////////////////////////////////////////////////
 		/**
@@ -150,16 +150,16 @@ $t.c({
 		setProject: function(id, project) {
 			var item;
 			
-			item = Todo.m.Item.find(id);
+			item = Taskforce.m.Item.find(id);
 			item.set('project',project);
 			item.save();
 			
-			project = Todo.m.Project.find(project);
+			project = Taskforce.m.Project.find(project);
 			
-			Todo.v.Item.setProject(id, project.title);
+			Taskforce.v.Item.setProject(id, project.title);
 			
 			this.notify('afterProjectChanged',item);
-			Todo.c.Sidebar.updateProjectBadges();
+			Taskforce.c.Sidebar.updateProjectBadges();
 		},
 		//////////////////////////////////////////////////////////////////
 		/**
@@ -190,11 +190,11 @@ $t.c({
 			/**
 			* Save Persistent
 			*/
-			item = Todo.m.Item.find(id);
+			item = Taskforce.m.Item.find(id);
 			item.setTitle(newTitle);	
 			item.save();
 			
-			Todo.v.Item.initDragAbles('div.section > ul > li');
+			Taskforce.v.Item.initDragAbles('div.section > ul > li');
 			
 		},
 		//////////////////////////////////////////////////////////////////
@@ -207,12 +207,12 @@ $t.c({
 		 * @return void;
 		 */
 		remove: function(id){
-			Todo.c.Item.moveCursor('up');
-			var item = Todo.m.Item.find(id);
+			Taskforce.c.Item.moveCursor('up');
+			var item = Taskforce.m.Item.find(id);
 			item.destroy();
 			
 			$('#item-'+id).remove();
-			Todo.c.Sidebar.updateBadges();
+			Taskforce.c.Sidebar.updateBadges();
 		},
 		//////////////////////////////////////////////////////////////////
 		/**
@@ -239,12 +239,12 @@ $t.c({
 			if(direction == 'up') {
 				if(item.prev().length) {
 					prevID = item.prev().attr('id').replace(/item-/i,"");
-					Todo.v.Item.setActive(prevID);
+					Taskforce.v.Item.setActive(prevID);
 				}
 			} else if(direction == 'down') {
 				if(item.next().length) {
 					nextID = item.next().attr('id').replace(/item-/i,"");
-					Todo.v.Item.setActive(nextID);
+					Taskforce.v.Item.setActive(nextID);
 				}
 			}
 		},
@@ -268,7 +268,7 @@ $t.c({
 		setStatus : function(id, status) {
 			var domItem, item, checkbox;
 			
-			item		= Todo.m.Item.find(id);
+			item		= Taskforce.m.Item.find(id);
 			domItem 	= $('#item-'+id);
 			checkbox 	= domItem.find('span.checkbox');
 			
@@ -312,7 +312,7 @@ $t.c({
 			
 			item.save();
 			this.notify('afterStatusChanged',item);
-			Todo.c.Sidebar.updateBadges();
+			Taskforce.c.Sidebar.updateBadges();
 		},
 
 

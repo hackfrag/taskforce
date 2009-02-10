@@ -857,7 +857,20 @@ div.dialog ul,
 	z-index:10000;
 	display:none;
 }
+
+/**
+ * Shadow
+ */
 .bottom {
+	background:transparent url(../images/panel/shad_bottom.png) repeat-x scroll left bottom;
+	bottom:-14px;
+	height:15px;
+	left:0px;
+	position:absolute;
+	width:100%;
+	z-index:-199;
+}
+.top {
 	background:transparent url(../images/panel/shad_bottom.png) repeat-x scroll left bottom;
 	bottom:-14px;
 	height:15px;

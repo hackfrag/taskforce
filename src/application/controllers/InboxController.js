@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Inbox controller
  *
- * @name Todo.c.Inbox
+ * @name Taskforce.c.Inbox
  * @type Object
  * @cat controller
  */ 
@@ -37,7 +37,7 @@ $t.c({
 		init: function() {
 			
 			$('body').removeClass().addClass('inbox note')
-			$('#activ-tab').html('Inbox');
+
 			
 			
 			this.load();
@@ -53,7 +53,7 @@ $t.c({
 			var items;
 			
 			// unsubscribe all!
-			Todo.c.Item.unsubscribe();
+			Taskforce.c.Item.unsubscribe();
 			
 			
 			$('#viewport').empty();
@@ -63,23 +63,23 @@ $t.c({
 			/**
 			* Inbox
 			*/
-			items = Todo.m.Item.find({where:'project = "" ',order:'prio DESC'})
+				items = Taskforce.m.Item.find({where:'project = "" ',order:'prio DESC'})
 			
 			if(items.length == 0) {
 				this.isEmpty();
 			}
 			
-			Todo.v.Item.createSection(items,'inbox','Inbox'); 
+			Taskforce.v.Item.createSection(items,'inbox','Inbox'); 
 			
 			
 			/**
 			* Inbox Observer
 			*/
-			Todo.c.Item.observe('afterProjectChanged', function(item) {
+			Taskforce.c.Item.observe('afterProjectChanged', function(item) {
 				
 				var item = $('#item-'+item.id);
 				item.hide();
-				Todo.c.Sidebar.updateBadges();
+				Taskforce.c.Sidebar.updateBadges();
 			})
 	
 								
@@ -89,11 +89,11 @@ $t.c({
 		*
 		*/
 		add: function() {
-			item = Todo.m.Item.create();
+			item = Taskforce.m.Item.create();
 			$('#section-inbox').show();
-			$('#section-inbox > ul').append(Todo.v.Item.create(item));
-			Todo.v.Item.setEdit(item.id);
-			Todo.c.Sidebar.updateBadges();
+			$('#section-inbox > ul').append(Taskforce.v.Item.create(item));
+			Taskforce.v.Item.setEdit(item.id);
+			Taskforce.c.Sidebar.updateBadges();
 		},
 		/**
 		* Get the current unfinished todos
@@ -101,7 +101,7 @@ $t.c({
 		* @return	Integer		eg. 5 or 10
 		*/
 		getCount: function() {
-			var items = Todo.m.Item.find({
+			var items = Taskforce.m.Item.find({
 				where:'project = "" AND status="0"'
 			});
 			return items.length;
@@ -113,7 +113,7 @@ $t.c({
 		* this methode is called when the inbox is empty
 		*/
 		isEmpty: function() {
-			//Todo.v.Inbox.createHelpBox();
+			//Taskforce.v.Inbox.createHelpBox();
 		}
 		
 	}

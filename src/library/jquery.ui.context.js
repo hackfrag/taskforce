@@ -21,9 +21,13 @@ $('li.item').context({
 	
 })
 
-$t.addContext(Taskforce.Context.Task, {})
+$t.Context.add(Taskforce.Context.Task, {})
 
-$t.addContext(Taskforce.Context.Project, {});
+
+$t.Context.disable(Taskforce.Context.Task, 'edit');
+$t.Context.enable(Taskforce.Context.Task, 'edit');
+
+$t.Context.add(Taskforce.Context.Project, {});
 
 
 $t.addOption('twitter_name', 'hackfrag');
@@ -50,11 +54,23 @@ $t.Settings.AddSection('Twitter', {
 	}
 })
 
-$t.Sidebar.addSection('Tweets', {
-	items: {
+var section = $t.Sidebar.addSection('Tweets', {});
+
+$t.Sidebar.addItems(section, {
+	today : {
 		
 	}
-});
+})
+
+
+
+Taskforce.Plugin.Twitter = {
+	init: function() {
+	
+	}
+}
+
+
 
 */
 

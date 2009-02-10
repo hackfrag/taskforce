@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Hotkey controller
  *
- * @name Todo.c.Hotkey
+ * @name Taskforce.c.Hotkey
  * @type Object
  * @cat controller
  */ 
@@ -43,28 +43,28 @@ $t.c({
 					if (event.ctrlKey) {
 						event.stopPropagation();
 						event.preventDefault();
-						Todo.c.Hotkey.addTodo();
+						Taskforce.c.Hotkey.addTodo();
 					}
 					break;
 				case 46: 
-					Todo.c.Hotkey.deleteTodo();
+					Taskforce.c.Hotkey.deleteTodo();
 					break;
 				case 32: 
-					Todo.c.Hotkey.setTodoStatus();
+					Taskforce.c.Hotkey.setTodoStatus();
 					break;
 				case 69: 
 					if (event.ctrlKey) {
-						Todo.c.Hotkey.editTodo();
+						Taskforce.c.Hotkey.editTodo();
 					}
 					break;
 				case 27: 
-					Todo.c.Hotkey.cancel();
+					Taskforce.c.Hotkey.cancel();
 					break;
 				case 38: 
-					Todo.c.Hotkey.moveCursorUp();
+					Taskforce.c.Hotkey.moveCursorUp();
 					break;
 				case 40: 
-					Todo.c.Hotkey.moveCursorDown();
+					Taskforce.c.Hotkey.moveCursorDown();
 					break;
 				default:
 					
@@ -78,11 +78,11 @@ $t.c({
 			if($('li.item.edit').length) {
 				return;
 			}
-			var active = Todo.c.Sidebar.getActiveFolder();
+			var active = Taskforce.c.Sidebar.getActiveFolder();
 			if($('li.item.edit').length) {
 				return;
 			}
-			Todo.c[active].add();
+			Taskforce.c[active].add();
 		},
 		deleteTodo:function() {
 			
@@ -90,43 +90,43 @@ $t.c({
 				return;
 			}
 			
-			var active = Todo.c.Item.getActiveItem();
+			var active = Taskforce.c.Item.getActiveItem();
 			if(active instanceof Array) {
 				$(active).each(function(i, item) {
-					Todo.c.Item.remove(item);
+					Taskforce.c.Item.remove(item);
 				})
 				
 			} else {
-				Todo.c.Item.remove(active);
+				Taskforce.c.Item.remove(active);
 			}
 		},
 		setTodoStatus: function() {
 			if($('li.item.edit').length) {
 				return;
 			}
-			var active = Todo.c.Item.getActiveItem();
+			var active = Taskforce.c.Item.getActiveItem();
 			if(active instanceof Array) {
 				$(active).each(function(i, item) {
-					Todo.c.Item.setStatus(item);
+					Taskforce.c.Item.setStatus(item);
 				})
 				
 			} else {
-				Todo.c.Item.setStatus(active);
+				Taskforce.c.Item.setStatus(active);
 			}
 		},
 		editTodo: function() {
-			var active = Todo.c.Item.getActiveItem();
+			var active = Taskforce.c.Item.getActiveItem();
 				
 			if(active.length == 1 || !(active instanceof Array)) {
-				Todo.v.Item.setEdit(active);
+				Taskforce.v.Item.setEdit(active);
 			}
 		},
 		setTodoToday: function() {
-			var active = Todo.c.Item.getActiveItem();
+			var active = Taskforce.c.Item.getActiveItem();
 			
 			if($('li.item.edit').length) {
 				if(active.length == 1 || !(active instanceof Array)) {
-					Todo.c.Item.setToday(active);
+					Taskforce.c.Item.setToday(active);
 				}
 			}
 			
@@ -134,17 +134,17 @@ $t.c({
 		cancel: function() {
 			if($('li.item.edit').length) {
 				var id = $('li.item.edit').attr('id').replace(/item-/i,"");
-				Todo.v.Item.endEdit();	
-				Todo.v.Item.setActive(id);
+				Taskforce.v.Item.endEdit();	
+				Taskforce.v.Item.setActive(id);
 			} else {
-				Todo.v.Item.endActive();
+				Taskforce.v.Item.endActive();
 			}
 		},
 		moveCursorUp: function() {
-			Todo.c.Item.moveCursor('up');	
+			Taskforce.c.Item.moveCursor('up');	
 		},
 		moveCursorDown: function() {
-			Todo.c.Item.moveCursor('down');	
+			Taskforce.c.Item.moveCursor('down');	
 		}	
 	
 	}

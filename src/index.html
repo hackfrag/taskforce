@@ -8,26 +8,23 @@
 		<!-- JS Library -->
 		<script type="text/javascript" src="library/jquery.js"></script>
 		<script type="text/javascript" src="library/helper.js"></script>
-		<script type="text/javascript" src="library/jquery-ui.js"></script>
 		<script type="text/javascript" src="library/jquery.contextmenu.js"></script>
-		<script type="text/javascript" src="library/jquery.panel.js"></script>
+		<script type="text/javascript" src="library/jquery.ui.js"></script>
+		<script type="text/javascript" src="library/jquery.ui.panel.js"></script>
 		<script type="text/javascript" src="library/jquery.ui.context.js"></script>
-		<script type="text/javascript" src="library/selectToUISlider.jQuery.js"></script>
+		<script type="text/javascript" src="library/jquery.ui.slider.extra.js"></script>
 		<script type="text/javascript" src="library/date/date.js"></script>
 		<script type="text/javascript" src="library/active_record.js"></script>
 		
 		<!-- Core Javascripts -->
 		
-		<script type="text/javascript" src="library/Todo/Todo.js"></script>
-		<script type="text/javascript" src="library/Todo/Controller.js"></script>
-		<script type="text/javascript" src="library/Todo/View.js"></script>
-		
+		<script type="text/javascript" src="library/Taskforce/Taskforce.js"></script>
+		<script type="text/javascript" src="library/Taskforce/Controller.js"></script>
+		<script type="text/javascript" src="library/Taskforce/View.js"></script>
+		<script type="text/javascript" src="library/Taskforce/Sidebar.js"></script>
 		
 		<script type="text/javascript">
-			/**
-			 * initialize the runtime (DB etc)
-			 */
-			$t.initRuntime();
+			Taskforce.initRuntime();
 		</script>
 
 		<!-- Application Javascript Controller/Models/Views -->
@@ -51,10 +48,10 @@
 		
 		<script type="text/javascript" src="application/models/Option.js"></script>	
 		
-		<!-- Application Start -->
+		<!-- Application Main -->
 		<script type="text/javascript">
 		$(document).ready(function() {
-			$t.main();
+			Taskforce.main();
 		}); 
 		</script>
 		
@@ -104,43 +101,6 @@
 
 	
 	<div id="groups">
-		<h3>Inbox</h3>
-		<ul>
-			<li class="selected" id="Inbox">
-				<img src="public/icons/inbox.png" alt="inbox" />
-				<span class="list-title">Inbox</span>
-				<span class="list-badge">0</span>
-			</li>
-
-		</ul>
-		<h3>Focus</h3>
-		<ul>
-			<li id="Today">
-				<img src="public/icons/today.png" alt="today" />
-				<span class="list-title">Today</span>
-				<span class="list-badge">0</span>
-			</li>
-			<li id="Upcoming">
-				<img src="public/icons/upcoming.png" alt="upcoming" />
-				<span class="list-title">Upcoming</span>
-				<span class="list-badge">0</span>
-			</li>
-			<li id="Someday">
-				<img src="public/icons/someday.png" alt="someday" />
-				<span class="list-title">Someday</span>
-				<span class="list-badge">0</span>
-			</li>
-			<li id="Projects">
-				<img src="public/icons/projects.png" alt="projects" />
-				<span class="list-title">Projects</span>
-				<span class="list-badge">0</span>
-			</li>
-		</ul>
-		<h3>Projects</h3>
-		<ul id="folders">
-		
-		</ul>
-		<h3>Shared</h3>
 		
 		<img src="public/images/button-splitter.png" class="ui-resizable-handle ui-resizable-e" id="splitter">
 	</div>

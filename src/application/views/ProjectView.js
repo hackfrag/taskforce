@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Project View
  *
- * @name Todo.v.Project
+ * @name Taskforce.v.Project
  * @type Object
  * @cat view
  */ 
@@ -48,10 +48,10 @@ $t.v({
 			container.append(badge);
 			
 			container.click(function() {
-				Todo.v.Project.setActive(project.id);
+				Taskforce.v.Project.setActive(project.id);
 			});
 			container.dblclick(function() {
-				Todo.c.Project.editDialog(project.id);
+				Taskforce.c.Project.editDialog(project.id);
 			});
 			
 			/**
@@ -60,15 +60,15 @@ $t.v({
 			container.contextMenu('project-context', {
 				bindings: {
 					'remove' : function(t) {
-						Todo.v.Project.setActive(project.id);						
-						Todo.c.Project.deleteDialog();
+						Taskforce.v.Project.setActive(project.id);						
+						Taskforce.c.Project.deleteDialog();
 					},
 					'edit' : function(t) {
-						Todo.c.Project.editDialog(project.id);
+						Taskforce.c.Project.editDialog(project.id);
 					},
 					'addTask' : function(t) {
-						Todo.v.Project.setActive(project.id);
-						Todo.c.Hotkey.addTodo();
+						Taskforce.v.Project.setActive(project.id);
+						Taskforce.c.Hotkey.addTodo();
 					}
 					
 				}
@@ -85,14 +85,14 @@ $t.v({
 			$('#folders > li').removeClass('selected');
 			project.addClass('selected');
 			
-			Todo.c.Sidebar.setActiveFolder('Project');
-			Todo.c.Project.setActiveProject(id);
+			Taskforce.c.Sidebar.setActiveFolder('Project');
+			Taskforce.c.Project.setActiveProject(id);
 			
 			$('#viewport').empty();
 			$('body').removeClass().addClass('today note');
-			$('#activ-tab').html(Todo.c.Project.getTitle(id));
+			$('#activ-tab').html(Taskforce.c.Project.getTitle(id));
 					
-			Todo.c.Project.load(id);
+			Taskforce.c.Project.load(id);
 			
 		},
 		remove: function(id) {

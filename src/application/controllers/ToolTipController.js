@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Tooltip controller
  *
- * @name Todo.c.ToolTip
+ * @name Taskforce.c.ToolTip
  * @type Object
  * @cat controller
  */ 
@@ -39,14 +39,14 @@ $t.c({
 			if(!this.active) {
 				this.clear();
 				this.active = true;
-				$('#tooltip').load(Todo.c.ToolTip.path + name +'.html', function(data) {
+				$('#tooltip').load(Taskforce.c.ToolTip.path + name +'.html', function(data) {
 					
 					$('#'+name).css('top',top+'px').css('left',left+'px').slideDown('fast',fn);	
 					
 				
 				});
 				$('#todo').bind('click', function() {
-					Todo.c.ToolTip.hide();
+					Taskforce.c.ToolTip.hide();
 				})
 			}
 			

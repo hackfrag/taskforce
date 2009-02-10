@@ -6,12 +6,13 @@
 	<script src="../src/library/jquery.js"></script>
 	<script type="text/javascript" src="../src/library/date/date.js"></script>
 	<script type="text/javascript" src="../src/library/active_record.js"></script>
-	<script src="../src/library/Todo/Todo.js"></script>
+	<script src="../src/library/Taskforce/Taskforce.js"></script>
 
 	
 	<!-- initialize the test runtime  -->
 	<script type="text/javascript">
-		$t.initRuntime('test');
+		Taskforce.debug = false;
+		Taskforce.initRuntime('test');
 	</script>
 
 	<!-- Scripts to Test -->
@@ -21,7 +22,7 @@
 		
 	<!-- setting the DB Relations  -->
 	<script type="text/javascript">
-		$t.initDbRelations();
+		Taskforce.initDbRelations();
 	</script>
 	
 	<!-- Test Units -->

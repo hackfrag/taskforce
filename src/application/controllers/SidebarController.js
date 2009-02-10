@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Sidebar controller
  *
- * @name Todo.c.Sidebar
+ * @name Taskforce.c.Sidebar
  * @type Object
  * @cat controller
  */ 
@@ -43,19 +43,50 @@ $t.c({
 		init: function() {
 			
 			
-			$('#Inbox').click(function() {
-				Todo.c.Sidebar.open('Inbox');			
+		
+			var inboxSection = $t.Sidebar.addSection('Inbox');
+			
+			$t.Sidebar.addItem(inboxSection, 'Inbox', {
+				icon: 'inbox.png',
+				label: 'Inbox',
+				click: function() {
+					Taskforce.c.Sidebar.open('Inbox');	
+				}
 			});
 			
+			var focusSection = $t.Sidebar.addSection('Focus');
 			
-			$('#Today').click(function() {
-				Todo.c.Sidebar.open('Today');
+			$t.Sidebar.addItem(focusSection, 'Today', {
+				icon: 'today.png',
+				label: 'Today',
+				click: function() {
+					Taskforce.c.Sidebar.open('Today');
+				}
 			});
 			
-	
-			$('#Upcoming').click(function() {
-				Todo.c.Sidebar.open('Upcoming');		
-			});
+			$t.Sidebar.addItem(focusSection, 'Upcoming', {
+				icon: 'upcoming.png',
+				label: 'Upcoming',
+				click: function() {
+					Taskforce.c.Sidebar.open('Upcoming');
+				}
+			});	
+			
+			$t.Sidebar.addItem(focusSection, 'Someday', {
+				icon: 'someday.png',
+				label: 'Someday',
+			});	
+			$t.Sidebar.addItem(focusSection, 'Projects', {
+				icon: 'projects.png',
+				label: 'Projects',
+			});					
+				
+
+			var projectSection = $t.Sidebar.addSection('Projects');
+			projectSection.attr('id','folders');
+			// init the project folder in the sidebar
+			Taskforce.c.Project.init();
+			
 			
 			
 			// Update Badges
@@ -63,15 +94,14 @@ $t.c({
 			
 			
 			// open Inbox as first View
-			Todo.c.Sidebar.open('Inbox');	
+			Taskforce.c.Sidebar.open('Inbox');	
 			
 			/**
 			 * init DropAbles: projects & today
 			 */
 			this.initDropAbles();
 			
-			// init the project folder in the sidebar
-			Todo.c.Project.init();
+			
 			
 			// Context Menu init
 			this.initContextMenu();
@@ -128,7 +158,7 @@ $t.c({
 				tolerance:'pointer',
 				drop: function(e, ui) {
 					var id = $(ui.draggable).attr('id').replace(/item-/i,"");
-					Todo.c.Item.setToday(id)
+					Taskforce.c.Item.setToday(id)
 				}
 			});
 		},
@@ -140,7 +170,7 @@ $t.c({
 				
 				bindings: {
 					'addTask' : function(t) {
-						Todo.c.Hotkey.addTodo();
+						Taskforce.c.Hotkey.addTodo();
 					}
 				}
 			});
@@ -148,7 +178,7 @@ $t.c({
 				
 				bindings: {
 					'addProject' : function(t) {
-						Todo.c.Project.addDialog();
+						Taskforce.c.Project.addDialog();
 					}
 				}
 			});
@@ -159,10 +189,11 @@ $t.c({
 		*
 		*/
 		updateBadges: function() {
-			Todo.c.Sidebar.setBadge(Todo.c.Inbox.getCount(), "Inbox");
-			Todo.c.Sidebar.setBadge(Todo.c.Today.getCount(), "Today");
-			Todo.c.Sidebar.setBadge(Todo.c.Upcoming.getCount(), "Upcoming");
-			Todo.c.Sidebar.updateProjectBadges();
+			$t.Sidebar.setBadge("Inbox", Taskforce.c.Inbox.getCount());
+			$t.Sidebar.setBadge("Today", Taskforce.c.Today.getCount());
+			$t.Sidebar.setBadge("Upcoming", Taskforce.c.Upcoming.getCount());
+			
+			Taskforce.c.Sidebar.updateProjectBadges();
 		},
 		
 		/**
@@ -171,11 +202,11 @@ $t.c({
 		updateProjectBadges: function() {
 			var projects;
 			
-			projects = Todo.m.Project.find();
+			projects = Taskforce.m.Project.find();
 			
 			$(projects).each(function(i, item) {
 			
-				Todo.c.Sidebar.setBadge(Todo.c.Project.getCount(item.id), "project-"+item.id);			
+				$t.Sidebar.setBadge("project-"+item.id, Taskforce.c.Project.getCount(item.id));			
 			})
 			
 		},
@@ -205,60 +236,16 @@ $t.c({
 		getActiveFolder: function() {
 			return activeFolder;
 		},
-		/**
-		* Change the Badge Count for a folder
-		*
-		* When no id is given, the current active folder will be taken
-		* 
-		* @param	Integer		Badge Coutn eg. 5 or 36
-		* @param	String		Folder Name eg. "Today", "Inbox"
-		* @return 	void
-		*/
-		setBadge: function(count, id) {
-			if(!id) {
-				id = this.getActiveFolder();
-			}
-			
-			var badge = $('#'+id).find('span.list-badge');
-			
-			if(count == 0) {
-				badge.hide();
-			} else {
-				badge.show().html(count);
-			}
-			
-			
-		},
-		/**
-		* Add +1 to the Badge count
-		*
-		* When no id is given, the current active folder will be taken
-		*
-		* @param	String		Folder Name eg. "Today", "Inbox"	
-		* @return 	void
-		*/	
-		riseBadgeCount: function(id) {
-			if(!id) {
-				id = Todo.Folder.getActiveFolder();
-			}
-			var badge = $('#'+id).find('span.list-badge');
-			var count = parseInt(badge.html()) +1;
-	
-			badge.show();
-			badge.html(count);
-			
-		},
+
 		/**
 		 * Opens the today/upcoming/inbox/project/view
 		 */
 		open: function(folder) {
 			
 			this.setActiveFolder(folder);
-			$('#folders > li').removeClass('selected');
-			$('#groups ul li').removeClass('selected');
-			$('#'+folder).addClass('selected');
+
 			
-			Todo.c[folder].init();
+			Taskforce.c[folder].init();
 		},
 	
 	}

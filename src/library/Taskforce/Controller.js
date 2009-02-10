@@ -15,26 +15,26 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.core
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.core
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
-Todo.c = function(controller) {
+Taskforce.c = function(controller) {
     if(typeof controller === 'object') {
         
 		var inherited;
         for(var i in controller) {
-            inherited = new Todo.c(i);
+            inherited = new Taskforce.c(i);
             jQuery.extend(inherited, controller[i]);
                         
             controller[i] = inherited;
         }
-		jQuery.extend(Todo.c, controller);
+		jQuery.extend(Taskforce.c, controller);
 	}
 }
-jQuery.extend(Todo.c.prototype, {
+jQuery.extend(Taskforce.c.prototype, {
 	
 	observers: {},
 	observe: function(event, fn) {

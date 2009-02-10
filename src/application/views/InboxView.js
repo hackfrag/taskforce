@@ -15,16 +15,16 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Item View
  *
- * @name Todo.v.Inbox
+ * @name Taskforce.v.Inbox
  * @type Object
  * @cat view
  */ 
@@ -34,7 +34,7 @@ $t.v({
 
 	Inbox: {
 		createHelpBox: function() {
-			$.get(Todo.templates + 'help/inboxHelp.html', function(data) {
+			$.get(Taskforce.templates + 'help/inboxHelp.html', function(data) {
 				$('#todo').append(data);
 			})
 		}		

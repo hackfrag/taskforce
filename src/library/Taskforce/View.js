@@ -15,25 +15,25 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.core
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.core
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
-Todo.v = function(view) {
+Taskforce.v = function(view) {
     if(typeof view === 'object') {
         
 		var inherited;
         for(var i in view) {
-            inherited = new Todo.v(i);
+            inherited = new Taskforce.v(i);
             jQuery.extend(inherited, view[i]);
                         
             view[i] = inherited;
         }
-		jQuery.extend(Todo.v, view);
+		jQuery.extend(Taskforce.v, view);
 	}
 }
-jQuery.extend(Todo.v.prototype, {
+jQuery.extend(Taskforce.v.prototype, {
 
 });
 

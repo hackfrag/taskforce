@@ -15,39 +15,39 @@
  *
  * @copyright		Copyright (c) 2009, Hackfrag
  * @link			
- * @package			Todo
- * @subpackage		Todo.controller
- * @since			Todo v 0.1
+ * @package			Taskforce
+ * @subpackage		Taskforce.controller
+ * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
  
 /**
  * Taskforce Project Model
  *
- * @name Todo.m.Project
+ * @name Taskforce.m.Project
  * @type Object
  * @cat model
  */ 
 
 
-if(Todo.test) {
+if(Taskforce.test) {
 	ActiveRecord.execute('DROP TABLE IF EXISTS projects');
 }
 
-Todo.m.Project = ActiveRecord.define('projects',{  
+Taskforce.m.Project = ActiveRecord.define('projects',{  
   	title: '',
   	start: '',
 	due: '',
   		 
 },{  
 	getOpenTasks: function() {
-		var items = Todo.m.Item.find({
+		var items = Taskforce.m.Item.find({
    			where: 'project = "'+ this.get('id') +'" AND status = "0"'
 		});
 		return items.length;
 	},
 	getCompletedTasks: function() {
-		var items = Todo.m.Item.find({
+		var items = Taskforce.m.Item.find({
    			where: 'project = "'+ this.get('id') +'" AND status = "1"'
 		});
 		return items.length;

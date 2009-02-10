@@ -5,7 +5,7 @@ module("Project");
 
 test("create a simple project", function() {
 	
-	var project = Todo.m.Project.create({
+	var project = Taskforce.m.Project.create({
 		title: 'test',
 	});
 	project.save();
@@ -22,14 +22,14 @@ test("create a simple project", function() {
 	equals(project.getDueDate().toString(), Date.today().toString());
 	
 	
-	
+	project.destroy();
 });
 
 
 test('open/closed items', function() {
 
 
-	var project = Todo.m.Project.create({
+	var project = Taskforce.m.Project.create({
 		title: 'test',
 	});
 	project.save();
@@ -62,6 +62,16 @@ test('open/closed items', function() {
 	equals(project.getOpenTasks(),3, "project should have 3 open task");
 	
 	equals(project.getCompletedPercent(), 40,"project is 40% completed");
+	
+	
+	task2.destroy();
+	task3.destroy();
+	task4.destroy();
+	task5.destroy();
+
+	
+	project.destroy();
+	
 })
 
 
