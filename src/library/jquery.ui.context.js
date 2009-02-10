@@ -21,9 +21,40 @@ $('li.item').context({
 	
 })
 
-$('li.item').context('add',{
+$t.addContext(Taskforce.Context.Task, {})
+
+$t.addContext(Taskforce.Context.Project, {});
+
+
+$t.addOption('twitter_name', 'hackfrag');
+$t.addOption('twitter_pwd', 'xxxx');
+
+$t.addContext(Taskforce.Context.Task, {
+	twitter: {
+		label : 'Send to twitter',
+		key : 'Ctrl+t',
+		fn : function(item) {
+			$.ajax('http://twitter.com?addtweet='+item.title);
+		} 
+	}
+});
+
+$t.Settings.AddSection('Twitter', {
+	icon: 'twitter.png',
+	template: 'twitter.html',
+	start: fuction() {
 	
+	},
+	save : function() {
+	
+	}
 })
+
+$t.Sidebar.addSection('Tweets', {
+	items: {
+		
+	}
+});
 
 */
 
