@@ -165,7 +165,7 @@ module("Item/Task");
 		
 		equals(Todo.m.Item.findByStartTomorrow(), 0);
 	});
-	test('starts tomorrow', function() {
+	test('starts next week', function() {
 		var task1 = Todo.m.Item.create({ title: 'task1'});
 		var task2 = Todo.m.Item.create({ title: 'task1'});
 		
@@ -190,7 +190,7 @@ module("Item/Task");
 		
 		equals(Todo.m.Item.findByStartNextWeek(), 0);
 	});
-	test('starts tomorrow', function() {
+	test('starts next month', function() {
 		var task1 = Todo.m.Item.create({ title: 'task1'});
 		var task2 = Todo.m.Item.create({ title: 'task1'});
 		
@@ -215,7 +215,7 @@ module("Item/Task");
 		
 		equals(Todo.m.Item.findByStartNextMonth(), 0);
 	});
-	test('starts tomorrow', function() {
+	test('starts someday', function() {
 		var task1 = Todo.m.Item.create({ title: 'task1'});
 		var task2 = Todo.m.Item.create({ title: 'task1'});
 		
@@ -223,9 +223,9 @@ module("Item/Task");
 		task1.save();
 		
 		
-		ok(task1.isStartSomeday(), 'task starts next month');
+		ok(task1.isStartSomeday(), 'task starts someday');
 		
-		ok(!task2.isStartSomeday(), 'task dont start next month ');
+		ok(!task2.isStartSomeday(), 'task dont starts someday ');
 		
 		
 		equals(Todo.m.Item.findByStartSomeday(), 1);
