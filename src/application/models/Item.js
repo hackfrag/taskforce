@@ -48,8 +48,8 @@ Taskforce.m.Item = ActiveRecord.define('items',{
  	project: '',
   	start: '',
 	due: '',
-	completed: ''
-  		 
+	completed: '',
+  	updated : ''	 
 },{  
 	
 /**
@@ -227,4 +227,27 @@ Taskforce.m.Item.findByStartSomeday = function(id) {
 	});
 }
 
+Taskforce.m.Item.getAllSinceLastSync = function() {
 
+	var lastSyncDate =  $t.getOption('lastSyncDate');
+	if(!lastSyncDate) {
+		return Taskforce.m.Item.find();
+	}
+	lastSyncDate = Date.parse(lastSyncDate).toString('yyyy-MM-dd HH:mm:ss');
+	
+	return Taskforce.m.Item.find({
+		where: "datetime(updated) > datetime('"+lastSyncDate+"') "
+	});
+}
+Taskforce.m.Item.sync = function(data) {
+	
+}
+
+
+/**
+ * Events
+ */
+Taskforce.m.Item.observe('beforeSave',function(item){  
+	ActiveRecord.execute('UPDATE items SET updated = datetime("now") WHERE id = "'+ item.id +'" ');
+
+}); 

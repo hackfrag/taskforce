@@ -22,12 +22,14 @@
 		<script type="text/javascript" src="library/Taskforce/Controller.js"></script>
 		<script type="text/javascript" src="library/Taskforce/View.js"></script>
 		<script type="text/javascript" src="library/Taskforce/Sidebar.js"></script>
-		
+		<script type="text/javascript" src="library/Taskforce/Sync.js"></script>
 		<script type="text/javascript">
 			Taskforce.initRuntime();
 		</script>
 
 		<!-- Application Javascript Controller/Models/Views -->
+		<script type="text/javascript" src="application/controllers/ViewController.js"></script>
+		
 		<script type="text/javascript" src="application/controllers/ToolTipController.js"></script>
 		<script type="text/javascript" src="application/controllers/HotkeyController.js"></script>
 		<script type="text/javascript" src="application/controllers/SidebarController.js"></script>
@@ -101,10 +103,12 @@
 
 	
 	<div id="groups">
+	
 		
 		<img src="public/images/button-splitter.png" class="ui-resizable-handle ui-resizable-e" id="splitter">
 	</div>
 	<div id="header">
+	
 		<div id="navigation">
 			<ul>
 				<li><a href="#"><span id="activ-tab">Inbox</span></a></li>
@@ -131,7 +135,54 @@
 		<div id="viewport">
 		
 		</div>
+		
+		<div id="context-slider" class="context hint" style="display:none;">
+			
+		</div>
+		
+		<div id="hints" style="display:none;">
+			<a href="#" class="hint-button">
+				<span><em>spc</em>Complete</span>
+			</a>
+			<a href="#" class="hint-button">
+				<span><em>X</em>Cancel</span>
+			</a>
+			<a href="#" class="hint-button">
+				<span><em>T</em>Today</span>
+			</a>
+			<a href="#" class="hint-button">
+				<span><em>B</em>Begin</span>
+			</a>
+			<a href="#" class="hint-button">
+				<span><em>tab</em>Edit</span>
+			</a>
+			
+		
+			
+			<div id="search">
+				<input type="text" value="" id="q" name="q">
+			</div>
+		</div>
+		
+		<div id="filter" style="display:none;">
 	
+			<a href="#" class="tag">
+				<em>3</em> <span>Home</span>
+			</a>
+			<a href="#" class="tag active">
+				<em>3</em> <span>TYPO3</span>
+			</a>
+			<a href="#" class="tag">
+				<em>3</em> <span>Home</span>
+			</a>
+			<a href="#" class="tag active">
+				<em>3</em> <span>TYPO3</span>
+			</a>
+			
+			<div id="search">
+				<input type="text" value="" id="q" name="q">
+			</div>
+		</div>
 		
 	</div>
 	<div id="footer">
@@ -146,7 +197,18 @@
 			
 		</div>
 		-->
-	
+		<div id="main-footer">
+			<div class="toolbar-button" id="button-hint">
+			
+			</div>
+			<div class="toolbar-button" id="button-filter">
+			
+			</div>
+			<div id="total-items">
+				<span></span>
+			</div>
+		</div>
+		
 		
 	</div>
 	

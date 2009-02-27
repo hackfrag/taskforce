@@ -40,7 +40,7 @@ $t.v({
 			if(item.project) {
 				projectName = Taskforce.m.Project.find(item.project).title;
 			} else {
-				projectName = "no project";
+				projectName = "";
 			}
 		
 			project	= $('<span>').addClass('todo-parent').html(projectName);
@@ -104,7 +104,7 @@ $t.v({
 			
 		
 			var container = $('<li>');
-			container.attr('id', 'item-'+item.id);	
+			//container
 			
 			
 			/**
@@ -117,9 +117,24 @@ $t.v({
 			if (item.status == 1) {
 				status.addClass('done');
 				container.addClass('done');
+				
 			} else if (item.status == -1) {
 				status.addClass('canceled');
+				
+			} else {
+				
+				/**
+				 * Checks if the task is pastDue
+			 	 */
+				if(item.due != '' && Date.parse(item.due).isBefore(Date.today())) {
+					status.addClass('pastdue');
+				}
+			
 			}
+			
+			
+			
+			
 			if(startDate) {
 				if( Date.equals(Date.parse(startDate), new Date(Date.today())) ) {
 					container.addClass('today');
@@ -168,16 +183,20 @@ $t.v({
 				}
 			});
 			
+			var divContainer = $('<div>');
 			
+			divContainer.attr('id', 'item-'+item.id);	
 			
 			container.addClass('item');		  
-			container.append(project);
-			container.append(prio);	 
-			container.append(title);
+			divContainer.append(project);
+			divContainer.append(prio);	 
+			divContainer.append(title);
 			
-			container.append(start);
-			container.append(due);
+			divContainer.append(start);
+			divContainer.append(due);
 			
+			
+			container.append(divContainer);
 			
 			return container;		
 		},
@@ -207,24 +226,20 @@ $t.v({
 		},
 		
 		setArrayActive: function(array) {
-			
-			var items = [];
-			
-						
+							
 			
 			
 			this.endEdit();
 			this.endActive();
 			
 			$(array).each(function(i, item) {
-				items.push($(item).attr('id').replace(/item-/i,""))
-				
-				$(item).addClass('active');
+					
+				$('#item-'+ item).addClass('active');
 			})
-			console.log(items);
-			Taskforce.c.Item.setActiveItem(items);
+			
+			Taskforce.c.Item.setActiveItem(array);
 		},
-		/**
+		/*asdasd*
 		* Sets the item on edit mode
 		*
 		* - A Form + Input will injected
@@ -274,11 +289,30 @@ $t.v({
 			title.hide();
 			
 		},
+		setPastDue: function(id, flag) {
+			var item, checkbox;
+			
+			item 		= $('#item-'+id);
+			checkbox	= item.find('span.checkbox');
+			
+			if(flag) {
+				checkbox.addClass('pastdue');
+			} else {
+				checkbox.removeClass('pastdue');
+			}
+		},
 		move: function(id, section) {
 		
 			var item, section, oldSection;
 			
 			item = $('#item-'+id);
+			
+			if(section == "past") {
+				Taskforce.v.Item.setPastDue(id, true)
+			} else {
+				Taskforce.v.Item.setPastDue(id, false)
+			}
+			
 			oldSection = item.parent().parent();
 			
 			if(section == "") {
@@ -312,6 +346,9 @@ $t.v({
 			);
 			
 			$(items).each(function(i, item) {
+				
+				
+				
 				list.append(
 					Taskforce.v.Item.create(item)
 				)
@@ -331,16 +368,25 @@ $t.v({
 			this.initDragAbles('#section-'+id+' > ul li');
 			
 			/*
+			var selectedItems  = [];
+			
 			$('#section-'+id).selectable({
 				filter: 'li.item',
 				selected: function(event, ui){
-					console.log(ui);
-					Taskforce.v.Item.setArrayActive(ui.selected);
+					//selectedItem.push(ui.selected);
+					
+					
+					selectedItems.push($(ui.selected).attr('id').replace(/item-/i,""))
+					
+					//Taskforce.v.Item.setArrayActive(ui.selected);
+				},
+				stop: function() {
+					console.log(selectedItems);
+					Taskforce.v.Item.setArrayActive(selectedItems);
 				}
 			});
 			*/
-		
-
+			
 			
 		},
 		showPrioToolTip: function(id) {
@@ -396,11 +442,7 @@ $t.v({
 				helper: function() {
 				
 					var clone = $(this).clone().appendTo('body');
-					clone.find('span.todo-start').remove();
-					clone.find('span.todo-due').remove();
-					clone.find('span.todo-parent').remove();
-					clone.find('span.todo-prio').remove();
-					clone.find('span.checkbox').remove();
+				
 					clone.removeClass('active');
 					clone.addClass('clone');
 					
@@ -410,8 +452,8 @@ $t.v({
 				zIndex: 999999,
 				opacity: 0.8,
 				cursorAt: {
-					top:0,
-					left:20
+					top:20,
+					left:40
 				}
 				
 				

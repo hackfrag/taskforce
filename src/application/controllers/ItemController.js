@@ -278,15 +278,32 @@ $t.c({
 					// make un-done;
 					checkbox.removeClass('done');
 					domItem.removeClass('done');
+					
 					item.setStatus(0);
+					item.save();
+					if(item.isPastDue()) {
+			
+						Taskforce.v.Item.setPastDue(id, true);
+					}
+					
 		
 				} else if (checkbox.hasClass('canceled')) {
 					// make un-done
 					checkbox.removeClass('canceled');
+					
 					item.setStatus(0);
+					item.save();
+					
+					if(item.isPastDue()) {
+						Taskforce.v.Item.setPastDue(id, true);
+					}
+					
+					
 			
 				} else {
+					checkbox.removeClass('pastdue');
 					checkbox.addClass('done');
+					
 					domItem.addClass('done');
 					item.setStatus(1);
 				}	
@@ -295,6 +312,12 @@ $t.c({
 					case 0:
 						checkbox.removeClass().addClass('checkbox');
 						item.setStatus(0);
+						item.save();
+						
+						if(item.isPastDue()) {
+							Taskforce.v.Item.setPastDue(id, true);
+						}
+						
 						break;
 					case 1:
 						checkbox.removeClass().addClass('checkbox done');
@@ -303,10 +326,15 @@ $t.c({
 					case -1:
 						checkbox.removeClass().addClass('checkbox canceled');
 						item.setStatus(-1);
-						break;
+						break;				
 					default:
 						checkbox.removeClass().addClass('checkbox');
 						item.setStatus(0);
+						item.save();
+						
+						if(item.isPastDue()) {
+							Taskforce.v.Item.setPastDue(id, true);
+						}
 				}
 			}
 			

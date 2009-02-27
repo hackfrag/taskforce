@@ -36,6 +36,8 @@ $t.c({
 		*/
 		init: function() {
 			
+			Taskforce.c.View.init();
+			
 			$('body').removeClass().addClass('inbox note')
 
 			
@@ -80,7 +82,18 @@ $t.c({
 				var item = $('#item-'+item.id);
 				item.hide();
 				Taskforce.c.Sidebar.updateBadges();
-			})
+			});
+			Taskforce.c.Item.observe('afterDateChanged', function(item) {
+
+				if(item.isPastDue()) {
+					Taskforce.v.Item.setPastDue(item.id, true);
+				} else {
+					Taskforce.v.Item.setPastDue(item.id, false);
+				}				
+				
+			});
+			
+			$('#total-items').html(items.length+ ' tasks');
 	
 								
 		},

@@ -85,11 +85,18 @@ $t.c({
 			
 			
 			Taskforce.c.Item.observe('afterDateChanged',function(item){
-    			Taskforce.c.Upcoming.editObserver(item.id)
+    			Taskforce.c.Upcoming.editObserver(item.id);
+    			
+    			if(item.isPastDue()) {
+					Taskforce.v.Item.setPastDue(item.id, true);
+				} else {
+					Taskforce.v.Item.setPastDue(item.id, false);
+				}
+				
 			});
 			Taskforce.c.Item.observe('afterStatusChanged',function(item){
-    			Taskforce.c.Upcoming.editObserver(item.id)
-			});
+    			Taskforce.c.Upcoming.editObserver(item.id);
+    		});
 								
 		},
 		/**

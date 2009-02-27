@@ -80,4 +80,15 @@ Taskforce.m.Project = ActiveRecord.define('projects',{
 	
 	
 });
+Taskforce.m.Project.getAllSinceLastSync = function() {
+
+	var lastSyncDate =  $t.getOption('lastSyncDate');
+	if(!lastSyncDate) {
+		return Taskforce.m.Project.find();
+	}
+	
+	return Taskforce.m.Project.find({
+		where: "datetime(updated) > datetime('"+lastSyncDate+"') "
+	});
+}
 

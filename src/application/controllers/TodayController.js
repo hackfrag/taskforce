@@ -59,7 +59,7 @@ $t.c({
 			/**
 			* Past due block
 			*/
-			items = Taskforce.m.Item.find({where: " date(due) < date('now') AND due != '' AND status = '0'"});
+			items = Taskforce.m.Item.findByPastDue();
 			
 			Taskforce.v.Item.createSection(items,'past','Past due'); 
 			
@@ -67,28 +67,28 @@ $t.c({
 			/**
 			* Still working on'
 			*/
-			items = Taskforce.m.Item.find({where: "date(start) < date('now') AND status = '0' AND date(start) != '' AND ( due = '' OR date(due) >= date('now') ) "});
+			items = Taskforce.m.Item.findByWorkingOn();
 			Taskforce.v.Item.createSection(items,'working','Still working on'); 	
 			
 			////////////////////////////
 			/**
 			* Start today
 			*/
-			items = Taskforce.m.Item.find({where: "date(start) = date('now') AND status = '0' AND (date(due) >= date('now') OR due = '') "});
+			items = Taskforce.m.Item.findByStartToday();
 			Taskforce.v.Item.createSection(items,'today','Start today'); 	
 				
 			////////////////////////////
 			/**
 			* completed today
 			*/
-			items = Taskforce.m.Item.find({where: "date(completed) = date('now') AND status = '1' "});
+			items = Taskforce.m.Item.findByCompletedToday();
 			Taskforce.v.Item.createSection(items,'completed-today','Completed today'); 	
 			
 			////////////////////////////
 			/**
 			* completed yesterday
 			*/
-			items = Taskforce.m.Item.find({where: "date(completed) = date('now','-1 day') AND status = '1' "});
+			items = Taskforce.m.Item.findByCompletedYesterday();
 			Taskforce.v.Item.createSection(items,'completed-yesterday','Completed yesterday'); 
 			
 			

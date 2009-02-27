@@ -39,9 +39,7 @@ Taskforce.m.Option = ActiveRecord.define('options',{
   	value: '',
   		 
 },{  
-	isTrue: function() {
-		
-	},
+
 });
 
 Taskforce.m.Option.getValue = function(name) {
@@ -55,9 +53,16 @@ Taskforce.m.Option.setValue = function(name, value) {
 	var option = Taskforce.m.Option.findByName(name);
 	
 	if(option) {
+		
 		option.set('value', value);
 		option.save();
 		return true;
+	} else {
+		alert(value);
+		option = Taskforce.m.Option.create({
+			'name'	: name,
+			'value'	: value
+		});
 	}
 }
 
@@ -66,5 +71,5 @@ $t.getOption = function(name) {
 	return Taskforce.m.Option.getValue(name);
 }
 $t.setOption = function(name, value) {
-	return Taskforce.m.Option.getValue(name);
+	return Taskforce.m.Option.setValue(name, value);
 }

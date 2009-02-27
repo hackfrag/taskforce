@@ -78,11 +78,27 @@ $t.c({
 			
 			////////////////////////////
 			/**
-			* Inbox
+			* all task for this project
 			*/
 			items = Taskforce.m.Item.find({where:'project = "'+ id +'"',order:'prio DESC'})
 			
-			Taskforce.v.Item.createSection(items,'project',project.title); 			
+			Taskforce.v.Item.createSection(items,'project',project.title);
+			
+			
+			/**
+			 * Observer
+			 */
+			Taskforce.c.Item.observe('afterDateChanged', function(item) {
+
+				if(item.isPastDue()) {
+					Taskforce.v.Item.setPastDue(item.id, true);
+				} else {
+					Taskforce.v.Item.setPastDue(item.id, false);
+				}				
+				
+			});
+
+			 			
 		},
 		/**
 		* Add a new Todo to this project

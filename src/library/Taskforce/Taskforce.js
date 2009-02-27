@@ -52,7 +52,12 @@ var Taskforce = {
   	 * @name debug
   	 * @type Bool
   	 */
-	debug: true,
+	debug: false,
+	
+	/**
+	 * Online Flag
+	 */
+	online: true,
 	
 	/**
 	 * Test flag
@@ -195,7 +200,23 @@ var Taskforce = {
 		Taskforce.c.Sidebar.init();
 		Taskforce.c.Hotkey.init();
 		
-		
+		/*
+		window.setInterval(function() {
+			
+			if(!Taskforce.Sync.isSyncing()) {
+				Taskforce.Sync.start();
+			}
+			
+		}, 10000);
+		*/
+		/*
+		window.setInterval(function() {
+	
+			Taskforce.checkConnection();
+			
+		}, 3000)
+		*/	
+		/*
 		$.get(Taskforce.templates + 'help/instruction.html', function(data) {
 				
 			$(data).panel({
@@ -208,8 +229,34 @@ var Taskforce = {
 			});
 		})
 		
+		*/
 		
     	    
+	},
+	checkConnection : function() {
+		
+	
+		if(navigator.onLine != undefined && !navigator.onLine) {
+			Taskforce.online = false;
+			console.log('offline');
+			return;
+		}
+		
+		$.ajax({
+			url: 'http://api.flickr.com/services/feeds/photos_public.gne?tags=kwodnvlsjfa&tagmode=any&format=json&jsoncallback=?',
+			cache: false,
+			dataType: 'jsonp',
+			success: function(data) {
+				Taskforce.online = true;
+				console.log('online');
+			},
+			error: function() {
+				Taskforce.online = false;
+				console.log('offline');
+			},		
+			timeout: 1000,
+			
+		})
 	},
 	///////////////////////////////////////////////////////////////
 	/**

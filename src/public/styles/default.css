@@ -151,6 +151,16 @@ p {
 	border-top:1px solid #cacaca;
 	
 }
+#main-footer {
+	margin-left: 200px;
+}
+
+#total-items {
+	float:right;
+	margin:5px 30px 0px 0px;
+	font-size:10px;
+	color:#000;
+}
 
 #footer div.toolbar-button {
 	width: 28px;
@@ -161,10 +171,10 @@ p {
 #footer div.toolbar-button:hover {
 	background-position: center bottom;
 	cursor:pointer;
-	border-right:1px solid #555;
+	border-right:1px solid #666;
 }
 #footer div.active {
-	background-position: center bottom;
+	background-position: left -22px;
 }
 
 #button-add {
@@ -178,9 +188,15 @@ p {
 }
 #button-action {
 	background-image: url(../images/button-remove.png);
-	
 }
-
+#button-hint {
+	width: 69px !important;
+	background-image: url(../images/button-hint.png);
+}
+#button-filter {
+	width: 71px !important;
+	background-image: url(../images/button-filter.png);
+}
 
 /******************************************/
 /**
@@ -302,7 +318,7 @@ p {
 	z-index: 5;
 	
 }
-#todo ul li {
+li.item {
 	/*border-bottom:1px solid #c7dbc5;*/
 	position: relative;
 }
@@ -337,27 +353,27 @@ p {
 /**
 * Item Style
 */
-#todo ul li.item {
+li.item {
 	display: block;
-	height:29px;
+	min-height:29px;
 }
 	
 
-#todo ul li span {
+li.item span {
 	padding-top:9px;
 	display:block;
 }
-#todo ul li.today span {
+li.today span {
 	font-weight:bold;
 }
-#todo ul li.today input {
+li.today input {
 	font-weight:bold;
 }
 /******************************************/
 /**
 * Item Prio
 */
-#todo ul li span.todo-prio {
+li.item span.todo-prio {
 	position: absolute;
 	border:1px solid #a0a0a0;
 	-moz-border-radius: 2px;
@@ -400,26 +416,26 @@ span.todo-prio.prio6 {
 }
 
 /******************************************/
-#todo ul li span.todo-prio.prio0 {
+li.item span.todo-prio.prio0 {
 	border-color: transparent;
 	color: transparent;
 }
-#todo ul li.done span.todo-prio.prio0 {
+li.done span.todo-prio.prio0 {
 	color: transparent !important;
 }
-#todo ul li span.todo-prio:hover {
+li.item span.todo-prio:hover {
 	border-color:#333;
 	background: #fff;
 	display: block;
 }
-#todo ul li span.todo-prio.prio0:hover {
+li.item span.todo-prio.prio0:hover {
 	border:1px solid #a0a0a0;
 	color:#333333 !important;
 	background: transparent;
 }
 
 
-#todo ul li span.todo-parent {
+li.item span.todo-parent {
 	position: absolute;
 	top:7px;
 	padding:0px !important;
@@ -430,21 +446,21 @@ span.todo-prio.prio6 {
 	z-index:12;
 }
 
-#todo ul li span.todo-title {
+li.item span.todo-title {
 	padding-right:240px;
 	position: relative;
 }
-#todo ul li span.todo-title a {
+li.item span.todo-title a {
 	padding-left:5px;
 	outline: none;
 }
-#todo ul li span.todo-title input {
+li.item span.todo-title input {
 	position: absolute;
 	top:6px;
 	outline: none;
 	
 }
-#todo ul li input.todo-title {
+li.item input.todo-title {
 	margin-top:6px;
 	margin-left:56px;
 	font-size: 12px;
@@ -456,7 +472,7 @@ span.todo-prio.prio6 {
 	
 	margin-right:240px;
 }
-#todo ul li span.todo-start {
+li.item span.todo-start {
 	position: absolute;
 	top:0px;
 	right:120px;
@@ -465,7 +481,7 @@ span.todo-prio.prio6 {
 	padding-bottom: 5px;
 }
 
-#todo ul li span.todo-due {
+li.item span.todo-due {
 	position: absolute;
 	top:0px;
 	right:0px;
@@ -473,8 +489,8 @@ span.todo-prio.prio6 {
 	text-align: center;
 	padding-bottom: 5px;
 }
-#todo ul li span.todo-start input,
-#todo ul li span.todo-due input {
+li.item span.todo-start input,
+li.item span.todo-due input {
 	background: transparent;
 	border:0px;
 	width:120px;
@@ -491,28 +507,36 @@ span.todo-prio.prio6 {
 /**
 * Done Style
 */
-#todo ul li.item.done span {
+li.item.done span {
 	color: #999;
 	font-weight:normal !important;
 }
-#todo ul li.item.done input {
+li.item.done input {
 
 	font-weight:normal !important;
 }
-#todo ul li.item.done span.todo-title a {
+li.item.done span.todo-title a {
 	text-decoration: line-through;
 	color:#999;
 }
-#todo ul li.item.done input {
+li.item.done input {
 	color: #999;
 }
+/******************************************/
 
+/**
+ * Children Styles
+*/
 
+li.item ul {
+	background: none !important;
+	margin-top:5px;
+}
 /******************************************/
 /**
 * Edit Style
 */
-#todo ul li.item.edit {
+li.item.edit {
 	border:1px solid #768aa5;
 	-moz-border-radius: 5px;
 	-webkit-border-radius:5px;
@@ -520,7 +544,7 @@ span.todo-prio.prio6 {
 	margin:1px;
 	height:25px;
 }
-#todo ul li.item.edit span {
+li.item.edit span {
 	padding-top: 7px;
 	padding-bottom:3px;
 }
@@ -599,7 +623,7 @@ body.note #todo div.line {
 	background: transparent url('../images/layer_bg.gif') repeat-y right top;
 	left:40px;
 }
-body.note #todo ul li span.todo-prio {
+body.note li.item span.todo-prio {
 	left:13px;
 }
 body.note #todo ul li.item.edit span.todo-prio,
@@ -608,10 +632,10 @@ body.note #todo ul li.item.edit span.todo-parent {
 	left:11px;
 }
 
-body.note #todo ul li span.todo-title {
+body.note li.item span.todo-title {
 	padding-left:60px;
 }
-body.note #todo ul li span.todo-title input {
+body.note li.item span.todo-title input {
 	left:60px;
 }
 
@@ -630,7 +654,7 @@ body.note #todo ul li.item.active span.todo-start {
 body.note #todo ul li.item.edit {
 	padding-left:0px;
 }
-body.note #todo ul li span.todo-parent {
+body.note li.item span.todo-parent {
 	display:none;
 }
 body.note #todo hr {
@@ -653,7 +677,7 @@ body.plain #todo div.line {
 	background:transparent url(../images/layer_bg.gif) repeat-y scroll right top;
 	left:130px;
 }
-body.plain #todo ul li span.todo-prio {
+body.plain li.item span.todo-prio {
 	left:108px;
 }
 body.plain #todo ul li.item.edit span.todo-prio {
@@ -664,10 +688,10 @@ body.plain #todo ul li.item.edit span.todo-parent {
 	top:5px;
 	left:3px;
 }
-body.plain #todo ul li span.todo-title {
+body.plain li.item span.todo-title {
 	padding-left:140px;
 }
-body.plain #todo ul li span.todo-title input {
+body.plain li.item span.todo-title input {
 	left:140px;
 }
 
@@ -686,10 +710,48 @@ body.plain #todo ul li.item.active span.todo-start {
 body.plain #todo ul li.item.edit {
 	padding-left:80px;
 }
-body.plain #todo ul li span.todo-parent {
+body.plain li.item span.todo-parent {
 	display:block;
 }
 /******************************************/
+
+
+
+/**
+* Checkbox
+*/
+span.checkbox {
+	display:block;
+	float:left;
+	width:15px;
+	height:15px;
+	padding:0px !important;	
+}
+span.checkbox {
+	background: transparent url('../images/checkbox.png') no-repeat scroll left top;
+}
+span.checkbox.canceled {
+	background: transparent url('../images/checkbox.png') no-repeat scroll left -15px;
+}
+span.checkbox.done {
+	background: transparent url('../images/checkbox.png') no-repeat scroll left -30px;
+}
+span.checkbox.pastdue {
+	background: transparent url('../images/checkbox.png') no-repeat scroll left -45px;
+}
+
+
+/**
+* jquery ui
+*/
+.ui-datepicker {
+	z-index:99999;
+}
+
+div.ui-slider {
+	background: #fff url('../images/slider_bg.gif') repeat-x !important;
+}
+
 
 
 
@@ -730,37 +792,6 @@ div.tooltip input {
 
 #prio-slider {
 	display:none;
-}
-/**
-* Checkbox
-*/
-span.checkbox {
-	display:block;
-	float:left;
-	width:15px;
-	height:15px;
-	padding:0px !important;	
-}
-span.checkbox {
-	background: transparent url('../images/checkbox.gif') no-repeat scroll left top;
-}
-span.checkbox.canceled {
-	background: transparent url('../images/checkbox.png') no-repeat scroll left -15px;
-}
-span.checkbox.done {
-	background: transparent url('../images/checkbox.png') no-repeat scroll left -30px;
-}
-
-
-/**
-* jquery ui
-*/
-.ui-datepicker {
-	z-index:99999;
-}
-
-div.ui-slider {
-	background: #fff url('../images/slider_bg.gif') repeat-x !important;
 }
 
 /**
@@ -994,4 +1025,129 @@ table.stats span.num {
 }
 table.stats span.label {
 	color:#777777;
+}
+
+
+/**
+ * Context Slider
+ */ 
+div.context {
+	height:39px;
+	background:#000;
+	position: fixed;
+	bottom:22px;
+	width: 100%;
+	z-index:15;
+	color:#aeaeae;
+}
+div.context.hint {
+	background: #000 url('../images/hint-bg.png');
+}
+
+
+a.hint-button {
+	margin: 9px 0px 0px 7px;
+	background: #000 url('../images/hint-button.gif') no-repeat left top;
+	float:left;
+	padding:0 0 0 22px;
+	position: relative;
+}
+a.hint-button span {
+	display:block;
+	float:left;
+	background: transparent url('../images/hint-button.gif') no-repeat right -21px;
+	padding:4px 6px 4px 7px;
+	font-size:11px;
+	color:#fff;
+
+}
+a.hint-button span em {
+	position: absolute;
+	left: 0px;
+	top: 5px;
+	font-size:9px;
+	color:#fff;
+	display: block;
+	width:20px;
+	text-align: center;
+	float:left;
+}
+a.hint-button.disabled span {
+	color:#aeaeae;
+}
+
+a.hint-button.disabled span em {
+	color:#aeaeae;
+}
+
+#search {
+	margin: 9px 0px 0px 7px;
+	height:23px;
+	background: url('../images/search.png') no-repeat;
+	width:136px;
+	position: absolute;
+	right:230px;
+	
+}
+#search input {
+	width:95px;
+	height:17px;
+	padding:0px;
+	border:0px;
+	display:inline;
+	color:#fff;
+	background: transparent;
+	margin:3px 0px 0px 20px;
+}
+#search input:focus {
+	outline:0px;
+}
+
+/**
+ * Tag styles in hint bar
+ */
+a.tag {
+	margin: 12px 0px 0px 7px;
+
+	float:left;
+	border:1px solid #323232;
+	-moz-border-radius: 8px;
+	-webkit-border-radius:8px;
+	background: url('../images/tag-bg.gif') repeat-x left top;
+	color:#ccc;
+}
+a.tag em {
+	background: #5d5d5d;
+	-moz-border-radius: 5px;
+	-webkit-border-radius:5px;
+	min-width:17px;
+	text-align: center;
+	margin: 1px 2px;
+	display: block;
+	float:left;
+	font-size:10px;
+	color:#fff;
+	font-style: normal;
+}
+a.tag span {
+	font-size:10px;
+	margin: 1px 7px 0px 3px;
+	display: block;
+	float:left;
+}
+
+a.tag:hover {
+	background: url('../images/tag-bg.gif') repeat-x left -16px;
+}
+a.tag:focus {
+	outline:0px;
+}
+a.tag.active {
+	background: url('../images/tag-bg.gif') repeat-x left -32px;
+	border: 1px solid #5b797e;
+	color: #000;
+}
+a.tag.active em {
+	background: #759fb1;
+	color:#fff;
 }

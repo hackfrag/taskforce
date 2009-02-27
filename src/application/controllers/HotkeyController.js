@@ -33,11 +33,11 @@ $t.c({
 	Hotkey: {
 	
 		init: function() {		
-			$(document).bind('keydown',this.globalHotkeys);
-								
+			$(document).bind('keydown',this.globalHotkeys);								
 		},
+
 		globalHotkeys: function(event){
-		
+			console.log(event.keyCode);
 			switch (event.keyCode) {
 				case 78:
 					if (event.ctrlKey) {
@@ -52,10 +52,11 @@ $t.c({
 				case 32: 
 					Taskforce.c.Hotkey.setTodoStatus();
 					break;
-				case 69: 
-					if (event.ctrlKey) {
-						Taskforce.c.Hotkey.editTodo();
-					}
+				case 9: 
+			
+					Taskforce.c.Hotkey.editTodo();
+					
+					event.preventDefault();
 					break;
 				case 27: 
 					Taskforce.c.Hotkey.cancel();
@@ -65,6 +66,12 @@ $t.c({
 					break;
 				case 40: 
 					Taskforce.c.Hotkey.moveCursorDown();
+					break;
+				case 84: 
+					Taskforce.c.Hotkey.setTodoToday();
+					break;
+				case 80: 
+					Taskforce.c.Hotkey.moveToProject();
 					break;
 				default:
 					
@@ -116,15 +123,18 @@ $t.c({
 		},
 		editTodo: function() {
 			var active = Taskforce.c.Item.getActiveItem();
-				
-			if(active.length == 1 || !(active instanceof Array)) {
-				Taskforce.v.Item.setEdit(active);
+			
+			if($('li.item.edit').length != 1) {
+				if(active.length == 1 || !(active instanceof Array)) {
+			
+					Taskforce.v.Item.setEdit(active);
+				}
 			}
 		},
 		setTodoToday: function() {
 			var active = Taskforce.c.Item.getActiveItem();
 			
-			if($('li.item.edit').length) {
+			if($('li.item.edit').length != 1) {
 				if(active.length == 1 || !(active instanceof Array)) {
 					Taskforce.c.Item.setToday(active);
 				}
@@ -145,7 +155,16 @@ $t.c({
 		},
 		moveCursorDown: function() {
 			Taskforce.c.Item.moveCursor('down');	
-		}	
+		},
+		moveToProject : function() {
+			var active = Taskforce.c.Item.getActiveItem();
+			
+			if($('li.item.edit').length == 0) {
+				if(active.length == 1 || !(active instanceof Array)) {
+					console.log('move to project');
+				}
+			}
+		},
 	
 	}
 

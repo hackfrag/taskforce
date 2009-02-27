@@ -138,6 +138,7 @@ $t.c({
 					$('#todo').css('left',$(ui.element).width()+1);
 					$('#header').css('left',$(ui.element).width()+1);
 					$('#splitter').css('left',$(ui.element).width()-17)
+					$('#main-footer').css('margin-left',$(ui.element).width())
 				},
 				
 				handles: {

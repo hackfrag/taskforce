@@ -27,13 +27,13 @@ body {
 	}
 	#icon {
 		position: absolute;
-		right:10px;
-		top:10px;
+		right:-20px;
+		top:0px;
 	}
 	#download {
 		position: absolute;
-		left:420px;
-		top:70px;
+		left:410px;
+		top:60px;
 	}
 	#download img {
 		margin-right:15px;
@@ -78,22 +78,25 @@ body {
 		margin-left:20px;
 	}
 a {
-	color:#0c487c;
-	text-decoration: none;
+	color:#0983D1;
+	text-decoration:none;
 }
 a:hover {
-	color:#0c487c;
-	text-decoration: underline
+	color:#0983D1;
+	text-decoration:none;
 }
 p {
 	margin-bottom:15px;
+	line-height:24px;
 }
 
 ul {
 	margin-bottom:10px;
 }
 h2 {
+	color:#2C2B2B;
+	font-size:1.2em;
 	font-weight:bold;
-	font-size:1em;
-	margin-bottom:10px;
+	margin:1em 0 0.3em;
+	text-shadow:0 0 1px white;
 }
