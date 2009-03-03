@@ -180,6 +180,9 @@ p {
 #button-add {
 	background-image: url(../images/button-add.png);
 }
+#button-info {
+	background-image: url(../images/button-info.png);
+}
 #button-remove {
 	background-image: url(../images/button-remove.png);
 }
@@ -202,7 +205,7 @@ p {
 /**
 * Sidebar
 */
-#groups {
+#sidebar {
 	top: 0;
 	left: 0;
 	bottom: 23px;
@@ -212,7 +215,7 @@ p {
 	background-color: #d1dde5;	
 	z-index:5;
 }
-#groups h3 {
+#sidebar h3 {
 	padding: 0 12px;
 	margin: 8px 0 6px;
 	font-size: 11px;
@@ -221,7 +224,7 @@ p {
 	color:#616e7f;
 	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-#groups li {
+#sidebar li {
 	color: #222;
 	font-size: 11px;
 	line-height: 11px;
@@ -230,7 +233,7 @@ p {
 	cursor: pointer;
 }
 #folders li.drophover,
-#groups li.drophover {
+#sidebar li.drophover {
 	background: #c7d6f1;
 	border:2px solid #4359d1;
 	padding: 2px 4px 3px 23px;
@@ -238,22 +241,22 @@ p {
 	-webkit-border-radius:5px;
 }
 #folders li.drophover img,
-#groups li.drophover img {
+#sidebar li.drophover img {
 	top:0px;
 }
-#groups li.drophover span.list-badge {
+#sidebar li.drophover span.list-badge {
 	top:0px;
 	right:8px;
 }
 
-#groups li img{
+#sidebar li img{
 	position: absolute;
 	top:2px;
 }
-#groups li span.list-title {
+#sidebar li span.list-title {
 	padding-left:20px;
 }
-#groups li span.list-badge {
+#sidebar li span.list-badge {
 	position: absolute;
 	right:10px;
 	top:2px;
@@ -270,14 +273,14 @@ p {
 	text-align: center;
 }
 
-#groups li.selected {
+#sidebar li.selected {
 	color: #fff;
 	font-weight: bold;
 	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 	background-image: url('../images/selected-focus.png');
 }
 
-#groups li.selected span.list-badge {
+#sidebar li.selected span.list-badge {
 	color:#7f99a9;
 	background: #fff;	
 }
@@ -318,8 +321,12 @@ p {
 	z-index: 5;
 	
 }
-li.item {
-	/*border-bottom:1px solid #c7dbc5;*/
+div.section ul li:first-child div.item  {
+	border-top:1px solid #c7dbc5;
+}
+
+div.item {
+	border-bottom:1px solid #c7dbc5;
 	position: relative;
 }
 /******************************************/
@@ -353,27 +360,27 @@ li.item {
 /**
 * Item Style
 */
-li.item {
+div.item {
 	display: block;
 	min-height:29px;
 }
 	
 
-li.item span {
+div.item span {
 	padding-top:9px;
 	display:block;
 }
-li.today span {
+div.today span {
 	font-weight:bold;
 }
-li.today input {
+div.today input {
 	font-weight:bold;
 }
 /******************************************/
 /**
 * Item Prio
 */
-li.item span.todo-prio {
+div.item span.todo-prio {
 	position: absolute;
 	border:1px solid #a0a0a0;
 	-moz-border-radius: 2px;
@@ -416,26 +423,26 @@ span.todo-prio.prio6 {
 }
 
 /******************************************/
-li.item span.todo-prio.prio0 {
+div.item span.todo-prio.prio0 {
 	border-color: transparent;
 	color: transparent;
 }
-li.done span.todo-prio.prio0 {
+div.done span.todo-prio.prio0 {
 	color: transparent !important;
 }
-li.item span.todo-prio:hover {
+div.item span.todo-prio:hover {
 	border-color:#333;
 	background: #fff;
 	display: block;
 }
-li.item span.todo-prio.prio0:hover {
+div.item span.todo-prio.prio0:hover {
 	border:1px solid #a0a0a0;
 	color:#333333 !important;
 	background: transparent;
 }
 
 
-li.item span.todo-parent {
+div.item span.todo-parent {
 	position: absolute;
 	top:7px;
 	padding:0px !important;
@@ -446,33 +453,42 @@ li.item span.todo-parent {
 	z-index:12;
 }
 
-li.item span.todo-title {
+div.item span.todo-title {
 	padding-right:240px;
 	position: relative;
 }
-li.item span.todo-title a {
+div.item span.todo-title a {
 	padding-left:5px;
 	outline: none;
 }
-li.item span.todo-title input {
+div.item span.todo-title input,
+div.item span.todo-title textarea {
 	position: absolute;
 	top:6px;
 	outline: none;
-	
 }
-li.item input.todo-title {
+div.item input.todo-title,
+div.item textarea.todo-title {
 	margin-top:6px;
 	margin-left:56px;
 	font-size: 12px;
 	height:16px;
 	background: transparent;
 	border: 0px;
+	overflow:hidden;
 	
 	outline: none;
 	
 	margin-right:240px;
 }
-li.item span.todo-start {
+div.item span.todo-title p {
+	margin:1px 0px 0px 20px;
+	color:#999;
+	font-size:10px;
+}
+
+
+div.item span.todo-start {
 	position: absolute;
 	top:0px;
 	right:120px;
@@ -481,7 +497,7 @@ li.item span.todo-start {
 	padding-bottom: 5px;
 }
 
-li.item span.todo-due {
+div.item span.todo-due {
 	position: absolute;
 	top:0px;
 	right:0px;
@@ -489,8 +505,8 @@ li.item span.todo-due {
 	text-align: center;
 	padding-bottom: 5px;
 }
-li.item span.todo-start input,
-li.item span.todo-due input {
+div.item span.todo-start input,
+div.item span.todo-due input {
 	background: transparent;
 	border:0px;
 	width:120px;
@@ -499,7 +515,7 @@ li.item span.todo-due input {
 	
 	outline: none;
 }
-#todo ul li.item:hover {
+#todo ul div.item:hover {
 	cursor: pointer;
 }
 
@@ -507,19 +523,19 @@ li.item span.todo-due input {
 /**
 * Done Style
 */
-li.item.done span {
+div.item.done span {
 	color: #999;
 	font-weight:normal !important;
 }
-li.item.done input {
+div.item.done input {
 
 	font-weight:normal !important;
 }
-li.item.done span.todo-title a {
+div.item.done span.todo-title a {
 	text-decoration: line-through;
 	color:#999;
 }
-li.item.done input {
+div.item.done input {
 	color: #999;
 }
 /******************************************/
@@ -528,7 +544,7 @@ li.item.done input {
  * Children Styles
 */
 
-li.item ul {
+div.item ul {
 	background: none !important;
 	margin-top:5px;
 }
@@ -536,15 +552,16 @@ li.item ul {
 /**
 * Edit Style
 */
-li.item.edit {
+div.item.edit {
 	border:1px solid #768aa5;
 	-moz-border-radius: 5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 	margin:1px;
-	height:25px;
+
+	min-height:25px;
 }
-li.item.edit span {
+div.item.edit span {
 	padding-top: 7px;
 	padding-bottom:3px;
 }
@@ -563,6 +580,28 @@ div.helpbox {
 	height:350px;
 	width:450px;
 }
+
+/**
+* Children
+*/
+
+#todo ul li ul li ul {
+	background:none !important;
+}
+#todo ul li ul li {
+	padding-left:20px;
+}
+#todo ul li ul li ul li {
+	padding-left:40px;
+}
+#todo ul li ul li ul li ul li {
+	padding-left:60px;
+}
+#todo ul li ul li ul li ul li {
+	padding-left:80px;
+}
+
+
 
 
 /******************************************/
@@ -617,25 +656,25 @@ body.note #todo {
 	background: #fff8b3 url('../images/bg.gif') repeat-y left top !important;
 }
 body.note #todo ul {
-	background: transparent url('../images/lines_bg.gif') right top;
+	/*background: transparent url('../images/lines_bg.gif') right top;*/
 }
 body.note #todo div.line {
 	background: transparent url('../images/layer_bg.gif') repeat-y right top;
 	left:40px;
 }
-body.note li.item span.todo-prio {
+body.note div.item span.todo-prio {
 	left:13px;
 }
-body.note #todo ul li.item.edit span.todo-prio,
-body.note #todo ul li.item.edit span.todo-parent {
+body.note #todo ul div.item.edit span.todo-prio,
+body.note #todo ul div.item.edit span.todo-parent {
 	top:3px;
 	left:11px;
 }
 
-body.note li.item span.todo-title {
-	padding-left:60px;
+body.note div.item span.todo-title {
+	padding-left:70px;
 }
-body.note li.item span.todo-title input {
+body.note div.item span.todo-title input {
 	left:60px;
 }
 
@@ -645,16 +684,16 @@ body.note #todo h2 {
 body.note #todo div.endline {
 	background: #fbf2ae;
 }
-body.note #todo ul li.item.active{
+body.note #todo ul div.item.active{
 	background: #d2e2e0;
 }
-body.note #todo ul li.item.active span.todo-start {
+body.note #todo ul div.item.active span.todo-start {
 	background: #cfdcd8;
 }
-body.note #todo ul li.item.edit {
+body.note #todo ul div.item.edit {
 	padding-left:0px;
 }
-body.note li.item span.todo-parent {
+body.note div.item span.todo-parent {
 	display:none;
 }
 body.note #todo hr {
@@ -670,28 +709,26 @@ body.note #todo hr {
 body.plain #todo {
 	background:#fff;
 }
-body.plain #todo ul {
-	background: transparent url('../images/lines_bg.gif') right top;
-}
+
 body.plain #todo div.line {
 	background:transparent url(../images/layer_bg.gif) repeat-y scroll right top;
 	left:130px;
 }
-body.plain li.item span.todo-prio {
+body.plain div.item span.todo-prio {
 	left:108px;
 }
-body.plain #todo ul li.item.edit span.todo-prio {
+body.plain #todo ul div.item.edit span.todo-prio {
 	top:3px;
 	left:106px;
 }
-body.plain #todo ul li.item.edit span.todo-parent {
+body.plain #todo ul div.item.edit span.todo-parent {
 	top:5px;
 	left:3px;
 }
-body.plain li.item span.todo-title {
-	padding-left:140px;
+body.plain div.item span.todo-title {
+	padding-left:160px;
 }
-body.plain li.item span.todo-title input {
+body.plain div.item span.todo-title input {
 	left:140px;
 }
 
@@ -701,16 +738,16 @@ body.plain #todo h2 {
 body.plain #todo div.endline {
 	background: #eee;
 }
-body.plain #todo ul li.item.active {
+body.plain #todo ul div.item.active {
 	background: #daeafe;
 }
-body.plain #todo ul li.item.active span.todo-start {
+body.plain #todo ul div.item.active span.todo-start {
 	background: #d3e2f6;
 }
-body.plain #todo ul li.item.edit {
+body.plain #todo ul div.item.edit {
 	padding-left:80px;
 }
-body.plain li.item span.todo-parent {
+body.plain div.item span.todo-parent {
 	display:block;
 }
 /******************************************/

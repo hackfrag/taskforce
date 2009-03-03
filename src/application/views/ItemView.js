@@ -20,464 +20,376 @@
  * @since			Taskforce v 0.1
  * @license			http://www.opensource.org/licenses/mit-license.php The MIT License
  */
- 
+  
 /**
  * Taskforce Item View
  *
- * @name Taskforce.v.Item
+ * @name Taskforce.ItemView
  * @type Object
  * @cat view
  */ 
 
 
-$t.v({
-
-	Item: {
-		create: function(item) {
-			var project, prio, title, due, dueDate, start, startDate, status, projectName;
-			
+Taskforce.ItemView = {
+	create: function(item) {
+	
+		var project, prio, title, description,  due, start, status, container, container, divContainer;
 		
-			if(item.project) {
-				projectName = Taskforce.m.Project.find(item.project).title;
-			} else {
-				projectName = "";
-			}
+
+	
+		project = $('<span>')
+					.addClass('todo-parent')
+					.html(item.project);
 		
-			project	= $('<span>').addClass('todo-parent').html(projectName);
-			prio	= $('<span>').addClass('todo-prio prio'+item.prio).html(item.prio);
-			title	= $('<span>').addClass('todo-title')
-								 	.append(
-								 		$('<a href="#">').html(item.title)
-								 	);
-			
-			dueDate = (item.due) ? prettyDate(item.due) : '';
-			due	=  $('<span>').addClass('todo-due')
-									.append(
-										$('<input type="text" value="'+dueDate+'" class="datepicker"/>')
-										.datepicker({
-
-											beforeShow: function(input) {
-												Taskforce.v.Item.setActive(item.id);
-												if($(input).val() != "") {
-													$(input).val(Date.parse($(input).val()).toString('MM/dd/yyyy'))
-													
-												}
-												
-											},
-											
-											onClose: function(date) {
-												if(date) {
-													$('#item-'+item.id).find('span.todo-due > input').val(prettyDate(date));
-												}
-												
-												Taskforce.c.Item.setDueDate(date);
-												Taskforce.c.Sidebar.updateBadges();
-											},
-
-
-										})
-									);
-			startDate = (item.start) ? prettyDate(item.start) : '';						
-			start	=  $('<span>').addClass('todo-start')
-									.append(
-										$('<input type="text" value="'+startDate+'" class="datepicker"/>')
-										.datepicker({
-
-											beforeShow: function(input) {
-												Taskforce.v.Item.setActive(item.id);
-												if($(input).val() != "") {
-													$(input).val(Date.parse($(input).val()).toString('MM/dd/yyyy') )
-												}
-												
-											},
-											onClose: function(date) {
-												if(date) {
-													$('#item-'+item.id).find('span.todo-start > input').val(prettyDate(date));
-												}
-												
-												Taskforce.c.Item.setStartDate(date);
-												Taskforce.c.Sidebar.updateBadges();
-											}
-										})
-
-									);
-			
+		prio	= $('<span>')
+					.addClass('todo-prio prio'+item.prio)
+					.html(item.prio);
+						
+		title	= $('<span>')
+					.addClass('todo-title')
+					.append(
+						$('<a href="#">').html(item.title)
+					);
 		
-			var container = $('<li>');
-			//container
-			
-			
-			/**
-			* Status
-			*/
-			status = $('<span>').addClass('checkbox');
-			status.click(function() {
-				Taskforce.c.Item.setStatus(item.id);
-			})
-			if (item.status == 1) {
-				status.addClass('done');
-				container.addClass('done');
-				
-			} else if (item.status == -1) {
-				status.addClass('canceled');
-				
-			} else {
-				
-				/**
-				 * Checks if the task is pastDue
-			 	 */
-				if(item.due != '' && Date.parse(item.due).isBefore(Date.today())) {
-					status.addClass('pastdue');
-				}
-			
-			}
-			
-			
-			
-			
-			if(startDate) {
-				if( Date.equals(Date.parse(startDate), new Date(Date.today())) ) {
-					container.addClass('today');
-				}
-			}
-			
-			
-			title.prepend(status);				
-								
-			
-			
-			/**
-			* Events
-			*/
-			prio.dblclick(function() {
-				Taskforce.v.Item.showPrioToolTip(item.id);
-			})
-			project.dblclick(function() {
-				Taskforce.v.Item.showProjectToolTip(item.id);
-			})
-			container.click(function() {
-				Taskforce.v.Item.setActive(item.id);
-			});
-			
-			title.dblclick(function() {
-				Taskforce.v.Item.setEdit(item.id)
-			});
-			
-			/**
-			* Context Menu
-			*/
-			container.contextMenu('task-context', {
-				bindings: {
-					'setToday' : function(t) {
-						Taskforce.c.Item.setToday(item.id);
-					},
-					'setStatus' : function(t) {
-						Taskforce.c.Item.setStatus(item.id);
-					},
-					'remove' : function(t) {
-						Taskforce.c.Item.remove(item.id);
-					},
-					'setEdit' : function(t) {
-						Taskforce.v.Item.setEdit(item.id);
-					}
-				}
-			});
-			
-			var divContainer = $('<div>');
-			
-			divContainer.attr('id', 'item-'+item.id);	
-			
-			container.addClass('item');		  
-			divContainer.append(project);
-			divContainer.append(prio);	 
-			divContainer.append(title);
-			
-			divContainer.append(start);
-			divContainer.append(due);
-			
-			
-			container.append(divContainer);
-			
-			return container;		
-		},
+		description =  $('<p>');
+		
+		if(item.description != "") {
+			description.html(item.description.slice(0,10)+ '...');
+		}
+		
+		title.append(description)
+						 	
+		
+	
+		
+		due	=  $('<span>')
+			.addClass('todo-due')
+			.append(
+				$('<input type="text" value="'+item.due+'" class="datepicker"/>')
+			);
+					
+		start =  $('<span>')
+			.addClass('todo-start')
+			.append(
+				$('<input type="text" value="'+item.start+'" class="datepicker"/>')
+			);
+		
+	
+		container = $('<li>');
+	
+		divContainer = $('<div>');
+	
+		
+		
 		/**
-		* Sets the item on active
-		*
+		* Status
 		*/
-		setActive: function(id) {
-			
-			Taskforce.c.Item.setActiveItem(id);
-			
-			var item = $('#item-'+id);
-			
-			this.endEdit();
-			this.endActive();
-						
-			item.addClass('active');
-		},
-		endEdit: function() {
-			$('li.item').find('form').remove();
-			$('li.item').find('span.todo-title').show();
-			$('li.item').removeClass('edit');
-			
-		},
-		endActive: function() {
-			$('li.item').removeClass('active');
-		},
+		status = $('<span>').addClass('checkbox');
 		
-		setArrayActive: function(array) {
-							
+		if (item.status == 1) {
+			status.addClass('done');
+			divContainer.addClass('done');
 			
+		} else if (item.status == -1) {
+			status.addClass('canceled');
 			
-			this.endEdit();
-			this.endActive();
-			
-			$(array).each(function(i, item) {
-					
-				$('#item-'+ item).addClass('active');
-			})
-			
-			Taskforce.c.Item.setActiveItem(array);
-		},
-		/*asdasd*
-		* Sets the item on edit mode
-		*
-		* - A Form + Input will injected
-		*/
-		setEdit: function(id) {
-			Taskforce.c.Item.setActiveItem(id);
-			
-			var item, form, title, input;
-			
-			item = $('#item-'+id);
-			
-			$('li.item').removeClass('active');
-			item.addClass('edit');
-			
-			form 	= $('<form method="POST" url="#" id="muh">');
-			title 	= item.children('span.todo-title');
-			
-			input 	= $('<input type="text" class="todo-title"/>');
-			input.width(title.width());
-			input.val(title.find('a').html());
+		} else {
 			
 			/**
-			* Events
-			*/
-			input.blur(function() {
-				Taskforce.c.Item.setTitle(id, $(this).val());
-				//Taskforce.v.Item.endEdit();
-				//Taskforce.v.Item.setActive(id);
+			 * Checks if the task is pastDue
+		 	 */
+			if(item.due != '' && Date.parse(item.due).isBefore(Date.today())) {
+				status.addClass('pastdue');
+			}
+		
+		}
+		
+		if(item.start) {
+			if( Date.equals(Date.parse(item.start), new Date(Date.today())) ) {
+				divContainer.addClass('today');
+			}
+		}
+		
+		
+		title.prepend(status);				
+
+		divContainer.attr('id', 'item-'+item.id);	
+		divContainer.addClass('item');		  
+		divContainer.append(project);
+		divContainer.append(prio);	 
+		divContainer.append(title);
+		divContainer.append(start);
+		divContainer.append(due);
+		
+		
+		container.append(divContainer);
+		
+		return container;		
+	},
+	/**
+	* Sets the item on active 
+	*
+	*/
+	setActive: function(id) {
+		var item = $('#item-'+id);
+		
+		this.endEdit();
+		this.endActive(false);
+		item.addClass('active');
+			
+	},
+	endEdit: function() {
+		$('div.item').find('form').remove();
+		$('div.item').find('span.todo-title').show();
+		$('div.item').removeClass('edit');
+		
+		
+	},
+	endActive: function() {
+		$('div.item').removeClass('active');		
+	},
+	hide: function(id) {
+		var item = $('#item-'+item.id);
+		item.hide();
+	},
+	setArrayActive: function(array) {
+		this.endEdit();
+		this.endActive();
+		
+		$(array).each(function(i, item) {
+			$('#item-'+ item).addClass('active');
+		})
+		
+		Taskforce.ItemController.setActiveItem(array);
+	},
+	
+	/*
+	* Sets the item on edit mode
+	*
+	* - A Form + Input will injected
+	*/
+	setEdit: function(id) {
+		Taskforce.ItemController.setActiveItem(id);
+		
+		var item 	= $('#item-'+id),
+			form 	= $('<form method="POST" url="#" id="todo-edit-form">'),
+			title 	= item.children('span.todo-title'),
+			input	= $('<input type="text" class="todo-title"/>');
+		
+
+		
+		$('div.item').removeClass('active');
+		
+		item.addClass('edit');
+
+		/*
+		input.bind('keydown', function(event) {
+			
+			if(event.keyCode == 13) {
+			
+				if(event.shiftKey) {
+					
+					$(this).height($(this).height()+16);
+					$(this).html($(this).html()+'\n\n')
+					$(item).height($(item).height()+16);
+					
+				} else {
+					
+					form.trigger('submit');
+					
+				}
+				
+			}
+		});		
+		*/
+		input.width(title.width());
+		input.val(title.find('a').html());
+		
+		/*
+		var newTitle = title.find('a').html();
+		
+	
+		var description = Taskforce.Item.find(id).description;				
+	
+		var rowCount = description.match(new RegExp( "\\n", "g" ));
+		if(rowCount) {
+			rowCount = rowCount.length +2;
+
+		} else {
+			rowCount = 1;
+		}
+		
+		
+		input.height(16*rowCount);
+		if(description != "") {
+			input.val(newTitle + '\n' + description);
+		} else {
+			input.val(newTitle);
+		}
+		
+		*/
+
+
+		form.append(input);
+		
+		
+		item.prepend(form);
+		input.focus();
+		title.hide();
+		
+	},
+	setPastDue: function(id, flag) {
+		var item, checkbox;
+		
+		item 		= $('#item-'+id);
+		checkbox	= item.find('span.checkbox');
+		
+		if(flag) {
+			checkbox.addClass('pastdue');
+		} else {
+			checkbox.removeClass('pastdue');
+		}
+	},
+	move: function(id, section) {
+	
+		var item, section, oldSection;
+		
+		item = $('#item-'+id);
+		
+		if(section == "past") {
+			Taskforce.ItemView.setPastDue(id, true)
+		} else {
+			Taskforce.ItemView.setPastDue(id, false)
+		}
+		
+		oldSection = item.parent().parent();
+		
+		if(section == "") {
+			$(item).remove(id);
+		}
+		
+		if($('#section-'+section).length) {
+			$('#section-'+section).show();
+			item.appendTo($('#section-'+ section +' > ul'));
+		}
+		
+		if(oldSection.find('div.item').length == 0) {
+			oldSection.hide();
+		}
+	
+	},
+	hide: function(id) {
+		var item;
+		item = $('#item-'+id);
+		
+		item.hide();
+	},
+	createSection: function(items, id, title) {
+		
+
+		var container 	= $('<div>')
+							.attr('id','section-'+id)
+							.addClass('section')
+							.hide(),
+			list 		=  $('<ul>');
+			
+
+			
+		container.append(
+			$('<h2>').append($('<span>').html(title))
+		);
+		
+		$(items).each(function(i, item) {
+			list.append(item)
+		});
+		
+		container
+			.append(list)
+			.append($('<hr>'));
+		
+	
+		
+		if(items.length) {
+			container.show();
+		}
+		
+		$('#viewport').append(container);
+		
+		
+		
+		
+	
+		
+		
+	},
+	/*
+	showPrioToolTip: function(id) {
+	
+		var item, prio, top, left;
+		
+		item = $('#item-'+id);
+		prio = item.find('span.todo-prio');
+		top  = prio.offset().top+27;
+		left = prio.offset().left-23;
+		
+		Taskforce.ToolTipController.create('prio-tooltip', left,top, function() {
+			$('#prio-slider option:contains('+prio.html()+')').attr('selected');
+			
+			$('#prio-slider').selectToUISlider({
+				sliderOptions: {
+					change: function(event, ui) {							
+						Taskforce.ItemController.setPrio(id, $('#prio-slider').val())
+					},
+					stop : function() {
+						$('div.tooltip').find('div.ui-slider').remove();
+						$('div.tooltip').slideUp('fast');
+					},
+					value :prio.html()
+					
+				}
+			});
+		});
+	},
+	*/
+	setToday:function(id, flag) {
+		var item;
+		item = $('#item-'+id);
+		
+		if(flag) {
+			item.addClass('today');
+			
+			item.find('span.todo-start').children('input').val('Today');
+		} else {
+			item.removeClass('today');
+		}
+		
+	},
+	setProject: function(id, title) {
+	
+		item = $('#item-'+id);
+		item.find('span.todo-parent').html(title);
+		
+	},
+	
+	/*
+	showProjectToolTip: function(id) {
+		
+		var item, title, top, left;
+		
+		item = $('#item-'+id);
+		title = item.find('span.todo-title');
+		top  = title.offset().top+29;
+		left = title.offset().left+10+title.css('padding-left');
+		
+		Taskforce.ToolTipController.create('project-tooltip', left,top, function() {
+			$('#project-tooltip > input').focus();
+			$('#project-tooltip > a').click(function() {
+				Taskforce.ToolTipController.hide();
 			})
-
-			form.submit(function() {
-				
-				Taskforce.c.Item.setTitle(id, $(this).children('input').val());
-				Taskforce.v.Item.endEdit();
-				Taskforce.v.Item.setActive(id);
-				
-				return false;
-			});
-			
-			
-			
-			form.append(input);
-			
-			
-			item.prepend(form);
-			input.focus();
-			title.hide();
-			
-		},
-		setPastDue: function(id, flag) {
-			var item, checkbox;
-			
-			item 		= $('#item-'+id);
-			checkbox	= item.find('span.checkbox');
-			
-			if(flag) {
-				checkbox.addClass('pastdue');
-			} else {
-				checkbox.removeClass('pastdue');
-			}
-		},
-		move: function(id, section) {
+		});
 		
-			var item, section, oldSection;
-			
-			item = $('#item-'+id);
-			
-			if(section == "past") {
-				Taskforce.v.Item.setPastDue(id, true)
-			} else {
-				Taskforce.v.Item.setPastDue(id, false)
-			}
-			
-			oldSection = item.parent().parent();
-			
-			if(section == "") {
-				$(item).remove(id);
-			}
-			
-			if($('#section-'+section).length) {
-				$('#section-'+section).show();
-				item.appendTo($('#section-'+ section +' > ul'));
-			}
-			
-			if(oldSection.find('ul > li').length == 0) {
-				oldSection.hide();
-			}
-		
-		},
-		hide: function(id) {
-			var item;
-			item = $('#item-'+id);
-			
-			item.hide();
-		},
-		createSection: function(items, id, title) {
-			
-			var container = $('<div>').attr('id','section-'+id).addClass('section').hide();
-				
-			var list = $('<ul>');
-				
-			container.append(
-				$('<h2>').append($('<span>').html(title))
-			);
-			
-			$(items).each(function(i, item) {
-				
-				
-				
-				list.append(
-					Taskforce.v.Item.create(item)
-				)
-			});
-			
-			container.append(list);
-			
-			container.append(
-				$('<hr>')
-			);
-			
-			if(items.length) {
-				container.show();
-			}
-			
-			$('#viewport').append(container);
-			this.initDragAbles('#section-'+id+' > ul li');
-			
-			/*
-			var selectedItems  = [];
-			
-			$('#section-'+id).selectable({
-				filter: 'li.item',
-				selected: function(event, ui){
-					//selectedItem.push(ui.selected);
-					
-					
-					selectedItems.push($(ui.selected).attr('id').replace(/item-/i,""))
-					
-					//Taskforce.v.Item.setArrayActive(ui.selected);
-				},
-				stop: function() {
-					console.log(selectedItems);
-					Taskforce.v.Item.setArrayActive(selectedItems);
-				}
-			});
-			*/
-			
-			
-		},
-		showPrioToolTip: function(id) {
-		
-			var item, prio, top, left;
-			
-			item = $('#item-'+id);
-			prio = item.find('span.todo-prio');
-			top  = prio.offset().top+27;
-			left = prio.offset().left-23;
-			
-			Taskforce.c.ToolTip.create('prio-tooltip', left,top, function() {
-				$('#prio-slider option:contains('+prio.html()+')').attr('selected');
-				
-				$('#prio-slider').selectToUISlider({
-					sliderOptions: {
-						change: function(event, ui) {							
-							Taskforce.c.Item.setPrio(id, $('#prio-slider').val())
-						},
-						stop : function() {
-							$('div.tooltip').find('div.ui-slider').remove();
-							$('div.tooltip').slideUp('fast');
-						},
-						value :prio.html()
-						
-					}
-				});
-			});
-		},
-		setToday:function(id, flag) {
-			var item;
-			item = $('#item-'+id);
-			
-			if(flag) {
-				item.addClass('today');
-				item.find('span.todo-start > input').val('Today');
-			} else {
-				item.removeClass('today');
-			}
-			
-		},
-		setProject: function(id, title) {
-			
+		return false;
+	},	
+	*/
 	
-			item = $('#item-'+id);
-			
-			item.find('span.todo-parent').html(title);
-		},
-		initDragAbles: function(section) {
-			
-			$(section).draggable({
-				revert: false,
-				helper: function() {
-				
-					var clone = $(this).clone().appendTo('body');
-				
-					clone.removeClass('active');
-					clone.addClass('clone');
-					
-					return clone;
-				},
-				handle: 'span.todo-title',
-				zIndex: 999999,
-				opacity: 0.8,
-				cursorAt: {
-					top:20,
-					left:40
-				}
-				
-				
-			});
-		},	
-		showProjectToolTip: function(id) {
-			
-			var item, title, top, left;
-			
-			item = $('#item-'+id);
-			title = item.find('span.todo-title');
-			top  = title.offset().top+29;
-			left = title.offset().left+10+title.css('padding-left');
-			
-			Taskforce.c.ToolTip.create('project-tooltip', left,top, function() {
-				$('#project-tooltip > input').focus();
-				$('#project-tooltip > a').click(function() {
-					Taskforce.c.ToolTip.hide();
-				})
-			});
-			
-			return false;
-		},	
-	
-	}
-
-});
+}

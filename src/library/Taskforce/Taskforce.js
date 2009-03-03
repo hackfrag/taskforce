@@ -162,12 +162,12 @@ var Taskforce = {
 	 */
 	initDbRelations: function() {
 		// DB Relationship
-		Taskforce.m.Project.hasMany(Taskforce.m.Item,{
+		Taskforce.Project.hasMany(Taskforce.Item,{
 			foreignKey: 'project'
 		});    	
-		Taskforce.m.Item.hasOne(Taskforce.m.Project); 	
+		Taskforce.Item.hasOne(Taskforce.Project); 	
 	},
-	///////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////// 
 	main: function() {
     		
     	if ((!window.google || !google.gears) && this.runtime == 'gears') {
@@ -197,8 +197,8 @@ var Taskforce = {
    		this.initDbRelations();
 
 	
-		Taskforce.c.Sidebar.init();
-		Taskforce.c.Hotkey.init();
+		Taskforce.SidebarController.init();
+		Taskforce.Hotkey.init();
 		
 		/*
 		window.setInterval(function() {

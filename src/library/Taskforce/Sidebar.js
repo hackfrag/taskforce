@@ -43,8 +43,8 @@ $t.Sidebar = {
 			section = $('<ul>');
 							
 
-		title.appendTo('#groups');
-		section.appendTo('#groups');
+		title.appendTo('#sidebar');
+		section.appendTo('#sidebar');
 		
 		return section;				
 	},
@@ -58,7 +58,7 @@ $t.Sidebar = {
 	*			icon: 'inbox.png',
 	*			label: 'Inbox',
 	*			click: function() {
-	*				Taskforce.c.Sidebar.open('Inbox');	
+	*				Taskforce.SidebarController.open('Inbox');	
 	*			}
 	*		});
 	*
@@ -85,7 +85,7 @@ $t.Sidebar = {
 			)
 			.click(function() {
 				$('#activ-tab').html(item.label);
-				$('#groups').find('ul li').removeClass('selected');
+				$('#sidebar').find('ul li').removeClass('selected');
 				$(this).addClass('selected');
 				
 				if(item.click) {

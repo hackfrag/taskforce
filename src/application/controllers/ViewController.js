@@ -28,62 +28,59 @@
  * @type Object
  * @cat controller
  */ 
-$t.c({
+Taskforce.ViewController = {
+	init: function() {
+		
+		this.initHints();
+		this.initFilter();
 	
-	View: {
-		init: function() {
-			
-			this.initHints();
-			this.initFilter();
+	},
+	initHints : function() {
 		
-		},
-		initHints : function() {
+		
+		$('#button-hint').unbind().click(function() {
+			if($(this).hasClass('active')) {
 			
-			
-			$('#button-hint').unbind().click(function() {
-				if($(this).hasClass('active')) {
+				$(this).removeClass('active');
+				$('#todo').css('bottom',23);
+				$('#context-slider').slideUp('fast');
+			} else {
+				$('#main-footer div.toolbar-button').removeClass('active')
+				$(this).addClass('active');
 				
-					$(this).removeClass('active');
-					$('#todo').css('bottom',23);
-					$('#context-slider').slideUp('fast');
-				} else {
-					$('#main-footer div.toolbar-button').removeClass('active')
-					$(this).addClass('active');
-					
-					$('#context-slider').empty().html($('#hints').html());
-					if($('#context-slider').css('display') == 'none') {
-						$('#context-slider').slideDown('fast', function() {
-							$('#todo').css('bottom',62);
-						});
-					}
-					
+				$('#context-slider').empty().html($('#hints').html());
+				if($('#context-slider').css('display') == 'none') {
+					$('#context-slider').slideDown('fast', function() {
+						$('#todo').css('bottom',62);
+					});
 				}
-			})
+				
+			}
+		})
+	
+	},
+	initFilter : function() {
 		
-		},
-		initFilter : function() {
-			
-			
-			$('#button-filter').unbind().click(function() {
-				if($(this).hasClass('active')) {
-					$(this).removeClass('active');
-					$('#todo').css('bottom',23);
-					$('#context-slider').slideUp('fast');
-				} else {
-					$('#main-footer div.toolbar-button').removeClass('active')
-					$(this).addClass('active');
-					
-					$('#context-slider').empty().html($('#filter').html());
-					if($('#context-slider').css('display') == 'none') {
-						$('#context-slider').slideDown('fast', function() {
-							$('#todo').css('bottom',62);
-						});
-					}
-					
-					
+		
+		$('#button-filter').unbind().click(function() {
+			if($(this).hasClass('active')) {
+				$(this).removeClass('active');
+				$('#todo').css('bottom',23);
+				$('#context-slider').slideUp('fast');
+			} else {
+				$('#main-footer div.toolbar-button').removeClass('active')
+				$(this).addClass('active');
+				
+				$('#context-slider').empty().html($('#filter').html());
+				if($('#context-slider').css('display') == 'none') {
+					$('#context-slider').slideDown('fast', function() {
+						$('#todo').css('bottom',62);
+					});
 				}
-			})
-		
-		}
+				
+				
+			}
+		})
+	
 	}
-});
+}

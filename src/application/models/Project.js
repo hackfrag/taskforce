@@ -24,7 +24,7 @@
 /**
  * Taskforce Project Model
  *
- * @name Taskforce.m.Project
+ * @name Taskforce.Project
  * @type Object
  * @cat model
  */ 
@@ -34,20 +34,20 @@ if(Taskforce.test) {
 	ActiveRecord.execute('DROP TABLE IF EXISTS projects');
 }
 
-Taskforce.m.Project = ActiveRecord.define('projects',{  
+Taskforce.Project = ActiveRecord.define('projects',{  
   	title: '',
   	start: '',
 	due: '',
   		 
 },{  
 	getOpenTasks: function() {
-		var items = Taskforce.m.Item.find({
+		var items = Taskforce.Item.find({
    			where: 'project = "'+ this.get('id') +'" AND status = "0"'
 		});
 		return items.length;
 	},
 	getCompletedTasks: function() {
-		var items = Taskforce.m.Item.find({
+		var items = Taskforce.Item.find({
    			where: 'project = "'+ this.get('id') +'" AND status = "1"'
 		});
 		return items.length;
@@ -80,14 +80,14 @@ Taskforce.m.Project = ActiveRecord.define('projects',{
 	
 	
 });
-Taskforce.m.Project.getAllSinceLastSync = function() {
+Taskforce.Project.getAllSinceLastSync = function() {
 
 	var lastSyncDate =  $t.getOption('lastSyncDate');
 	if(!lastSyncDate) {
-		return Taskforce.m.Project.find();
+		return Taskforce.Project.find();
 	}
 	
-	return Taskforce.m.Project.find({
+	return Taskforce.Project.find({
 		where: "datetime(updated) > datetime('"+lastSyncDate+"') "
 	});
 }

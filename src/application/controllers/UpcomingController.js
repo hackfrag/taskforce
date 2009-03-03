@@ -24,123 +24,122 @@
 /**
  * Taskforce Upcoming controller
  *
- * @name Taskforce.c.Upcoming
+ * @name Taskforce. UpcomingController
  * @type Object
  * @cat controller
  */ 
-$t.c({
-	
-	Upcoming: {
-		/**
-		* Constructor
-		*/
-		init: function() {
-			
-			$('body').removeClass().addClass('upcoming plain');
-				
-			this.load();
-					
-		},
-		/**
-		* load all Todos in the inbox
-		*
-		* Inbox = all Todos without a project
-		*/
-		load:function() {
-			
-			var items;
-			
-			$('#viewport').empty();
-			
-			// unsubscribe all!
-			Taskforce.c.Item.unsubscribe();
+Taskforce.UpcomingController = {
 
-			
-			////////////////////////////
-			/**
-			* Todos tomorrow
-			*/
-			items = Taskforce.m.Item.find({where: " date(start) = date('now','+1 day') AND status = '0'"});
-			Taskforce.v.Item.createSection(items,'tomorrow','Act on tomorrow'); 
-			
-			////////////////////////////
-			/**
-			* Todos in the next 7 days
-			*/
-			items = Taskforce.m.Item.find({where: " date(start) > date('now','+1 day') AND date(start) < date('now','+8 day') AND status = '0'"});
-			Taskforce.v.Item.createSection(items,'7days','Act on in the next 7 days'); 			
-			////////////////////////////
-			/**
-			* Todos in the next 30 days
-			*/
-			items = Taskforce.m.Item.find({where: " date(start) > date('now','+7 day') AND date(start) < date('now','+1 month')  AND status = '0'"});
-			Taskforce.v.Item.createSection(items,'30days','Act on in the next 30 days'); 			
-			////////////////////////////
-			/**
-			* the rest 
-			*/
-			items = Taskforce.m.Item.find({where: " date(start) > date('now','+1 month')  AND status = '0'"});
-			Taskforce.v.Item.createSection(items,'someday','Act on in the next months'); 	
-			
-			
-			
-			Taskforce.c.Item.observe('afterDateChanged',function(item){
-    			Taskforce.c.Upcoming.editObserver(item.id);
-    			
-    			if(item.isPastDue()) {
-					Taskforce.v.Item.setPastDue(item.id, true);
-				} else {
-					Taskforce.v.Item.setPastDue(item.id, false);
-				}
-				
-			});
-			Taskforce.c.Item.observe('afterStatusChanged',function(item){
-    			Taskforce.c.Upcoming.editObserver(item.id);
-    		});
-								
-		},
+	_style : 'upcoming plain',
+		
+
+	load:function() {
+
+		
+		var items;
+		
+		
+		
 		/**
-		* Add a new Todo in the inbox List
-		*
+		* Todos tomorrow
 		*/
-		add: function() {
-			$.get(Taskforce.templates + 'error/addToUpcoming.html', function(data) {
-				$(data).panel({
-					buttons: {
-						Ok: function() {
-							$(this).panel('close');
-						}
+		items = Taskforce.Item.findByStartTomorrow();
+		Taskforce.ItemController.list(items,'tomorrow','Act on tomorrow'); 
+		
+	
+		/**
+		* Todos in the next 7 days
+		*/
+		items = Taskforce.Item.findByStartNextWeek();
+		Taskforce.ItemController.list(items,'7days','Act on in the next 7 days'); 			
+	
+		/**
+		* Todos in the next 30 days
+		*/
+		items = Taskforce.Item.findByStartNextMonth()
+		Taskforce.ItemController.list(items,'30days','Act on in the next 30 days'); 			
+	
+		/**
+		* the rest 
+		*/
+		items = Taskforce.Item.findByStartSomeday();
+		Taskforce.ItemController.list(items,'someday','Act on in the next months'); 	
+		
+		
+		
+
+							
+	},
+	/**
+	* Add a new Todo in the inbox List
+	*
+	*/
+	add: function() {
+		$.get(Taskforce.templates + 'error/addToUpcoming.html', function(data) {
+			$(data).panel({
+				buttons: {
+					Ok: function() {
+						$(this).panel('close');
 					}
-				});	
-			})
-		},
-		/**
-		* Get the current unfinished todos
-		*
-		* @return	Integer		eg. 5 or 10
-		*/
-		getCount: function() {
-			var items = Taskforce.m.Item.find({
-				where:'start > date("now") AND status="0"'
-			});
-			return items.length;
-		},
-		editObserver: function(id) {
-			var item = Taskforce.m.Item.find(id);
-			
-			if(item.isStartTomorrow()) {
-				Taskforce.v.Item.move(id,'tomorrow')
-			} else if(item.isStartNextWeek()) {
-				Taskforce.v.Item.move(id,'7days')
-			} else if (item.isStartNextMonth()) {
-				Taskforce.v.Item.move(id,'30days')
-			} else if (item.isStartSomeday()) {
-				Taskforce.v.Item.move(id,'someday')
-			} else {
-				Taskforce.v.Item.hide(id);
-			}
-				
-			
+				}
+			});	
+		})
+	},
+	
+	/**
+	* Get the current unfinished todos
+	*
+	* @return	Integer		eg. 5 or 10
+	*/
+	getCount: function() {
+		var items = Taskforce.Item.find({
+			where:'start > date("now") AND status="0"'
+		});
+		return items.length;
+	},
+	
+	/**
+	 * is called by the item Delegates
+	 *
+	 *Ê@see Taskforce.UpcomingController.itemAfterDateChanged
+	 * @see Taskforce.UpcomingController.itemAfterStatusChanged
+	 *
+	 */
+	_onChange: function(id) {
+		var item = Taskforce.Item.find(id);
+		
+		if(item.isStartTomorrow()) {
+			Taskforce.ItemView.move(id,'tomorrow')
+		} else if(item.isStartNextWeek()) {
+			Taskforce.ItemView.move(id,'7days')
+		} else if (item.isStartNextMonth()) {
+			Taskforce.ItemView.move(id,'30days')
+		} else if (item.isStartSomeday()) {
+			Taskforce.ItemView.move(id,'someday')
+		} else {
+			Taskforce.ItemView.hide(id);
 		}
-	}
-});
+	},
+	////////////////////////////////////////////////////////
+	/**
+	 * tasks Delegates
+	 */
+	////////////////////////////////////////////////////////
+	
+	/** 
+	 * is called when the date (start or due) changed
+	 *
+	 * @delegate
+	 */
+	itemAfterDateChanged: function(item) {
+		this._onChange(item.id);
+	},
+	/**
+	 * is called when the status of the task changed
+	 *
+	 * @delegate
+	 */
+	itemAfterStatusChanged: function(item) {
+		this._onChange(item.id);
+	},
+}

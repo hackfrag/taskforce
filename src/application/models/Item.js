@@ -24,7 +24,7 @@
 /**
  * Taskforce Item Model
  *
- * @name Taskforce.m.Item
+ * @name Taskforce.Item
  * @type Object
  * @cat model
  */ 
@@ -37,8 +37,9 @@ if(Taskforce.test) {
 }
 
 
-Taskforce.m.Item = ActiveRecord.define('items',{  
+Taskforce.Item = ActiveRecord.define('items',{  
   	title: '',
+  	description : '',
   	status: {
   		type: 'INTEGER'
   	},
@@ -58,6 +59,10 @@ Taskforce.m.Item = ActiveRecord.define('items',{
 */	
 	setTitle: function(title) {
 		this.set('title',title);
+		return true;
+	},
+	setDescription: function(description) {
+		this.set('description',description);
 		return true;
 	},
 	setPrio: function(prio) {
@@ -103,32 +108,32 @@ Taskforce.m.Item = ActiveRecord.define('items',{
 	
 	},
 	isPastDue: function() {
-		return Taskforce.m.Item.findByPastDue(this.get('id')).length;
+		return Taskforce.Item.findByPastDue(this.get('id')).length;
 	},
 	isWorking: function() {
-		return Taskforce.m.Item.findByWorkingOn(this.get('id')).length;
+		return Taskforce.Item.findByWorkingOn(this.get('id')).length;
 
 	},
 	isStartToday: function() {
-		return Taskforce.m.Item.findByStartToday(this.get('id')).length;
+		return Taskforce.Item.findByStartToday(this.get('id')).length;
 	},
 	isCompletedToday: function() {
-		return Taskforce.m.Item.findByCompletedToday(this.get('id')).length;
+		return Taskforce.Item.findByCompletedToday(this.get('id')).length;
 	},
 	isCompletedYesterday:function() {
-		return Taskforce.m.Item.findByCompletedYesterday(this.get('id')).length;
+		return Taskforce.Item.findByCompletedYesterday(this.get('id')).length;
 	},
 	isStartTomorrow: function() {
-		return Taskforce.m.Item.findByStartTomorrow(this.get('id')).length;
+		return Taskforce.Item.findByStartTomorrow(this.get('id')).length;
 	},
 	isStartNextWeek: function() {
-		return Taskforce.m.Item.findByStartNextWeek(this.get('id')).length;
+		return Taskforce.Item.findByStartNextWeek(this.get('id')).length;
 	},
 	isStartNextMonth: function() {
-		return Taskforce.m.Item.findByStartNextMonth(this.get('id')).length;
+		return Taskforce.Item.findByStartNextMonth(this.get('id')).length;
 	},
 	isStartSomeday: function() {
-		return Taskforce.m.Item.findByStartSomeday(this.get('id')).length; 
+		return Taskforce.Item.findByStartSomeday(this.get('id')).length; 
 	},
 	
 });
@@ -137,109 +142,109 @@ Taskforce.m.Item = ActiveRecord.define('items',{
  * Static methodes
  */
    	
-Taskforce.m.Item.findByPastDue = function(id) {
+Taskforce.Item.findByPastDue = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(due) < date('now') AND due != ''  AND status = '0'" + idSearch
 	});
 }
-Taskforce.m.Item.findByWorkingOn = function(id) {
+Taskforce.Item.findByWorkingOn = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(start) < date('now') AND status = '0' AND start != '' AND ( due = '' OR date(due) >= date('now') ) " + idSearch
 	});
 }
-Taskforce.m.Item.findByStartToday = function(id) {
+Taskforce.Item.findByStartToday = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(start) = date('now') AND status = '0' AND (date(due) >= date('now') OR due = '')" + idSearch
 	});	
 }
-Taskforce.m.Item.findByCompletedToday = function(id) {
+Taskforce.Item.findByCompletedToday = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(completed) = date('now') AND status = '1' AND completed != '' " + idSearch
 	});
 }
-Taskforce.m.Item.findByCompletedYesterday = function(id) {
+Taskforce.Item.findByCompletedYesterday = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(completed) = date('now','-1 day') AND status = '1'" + idSearch
 	});
 }
-Taskforce.m.Item.findByStartTomorrow = function(id) {
+Taskforce.Item.findByStartTomorrow = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(start) = date('now','+1 day') AND status = '0' " + idSearch
 	});
 }
-Taskforce.m.Item.findByStartNextWeek = function(id) {
+Taskforce.Item.findByStartNextWeek = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(start) > date('now','+1 day') AND date(start) < date('now','+8 day')  AND status = '0'" + idSearch
 	});
 }
-Taskforce.m.Item.findByStartNextMonth = function(id) {
+Taskforce.Item.findByStartNextMonth = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(start) > date('now','+7 day') AND date(start) < date('now','+1 month') AND status = '0'" + idSearch
 	});
 }
-Taskforce.m.Item.findByStartSomeday = function(id) {
+Taskforce.Item.findByStartSomeday = function(id) {
 	var idSearch = '';
 	if(id) {
 		idSearch= " AND id = '"+ id +"'" ;
 	}
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "date(start) > date('now','+1 month')  AND status = '0'" + idSearch
 	});
 }
 
-Taskforce.m.Item.getAllSinceLastSync = function() {
+Taskforce.Item.getAllSinceLastSync = function() {
 
 	var lastSyncDate =  $t.getOption('lastSyncDate');
 	if(!lastSyncDate) {
-		return Taskforce.m.Item.find();
+		return Taskforce.Item.find();
 	}
 	lastSyncDate = Date.parse(lastSyncDate).toString('yyyy-MM-dd HH:mm:ss');
 	
-	return Taskforce.m.Item.find({
+	return Taskforce.Item.find({
 		where: "datetime(updated) > datetime('"+lastSyncDate+"') "
 	});
 }
-Taskforce.m.Item.sync = function(data) {
+Taskforce.Item.sync = function(data) {
 	
 }
 
@@ -247,7 +252,7 @@ Taskforce.m.Item.sync = function(data) {
 /**
  * Events
  */
-Taskforce.m.Item.observe('beforeSave',function(item){  
+Taskforce.Item.observe('beforeSave',function(item){  
 	ActiveRecord.execute('UPDATE items SET updated = datetime("now") WHERE id = "'+ item.id +'" ');
 
 }); 

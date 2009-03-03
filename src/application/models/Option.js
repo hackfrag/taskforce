@@ -24,7 +24,7 @@
 /**
  * Taskforce Option Model
  *
- * @name Taskforce.m.Option
+ * @name Taskforce.Option
  * @type Object
  * @cat model
  */ 
@@ -34,7 +34,7 @@ if(Taskforce.test) {
 	ActiveRecord.execute('DROP TABLE IF EXISTS options');
 }
 
-Taskforce.m.Option = ActiveRecord.define('options',{  
+Taskforce.Option = ActiveRecord.define('options',{  
   	name: '',
   	value: '',
   		 
@@ -42,15 +42,15 @@ Taskforce.m.Option = ActiveRecord.define('options',{
 
 });
 
-Taskforce.m.Option.getValue = function(name) {
-	var option = Taskforce.m.Option.findByName(name);
+Taskforce.Option.getValue = function(name) {
+	var option = Taskforce.Option.findByName(name);
 	
 	if(option) {
 		return option.value;
 	}
 }
-Taskforce.m.Option.setValue = function(name, value) {
-	var option = Taskforce.m.Option.findByName(name);
+Taskforce.Option.setValue = function(name, value) {
+	var option = Taskforce.Option.findByName(name);
 	
 	if(option) {
 		
@@ -59,7 +59,7 @@ Taskforce.m.Option.setValue = function(name, value) {
 		return true;
 	} else {
 		alert(value);
-		option = Taskforce.m.Option.create({
+		option = Taskforce.Option.create({
 			'name'	: name,
 			'value'	: value
 		});
@@ -68,8 +68,8 @@ Taskforce.m.Option.setValue = function(name, value) {
 
 
 $t.getOption = function(name) {
-	return Taskforce.m.Option.getValue(name);
+	return Taskforce.Option.getValue(name);
 }
 $t.setOption = function(name, value) {
-	return Taskforce.m.Option.setValue(name, value);
+	return Taskforce.Option.setValue(name, value);
 }

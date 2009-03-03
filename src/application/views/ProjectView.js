@@ -22,85 +22,82 @@
  */
  
 /**
- * Taskforce Project View
+ * Taskforce Project View 
  *
- * @name Taskforce.v.Project
+ * @name Taskforce.ProjectView
  * @type Object
  * @cat view
  */ 
 
-$t.v({
-
-	Project: {
-		create: function(project) {
-			var container, image, label, badge;
-			
-			container = $('<li>').attr('id','project-'+project.id);
-			
-			image = $('<img>')	.attr('src','public/icons/folder.png')
-								.attr('alt',project.title);
-								
-			label = $('<span>').addClass('list-title').html(project.title);
-			badge = $('<span>').addClass('list-badge').html(0);
-			
-			container.append(image);
-			container.append(label);
-			container.append(badge);
-			
-			container.click(function() {
-				Taskforce.v.Project.setActive(project.id);
-			});
-			container.dblclick(function() {
-				Taskforce.c.Project.editDialog(project.id);
-			});
-			
-			/**
-			* Context Menu
-			*/
-			container.contextMenu('project-context', {
-				bindings: {
-					'remove' : function(t) {
-						Taskforce.v.Project.setActive(project.id);						
-						Taskforce.c.Project.deleteDialog();
-					},
-					'edit' : function(t) {
-						Taskforce.c.Project.editDialog(project.id);
-					},
-					'addTask' : function(t) {
-						Taskforce.v.Project.setActive(project.id);
-						Taskforce.c.Hotkey.addTodo();
-					}
-					
+Taskforce.ProjectView = {
+	create: function(project) {
+		var container, image, label, badge;
+		
+		container = $('<li>').attr('id','project-'+project.id);
+		
+		image = $('<img>')	.attr('src','public/icons/folder.png')
+							.attr('alt',project.title);
+							
+		label = $('<span>').addClass('list-title').html(project.title);
+		badge = $('<span>').addClass('list-badge').html(0);
+		
+		container.append(image);
+		container.append(label);
+		container.append(badge);
+		
+		container.click(function() {
+			Taskforce.ProjectView.setActive(project.id);
+		});
+		container.dblclick(function() {
+			Taskforce.ProjectController.editDialog(project.id);
+		});
+		
+		/**
+		* Context Menu
+		*/
+		container.contextMenu('project-context', {
+			bindings: {
+				'remove' : function(t) {
+					Taskforce.ProjectView.setActive(project.id);						
+					Taskforce.ProjectController.deleteDialog();
+				},
+				'edit' : function(t) {
+					Taskforce.ProjectController.editDialog(project.id);
+				},
+				'addTask' : function(t) {
+					Taskforce.ProjectView.setActive(project.id);
+					Taskforce.HotkeyController.addTodo();
 				}
-			});
-			
-			
-			
-			return container;
-		},
-		setActive: function(id) {
-			var project = $('#project-'+id);
-			
-			$('#groups > ul > li').removeClass('selected');
-			$('#folders > li').removeClass('selected');
-			project.addClass('selected');
-			
-			Taskforce.c.Sidebar.setActiveFolder('Project');
-			Taskforce.c.Project.setActiveProject(id);
-			
-			$('#viewport').empty();
-			$('body').removeClass().addClass('today note');
-			$('#activ-tab').html(Taskforce.c.Project.getTitle(id));
-					
-			Taskforce.c.Project.load(id);
-			
-		},
-		remove: function(id) {
-			var project;
-			project = $('#project-'+id);
-			
-			project.remove();
-		}
-
+				
+			}
+		});
+		
+		
+		
+		return container;
+	},
+	setActive: function(id) {
+		var project = $('#project-'+id);
+		
+		$('#sidebar > ul > li').removeClass('selected');
+		$('#folders > li').removeClass('selected');
+		project.addClass('selected');
+		
+		Taskforce.SidebarController.setActiveFolder('Project');
+		Taskforce.ProjectController.setActiveProject(id);
+		
+		$('#viewport').empty();
+		$('body').removeClass().addClass('today note');
+		$('#activ-tab').html(Taskforce.ProjectController.getTitle(id));
+				
+		Taskforce.ProjectController.load(id);
+		
+	},
+	remove: function(id) {
+		var project;
+		project = $('#project-'+id);
+		
+		project.remove();
 	}
-});
+
+}

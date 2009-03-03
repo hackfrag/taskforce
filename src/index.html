@@ -23,22 +23,20 @@
 		<script type="text/javascript" src="library/Taskforce/View.js"></script>
 		<script type="text/javascript" src="library/Taskforce/Sidebar.js"></script>
 		<script type="text/javascript" src="library/Taskforce/Sync.js"></script>
+		<script type="text/javascript" src="library/Taskforce/Hotkey.js"></script>
 		<script type="text/javascript">
 			Taskforce.initRuntime();
 		</script>
 
 		<!-- Application Javascript Controller/Models/Views -->
-		<script type="text/javascript" src="application/controllers/ViewController.js"></script>
-		
-		<script type="text/javascript" src="application/controllers/ToolTipController.js"></script>
-		<script type="text/javascript" src="application/controllers/HotkeyController.js"></script>
+		<script type="text/javascript" src="application/controllers/ViewController.js"></script>		
 		<script type="text/javascript" src="application/controllers/SidebarController.js"></script>
 		
-		<script type="text/javascript" src="application/controllers/InboxController.js"></script>
-		<script type="text/javascript" src="application/views/InboxView.js"></script>
 		
+		<script type="text/javascript" src="application/controllers/InboxController.js"></script>	
 		<script type="text/javascript" src="application/controllers/TodayController.js"></script>
 		<script type="text/javascript" src="application/controllers/UpcomingController.js"></script>
+		
 		
 		<script type="text/javascript" src="application/controllers/ItemController.js"></script>
 		<script type="text/javascript" src="application/views/ItemView.js"></script>
@@ -102,7 +100,7 @@
 	</div>
 
 	
-	<div id="groups">
+	<div id="sidebar">
 	
 		
 		<img src="public/images/button-splitter.png" class="ui-resizable-handle ui-resizable-e" id="splitter">
@@ -115,12 +113,12 @@
 			</ul>
 		</div>
 		<div id="global">
-			<!--
+			
 			<ul>
 				<li><a href="#"><span><img src="public/icons/gear.png"> Settings</span></a></li>
 				<li><a href="#"><span><img src="public/icons/lightning.png"> Online</span></a></li>				
 			</ul>
-			-->
+		
 		</div>
 		<div id="tools">
 			<div class="headline start">Start</div>
@@ -167,16 +165,16 @@
 		<div id="filter" style="display:none;">
 	
 			<a href="#" class="tag">
-				<em>3</em> <span>Home</span>
+				<em>2</em> <span>Home</span>
 			</a>
 			<a href="#" class="tag active">
-				<em>3</em> <span>TYPO3</span>
+				<em>7</em> <span>TYPO3</span>
 			</a>
 			<a href="#" class="tag">
-				<em>3</em> <span>Home</span>
+				<em>9</em> <span>Work</span>
 			</a>
-			<a href="#" class="tag active">
-				<em>3</em> <span>TYPO3</span>
+			<a href="#" class="tag">
+				<em>1</em> <span>Taskforce</span>
 			</a>
 			
 			<div id="search">
@@ -189,14 +187,18 @@
 		<div class="toolbar-button" id="button-add">
 			
 		</div>
+		<!--
 		<div class="toolbar-button" id="button-remove">
 			
 		</div>
-		<!--
+		-->
+		
+		<div class="toolbar-button" id="button-info">
+			
+		</div>
 		<div class="toolbar-button" id="button-settings">
 			
 		</div>
-		-->
 		<div id="main-footer">
 			<div class="toolbar-button" id="button-hint">
 			

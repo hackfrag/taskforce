@@ -24,141 +24,125 @@
 /**
  * Taskforce Today controller
  *
- * @name Taskforce.c.Today
+ * @name Taskforce.TodayController
  * @type Object
  * @cat controller
- */ 
-$t.c({
+ */  
+Taskforce.TodayController = {
 	
-	Today: {
-		init: function() {
-					
-			$('body').removeClass().addClass('today plain')
-			
+	_style : 'today plain',
+		
 
+	load: function() {
 			
-			this.load();
-					
-		},
-		load:function() {
-			
-			var items;
-			
-			/**
-			 * remove all contents of viewport - we need space for new Tasks!
-			 */
-			$('#viewport').empty();
-			
-			/**
-			 * unsubscribe all Item Observers
-			 */
-			Taskforce.c.Item.unsubscribe();
-					
-			
-			////////////////////////////
-			/**
-			* Past due block
-			*/
-			items = Taskforce.m.Item.findByPastDue();
-			
-			Taskforce.v.Item.createSection(items,'past','Past due'); 
-			
-			////////////////////////////
-			/**
-			* Still working on'
-			*/
-			items = Taskforce.m.Item.findByWorkingOn();
-			Taskforce.v.Item.createSection(items,'working','Still working on'); 	
-			
-			////////////////////////////
-			/**
-			* Start today
-			*/
-			items = Taskforce.m.Item.findByStartToday();
-			Taskforce.v.Item.createSection(items,'today','Start today'); 	
-				
-			////////////////////////////
-			/**
-			* completed today
-			*/
-			items = Taskforce.m.Item.findByCompletedToday();
-			Taskforce.v.Item.createSection(items,'completed-today','Completed today'); 	
-			
-			////////////////////////////
-			/**
-			* completed yesterday
-			*/
-			items = Taskforce.m.Item.findByCompletedYesterday();
-			Taskforce.v.Item.createSection(items,'completed-yesterday','Completed yesterday'); 
-			
-			
-			/**
-			 * is called after Start or Due date is changed
-			 * @see editObserver	rearrange the task in the right section
-			 */
-			Taskforce.c.Item.observe('afterDateChanged',function(item){
-    			Taskforce.c.Today.editObserver(item.id)
-			});
-			
-			/**
-			 * is called after the status done/undone is set
-			 * @see editObserver 	rearrange the task in the right section
-			 */
-			Taskforce.c.Item.observe('afterStatusChanged',function(item){
-    			Taskforce.c.Today.editObserver(item.id)
-			});
-			
-														
-		},
+		var items;
+	
 		/**
-		* Add a new Todo in the inbox List
-		*
+		* Past due block
 		*/
-		add: function() {
-			item = Taskforce.m.Item.create({
-				start: Date.today().toString("yyyy-MM-dd")
-			});
-			$('#section-today').show();
-			
-			
-			$('#section-today > ul').append(Taskforce.v.Item.create(item));
-			Taskforce.v.Item.setEdit(item.id);
-			Taskforce.c.Sidebar.updateBadges();
-		},
+		items = Taskforce.Item.findByPastDue();
+		
+		Taskforce.ItemController.list(items,'past','Past due'); 
+		
+	
 		/**
-		 * get the current numbers of undone tasks
-		 * this methode is called by the sidebar 
-		 * 
-		 * @see updateBadges
-		 */
-		getCount: function() {
-			var items = Taskforce.m.Item.find({
-    						where: "date(start) <= date('now') AND start != '' AND status = '0' "
-						})
-			return items.length;
-		},
+		* Still working on'
+		*/
+		items = Taskforce.Item.findByWorkingOn();
+		Taskforce.ItemController.list(items,'working','Still working on'); 	
+		
 		
 		/**
-		 * Rearrange the task in the right section
-		 */  
-		editObserver: function(id) {
-			var item = Taskforce.m.Item.find(id);
-	
-			if(item.isPastDue()) {
-				Taskforce.v.Item.move(id,'past')
-			} else if(item.isWorking()) {
-				Taskforce.v.Item.move(id,'working')
-			} else if (item.isStartToday()) {
-				Taskforce.v.Item.move(id,'today')
-			} else if (item.isCompletedToday()) {
-				Taskforce.v.Item.move(id,'completed-today')
-			} else if (item.isCompletedYesterday()) {
-				Taskforce.v.Item.move(id,'completed-yesterday')
-			} else {
-				Taskforce.v.Item.hide(id);
-			}
-				
+		* Start today
+		*/
+		items = Taskforce.Item.findByStartToday();
+		Taskforce.ItemController.list(items,'today','Start today'); 	
 			
+	
+		/**
+		* completed today
+		*/
+		items = Taskforce.Item.findByCompletedToday();
+		Taskforce.ItemController.list(items,'completed-today','Completed today'); 	
+		
+	
+		/**
+		* completed yesterday
+		*/
+		items = Taskforce.Item.findByCompletedYesterday();
+		Taskforce.ItemController.list(items,'completed-yesterday','Completed yesterday'); 
+
+													
+	},
+	/**
+	* Add a new Todo in the inbox List
+	*
+	*/
+	add: function() {
+		var item = Taskforce.ItemController.create('today');
+		
+		Taskforce.ItemController.setToday(item.id);
+	
+	},
+	/**
+	 * get the current numbers of undone tasks
+	 * this methode is called by the sidebar 
+	 * 
+	 * @see updateBadges
+	 */
+	getCount: function() {
+		var items = Taskforce.Item.find({
+			where: "date(start) <= date('now') AND start != '' AND status = '0' "
+		})
+		return items.length;
+	},
+
+	
+	/**
+	 * is called by the item Delegates
+	 *
+	 *Ê@see Taskforce.UpcomingController.itemAfterDateChanged
+	 * @see Taskforce.UpcomingController.itemAfterStatusChanged
+	 *
+	 */ 
+	_onChange: function(id) {
+		var item = Taskforce.Item.find(id);
+
+		if(item.isPastDue()) {
+			Taskforce.ItemView.move(id,'past')
+		} else if(item.isWorking()) {
+			Taskforce.ItemView.move(id,'working')
+		} else if (item.isStartToday()) {
+			Taskforce.ItemView.move(id,'today')
+		} else if (item.isCompletedToday()) {
+			Taskforce.ItemView.move(id,'completed-today')
+		} else if (item.isCompletedYesterday()) {
+			Taskforce.ItemView.move(id,'completed-yesterday')
+		} else {
+			Taskforce.ItemView.hide(id);
 		}
-	}
-});
+		
+	},
+	////////////////////////////////////////////////////////
+	/**
+	 * tasks Delegates
+	 */
+	////////////////////////////////////////////////////////
+	
+	/** 
+	 * is called when the date (start or due) changed
+	 *
+	 * @delegate
+	 */
+	itemAfterDateChanged: function(item) {
+		this._onChange(item.id);
+	},
+	/**
+	 * is called when the status of the task changed
+	 *
+	 * @delegate
+	 */
+	itemAfterStatusChanged: function(item) {
+		this._onChange(item.id);
+	},
+}

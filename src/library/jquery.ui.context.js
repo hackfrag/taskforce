@@ -1,7 +1,7 @@
 /*
 example
 
-$('li.item').context({
+$('div.item').context({
 	edit : {
 		label: 'Edit item',
 		key: 'Ctrl+c',
